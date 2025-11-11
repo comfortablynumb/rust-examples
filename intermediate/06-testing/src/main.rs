@@ -298,7 +298,10 @@ pub fn reverse_string(s: &str) -> String {
 /// ```
 pub fn is_palindrome(s: &str) -> bool {
     let s = s.to_lowercase();
-    let s = s.chars().filter(|c| c.is_alphanumeric()).collect::<String>();
+    let s = s
+        .chars()
+        .filter(|c| c.is_alphanumeric())
+        .collect::<String>();
     s == s.chars().rev().collect::<String>()
 }
 
@@ -701,8 +704,14 @@ mod tests {
     #[test]
     fn test_user_is_adult() {
         let fixture = TestFixture::setup();
-        let alice = fixture.user_service.get_user(fixture.test_users[0]).unwrap();
-        let charlie = fixture.user_service.get_user(fixture.test_users[2]).unwrap();
+        let alice = fixture
+            .user_service
+            .get_user(fixture.test_users[0])
+            .unwrap();
+        let charlie = fixture
+            .user_service
+            .get_user(fixture.test_users[2])
+            .unwrap();
 
         assert!(alice.is_adult());
         assert!(!charlie.is_adult());
@@ -874,7 +883,9 @@ mod tests {
                 calc.add(a, b),
                 expected,
                 "Failed: {} + {} should equal {}",
-                a, b, expected
+                a,
+                b,
+                expected
             );
         }
     }
@@ -882,20 +893,16 @@ mod tests {
     #[test]
     fn test_calculator_multiply_parameterized() {
         let calc = Calculator::new();
-        let test_cases = vec![
-            (2, 3, 6),
-            (0, 100, 0),
-            (-2, 3, -6),
-            (4, 5, 20),
-            (-1, -1, 1),
-        ];
+        let test_cases = vec![(2, 3, 6), (0, 100, 0), (-2, 3, -6), (4, 5, 20), (-1, -1, 1)];
 
         for (a, b, expected) in test_cases {
             assert_eq!(
                 calc.multiply(a, b),
                 expected,
                 "Failed: {} * {} should equal {}",
-                a, b, expected
+                a,
+                b,
+                expected
             );
         }
     }
@@ -930,7 +937,9 @@ mod tests {
         assert!(
             (a - b).abs() < epsilon,
             "Values are not almost equal: {} vs {} (epsilon: {})",
-            a, b, epsilon
+            a,
+            b,
+            epsilon
         );
     }
 
@@ -1102,10 +1111,7 @@ mod mock_tests {
         let mut mock_db = MockDatabase::new();
         let user = User::new(1, "test".to_string(), "test@test.com".to_string(), 20).unwrap();
 
-        mock_db
-            .expect_save_user()
-            .times(1)
-            .returning(|_| Ok(()));
+        mock_db.expect_save_user().times(1).returning(|_| Ok(()));
 
         let result = mock_db.save_user(&user);
         assert!(result.is_ok());
@@ -1114,7 +1120,8 @@ mod mock_tests {
     #[test]
     fn test_database_mock_find() {
         let mut mock_db = MockDatabase::new();
-        let expected_user = User::new(1, "alice".to_string(), "alice@test.com".to_string(), 25).unwrap();
+        let expected_user =
+            User::new(1, "alice".to_string(), "alice@test.com".to_string(), 25).unwrap();
 
         mock_db
             .expect_find_user()
@@ -1167,11 +1174,7 @@ mod mock_tests {
 
         // Send 3 emails
         for i in 0..3 {
-            let result = mock_email.send_email(
-                &format!("user{}@test.com", i),
-                "Subject",
-                "Body"
-            );
+            let result = mock_email.send_email(&format!("user{}@test.com", i), "Subject", "Body");
             assert!(result.is_ok());
         }
     }

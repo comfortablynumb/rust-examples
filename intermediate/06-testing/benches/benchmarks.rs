@@ -5,7 +5,7 @@
 //! This file demonstrates how to use Criterion for benchmarking Rust code.
 //! Criterion provides statistical analysis and detailed reports.
 
-use criterion::{black_box, criterion_group, criterion_main, Criterion, BenchmarkId};
+use criterion::{black_box, criterion_group, criterion_main, BenchmarkId, Criterion};
 use testing::*;
 
 // ============================================================================
@@ -16,9 +16,7 @@ fn benchmark_calculator_add(c: &mut Criterion) {
     let calc = Calculator::new();
 
     c.bench_function("calculator_add", |b| {
-        b.iter(|| {
-            black_box(calc.add(black_box(100), black_box(200)))
-        })
+        b.iter(|| black_box(calc.add(black_box(100), black_box(200))))
     });
 }
 
@@ -26,9 +24,7 @@ fn benchmark_calculator_multiply(c: &mut Criterion) {
     let calc = Calculator::new();
 
     c.bench_function("calculator_multiply", |b| {
-        b.iter(|| {
-            black_box(calc.multiply(black_box(123), black_box(456)))
-        })
+        b.iter(|| black_box(calc.multiply(black_box(123), black_box(456))))
     });
 }
 
@@ -36,9 +32,7 @@ fn benchmark_calculator_divide(c: &mut Criterion) {
     let calc = Calculator::new();
 
     c.bench_function("calculator_divide", |b| {
-        b.iter(|| {
-            black_box(calc.divide(black_box(1000), black_box(7)))
-        })
+        b.iter(|| black_box(calc.divide(black_box(1000), black_box(7))))
     });
 }
 
@@ -49,9 +43,7 @@ fn benchmark_calculator_factorial(c: &mut Criterion) {
 
     for n in [5, 10, 15, 20].iter() {
         group.bench_with_input(BenchmarkId::from_parameter(n), n, |b, &n| {
-            b.iter(|| {
-                black_box(calc.factorial(black_box(n)))
-            });
+            b.iter(|| black_box(calc.factorial(black_box(n))));
         });
     }
 
@@ -85,9 +77,7 @@ fn benchmark_user_service_lookup(c: &mut Criterion) {
         .unwrap();
 
     c.bench_function("user_service_lookup", |b| {
-        b.iter(|| {
-            black_box(service.get_user(black_box(user_id)))
-        })
+        b.iter(|| black_box(service.get_user(black_box(user_id))))
     });
 }
 
@@ -106,9 +96,7 @@ fn benchmark_user_service_find_by_username(c: &mut Criterion) {
     }
 
     c.bench_function("user_service_find_by_username", |b| {
-        b.iter(|| {
-            black_box(service.find_by_username(black_box("user50")))
-        })
+        b.iter(|| black_box(service.find_by_username(black_box("user50"))))
     });
 }
 
@@ -120,9 +108,7 @@ fn benchmark_bank_account_deposit(c: &mut Criterion) {
     c.bench_function("bank_account_deposit", |b| {
         b.iter_batched(
             || BankAccount::new(),
-            |mut account| {
-                black_box(account.deposit(black_box(100.0)))
-            },
+            |mut account| black_box(account.deposit(black_box(100.0))),
             criterion::BatchSize::SmallInput,
         )
     });
@@ -136,9 +122,7 @@ fn benchmark_bank_account_withdraw(c: &mut Criterion) {
                 account.deposit(1000.0).unwrap();
                 account
             },
-            |mut account| {
-                black_box(account.withdraw(black_box(50.0)))
-            },
+            |mut account| black_box(account.withdraw(black_box(50.0))),
             criterion::BatchSize::SmallInput,
         )
     });
@@ -189,9 +173,7 @@ fn benchmark_reverse_string(c: &mut Criterion) {
 
     for (name, s) in test_strings.iter() {
         group.bench_with_input(BenchmarkId::from_parameter(name), s, |b, s| {
-            b.iter(|| {
-                black_box(reverse_string(black_box(s)))
-            });
+            b.iter(|| black_box(reverse_string(black_box(s))));
         });
     }
 
@@ -210,9 +192,7 @@ fn benchmark_is_palindrome(c: &mut Criterion) {
 
     for (name, s) in test_cases.iter() {
         group.bench_with_input(BenchmarkId::from_parameter(name), s, |b, s| {
-            b.iter(|| {
-                black_box(is_palindrome(black_box(s)))
-            });
+            b.iter(|| black_box(is_palindrome(black_box(s))));
         });
     }
 
@@ -227,15 +207,11 @@ fn benchmark_temperature_conversions(c: &mut Criterion) {
     let mut group = c.benchmark_group("temperature");
 
     group.bench_function("celsius_to_fahrenheit", |b| {
-        b.iter(|| {
-            black_box(celsius_to_fahrenheit(black_box(25.0)))
-        })
+        b.iter(|| black_box(celsius_to_fahrenheit(black_box(25.0))))
     });
 
     group.bench_function("fahrenheit_to_celsius", |b| {
-        b.iter(|| {
-            black_box(fahrenheit_to_celsius(black_box(77.0)))
-        })
+        b.iter(|| black_box(fahrenheit_to_celsius(black_box(77.0))))
     });
 
     group.bench_function("roundtrip_conversion", |b| {
@@ -259,25 +235,13 @@ fn benchmark_find_max_min(c: &mut Criterion) {
     for size in [10, 100, 1000].iter() {
         let numbers: Vec<i32> = (0..*size).collect();
 
-        group.bench_with_input(
-            BenchmarkId::new("find_max", size),
-            &numbers,
-            |b, nums| {
-                b.iter(|| {
-                    black_box(find_max(black_box(nums)))
-                })
-            }
-        );
+        group.bench_with_input(BenchmarkId::new("find_max", size), &numbers, |b, nums| {
+            b.iter(|| black_box(find_max(black_box(nums))))
+        });
 
-        group.bench_with_input(
-            BenchmarkId::new("find_min", size),
-            &numbers,
-            |b, nums| {
-                b.iter(|| {
-                    black_box(find_min(black_box(nums)))
-                })
-            }
-        );
+        group.bench_with_input(BenchmarkId::new("find_min", size), &numbers, |b, nums| {
+            b.iter(|| black_box(find_min(black_box(nums))))
+        });
     }
 
     group.finish();
@@ -293,22 +257,16 @@ fn benchmark_file_processor(c: &mut Criterion) {
     let mut group = c.benchmark_group("file_processor");
 
     group.bench_function("process", |b| {
-        b.iter(|| {
-            black_box(processor.process(black_box("sample data to process")))
-        })
+        b.iter(|| black_box(processor.process(black_box("sample data to process"))))
     });
 
     group.bench_function("validate", |b| {
-        b.iter(|| {
-            black_box(processor.validate(black_box("data to validate")))
-        })
+        b.iter(|| black_box(processor.validate(black_box("data to validate"))))
     });
 
     let long_data = "x".repeat(500);
     group.bench_function("validate_long", |b| {
-        b.iter(|| {
-            black_box(processor.validate(black_box(&long_data)))
-        })
+        b.iter(|| black_box(processor.validate(black_box(&long_data))))
     });
 
     group.finish();
@@ -321,21 +279,11 @@ fn benchmark_file_processor(c: &mut Criterion) {
 fn benchmark_complex_workflow(c: &mut Criterion) {
     c.bench_function("complex_workflow", |b| {
         b.iter_batched(
-            || {
-                (
-                    UserService::new(),
-                    BankAccount::new(),
-                    Calculator::new(),
-                )
-            },
+            || (UserService::new(), BankAccount::new(), Calculator::new()),
             |(mut service, mut account, calc)| {
                 // Create user
                 let user_id = service
-                    .create_user(
-                        "john".to_string(),
-                        "john@example.com".to_string(),
-                        30,
-                    )
+                    .create_user("john".to_string(), "john@example.com".to_string(), 30)
                     .unwrap();
 
                 // Bank operations
@@ -428,8 +376,16 @@ fn benchmark_batch_calculator_operations(c: &mut Criterion) {
 
 fn benchmark_batch_string_operations(c: &mut Criterion) {
     let strings = vec![
-        "hello", "world", "rust", "testing", "benchmark",
-        "performance", "optimization", "code", "example", "demo",
+        "hello",
+        "world",
+        "rust",
+        "testing",
+        "benchmark",
+        "performance",
+        "optimization",
+        "code",
+        "example",
+        "demo",
     ];
 
     c.bench_function("batch_string_operations", |b| {
@@ -454,58 +410,43 @@ criterion_group!(
     benchmark_calculator_add,
     benchmark_calculator_multiply,
     benchmark_calculator_divide,
-    benchmark_calculator_factorial,
+    benchmark_calculator_factorial
 );
 
 criterion_group!(
     user_service_benches,
     benchmark_user_service_create,
     benchmark_user_service_lookup,
-    benchmark_user_service_find_by_username,
+    benchmark_user_service_find_by_username
 );
 
 criterion_group!(
     bank_account_benches,
     benchmark_bank_account_deposit,
     benchmark_bank_account_withdraw,
-    benchmark_bank_account_transactions,
+    benchmark_bank_account_transactions
 );
 
 criterion_group!(
     string_benches,
     benchmark_reverse_string,
-    benchmark_is_palindrome,
+    benchmark_is_palindrome
 );
 
-criterion_group!(
-    temperature_benches,
-    benchmark_temperature_conversions,
-);
+criterion_group!(temperature_benches, benchmark_temperature_conversions);
 
-criterion_group!(
-    vector_benches,
-    benchmark_find_max_min,
-);
+criterion_group!(vector_benches, benchmark_find_max_min);
 
-criterion_group!(
-    processor_benches,
-    benchmark_file_processor,
-);
+criterion_group!(processor_benches, benchmark_file_processor);
 
-criterion_group!(
-    workflow_benches,
-    benchmark_complex_workflow,
-);
+criterion_group!(workflow_benches, benchmark_complex_workflow);
 
-criterion_group!(
-    validation_benches,
-    benchmark_user_validation,
-);
+criterion_group!(validation_benches, benchmark_user_validation);
 
 criterion_group!(
     batch_benches,
     benchmark_batch_calculator_operations,
-    benchmark_batch_string_operations,
+    benchmark_batch_string_operations
 );
 
 criterion_main!(

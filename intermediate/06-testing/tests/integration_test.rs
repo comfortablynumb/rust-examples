@@ -210,11 +210,11 @@ fn integration_data_processor_trait() {
 fn integration_temperature_conversions() {
     // Test common temperature points
     let test_cases = vec![
-        (0.0, 32.0),      // Freezing point of water
-        (100.0, 212.0),   // Boiling point of water
-        (-40.0, -40.0),   // Same in both scales
-        (37.0, 98.6),     // Human body temperature (approximate)
-        (20.0, 68.0),     // Room temperature
+        (0.0, 32.0),    // Freezing point of water
+        (100.0, 212.0), // Boiling point of water
+        (-40.0, -40.0), // Same in both scales
+        (37.0, 98.6),   // Human body temperature (approximate)
+        (20.0, 68.0),   // Room temperature
     ];
 
     for (celsius, fahrenheit) in test_cases {
@@ -282,11 +282,7 @@ fn integration_string_utilities() {
     ];
 
     for word in palindromes {
-        assert!(
-            is_palindrome(word),
-            "{:?} should be a palindrome",
-            word
-        );
+        assert!(is_palindrome(word), "{:?} should be a palindrome", word);
     }
 
     let non_palindromes = vec!["hello", "world", "Rust", "testing"];
@@ -410,36 +406,18 @@ fn integration_error_handling_chain() {
     let mut service = UserService::new();
 
     // Test successful case
-    let result = process_user_transaction(
-        &mut service,
-        "alice",
-        "alice@test.com",
-        25,
-        1000.0,
-    );
+    let result = process_user_transaction(&mut service, "alice", "alice@test.com", 25, 1000.0);
     assert!(result.is_ok());
     let (user_id, balance) = result.unwrap();
     assert_eq!(balance, 1000.0);
     assert!(service.get_user(user_id).is_some());
 
     // Test failure in user creation
-    let result = process_user_transaction(
-        &mut service,
-        "",
-        "test@test.com",
-        25,
-        1000.0,
-    );
+    let result = process_user_transaction(&mut service, "", "test@test.com", 25, 1000.0);
     assert!(result.is_err());
 
     // Test failure in deposit
-    let result = process_user_transaction(
-        &mut service,
-        "bob",
-        "bob@test.com",
-        25,
-        -100.0,
-    );
+    let result = process_user_transaction(&mut service, "bob", "bob@test.com", 25, -100.0);
     assert!(result.is_err());
 }
 
@@ -507,13 +485,7 @@ fn integration_calculator_large_factorial() {
     let calc = Calculator::new();
 
     // Test factorials up to 20
-    let expected_factorials = vec![
-        (0, 1),
-        (1, 1),
-        (5, 120),
-        (10, 3628800),
-        (15, 1307674368000),
-    ];
+    let expected_factorials = vec![(0, 1), (1, 1), (5, 120), (10, 3628800), (15, 1307674368000)];
 
     for (n, expected) in expected_factorials {
         assert_eq!(
