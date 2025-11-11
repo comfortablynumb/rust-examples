@@ -173,8 +173,8 @@ fn chaining_iterators() {
     let result: Vec<i32> = numbers
         .iter()
         .filter(|x| *x % 2 == 0) // Keep even numbers
-        .map(|x| x * x)           // Square them
-        .filter(|x| *x > 10)      // Keep those > 10
+        .map(|x| x * x) // Square them
+        .filter(|x| *x > 10) // Keep those > 10
         .collect();
     println!("  Even squares > 10: {:?}", result);
 
@@ -277,10 +277,7 @@ fn common_patterns() {
     println!("  Sum of squares: {}", sum_of_squares);
 
     // Partition - split into two collections
-    let (evens, odds): (Vec<i32>, Vec<i32>) = numbers
-        .iter()
-        .copied()
-        .partition(|x| x % 2 == 0);
+    let (evens, odds): (Vec<i32>, Vec<i32>) = numbers.iter().copied().partition(|x| x % 2 == 0);
     println!("  Evens: {:?}, Odds: {:?}", evens, odds);
 
     // Group by (using fold)
@@ -291,9 +288,18 @@ fn common_patterns() {
     }
 
     let people = vec![
-        Person { name: "Alice".to_string(), age: 25 },
-        Person { name: "Bob".to_string(), age: 30 },
-        Person { name: "Charlie".to_string(), age: 25 },
+        Person {
+            name: "Alice".to_string(),
+            age: 25,
+        },
+        Person {
+            name: "Bob".to_string(),
+            age: 30,
+        },
+        Person {
+            name: "Charlie".to_string(),
+            age: 25,
+        },
     ];
 
     let total_age: u32 = people.iter().map(|p| p.age).sum();
@@ -344,8 +350,12 @@ fn performance_examples() {
     println!("  Created lazy iterator (nothing printed)");
 
     // Consume it
-    let _eager: Vec<i32> = numbers.iter().take(3).map(|x| {
-        println!("    Actually processing {}", x);
-        x * 2
-    }).collect();
+    let _eager: Vec<i32> = numbers
+        .iter()
+        .take(3)
+        .map(|x| {
+            println!("    Actually processing {}", x);
+            x * 2
+        })
+        .collect();
 }

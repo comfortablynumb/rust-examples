@@ -241,10 +241,7 @@ fn rc_refcell_examples() {
     list2.borrow_mut().push(5);
     println!("  After list2 push: {:?}", shared_list.borrow());
 
-    println!(
-        "  Strong count: {}",
-        Rc::strong_count(&shared_list)
-    );
+    println!("  Strong count: {}", Rc::strong_count(&shared_list));
 
     // Practical example: Graph with shared nodes
     #[derive(Debug)]
@@ -287,7 +284,10 @@ fn arc_examples() {
         handles.push(handle);
     }
 
-    println!("  Arc count with threads: {}", Arc::strong_count(&shared_data));
+    println!(
+        "  Arc count with threads: {}",
+        Arc::strong_count(&shared_data)
+    );
 
     for handle in handles {
         handle.join().unwrap();
@@ -367,7 +367,6 @@ fn deref_drop_examples() {
             data: String::from("other stuff"),
         };
         println!("  Another CustomSmartPointer created: {}", d.data);
-
     } // c and d dropped here (d first, then c - LIFO order)
 
     println!("  After scope");

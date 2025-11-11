@@ -157,7 +157,9 @@ impl std::fmt::Display for MathError {
     fn fmt(&self, f: &mut std::fmt::Formatter) -> std::fmt::Result {
         match self {
             MathError::DivisionByZero => write!(f, "Cannot divide by zero"),
-            MathError::NegativeSquareRoot => write!(f, "Cannot take square root of negative number"),
+            MathError::NegativeSquareRoot => {
+                write!(f, "Cannot take square root of negative number")
+            }
             MathError::Overflow => write!(f, "Arithmetic overflow occurred"),
         }
     }
@@ -211,7 +213,10 @@ fn error_propagation() {
 
     match read_username_from_file() {
         Ok(name) => println!("  Username: {}", name),
-        Err(e) => println!("  Could not read username: {} (expected - file doesn't exist)", e.kind()),
+        Err(e) => println!(
+            "  Could not read username: {} (expected - file doesn't exist)",
+            e.kind()
+        ),
     }
 }
 

@@ -138,10 +138,7 @@ impl Rectangle {
 
     // Method that takes ownership
     fn destroy(self) -> String {
-        format!(
-            "Destroyed rectangle {}x{}",
-            self.width, self.height
-        )
+        format!("Destroyed rectangle {}x{}", self.width, self.height)
     }
 
     // Method with additional parameters
@@ -205,7 +202,11 @@ impl Circle {
 fn associated_functions() {
     // Call associated functions with ::
     let circle1 = Circle::new(5.0);
-    println!("  Circle with radius {}: area = {:.2}", circle1.radius, circle1.area());
+    println!(
+        "  Circle with radius {}: area = {:.2}",
+        circle1.radius,
+        circle1.area()
+    );
 
     let unit_circle = Circle::unit();
     println!("  Unit circle area: {:.2}", unit_circle.area());
@@ -265,8 +266,10 @@ fn struct_update_syntax() {
         ..person1 // This moves non-Copy fields from person1
     };
 
-    println!("  Person 2: {} is {} years old from {}",
-             person2.name, person2.age, person2.city);
+    println!(
+        "  Person 2: {} is {} years old from {}",
+        person2.name, person2.age, person2.city
+    );
 
     // Note: person1.city has been moved to person2
     // println!("{}", person1.city); // This would be an error

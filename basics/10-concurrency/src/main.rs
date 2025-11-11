@@ -134,12 +134,7 @@ fn message_passing() {
     let (tx, rx) = mpsc::channel();
 
     thread::spawn(move || {
-        let messages = vec![
-            "Hello",
-            "from",
-            "the",
-            "thread",
-        ];
+        let messages = vec!["Hello", "from", "the", "thread"];
 
         for msg in messages {
             tx.send(msg).unwrap();
@@ -293,18 +288,16 @@ fn thread_pool_pattern() {
     // Create worker threads
     for id in 0..4 {
         let rx = Arc::clone(&rx);
-        let handle = thread::spawn(move || {
-            loop {
-                let job = rx.lock().unwrap().recv();
-                match job {
-                    Ok(num) => {
-                        println!("    Worker {} processing: {}", id, num);
-                        thread::sleep(Duration::from_millis(50));
-                    }
-                    Err(_) => {
-                        println!("    Worker {} shutting down", id);
-                        break;
-                    }
+        let handle = thread::spawn(move || loop {
+            let job = rx.lock().unwrap().recv();
+            match job {
+                Ok(num) => {
+                    println!("    Worker {} processing: {}", id, num);
+                    thread::sleep(Duration::from_millis(50));
+                }
+                Err(_) => {
+                    println!("    Worker {} shutting down", id);
+                    break;
                 }
             }
         });
@@ -335,9 +328,7 @@ fn parallel_processing() {
     let mut handles = vec![];
 
     for chunk in chunks {
-        let handle = thread::spawn(move || {
-            chunk.iter().map(|x| x * x).sum::<i32>()
-        });
+        let handle = thread::spawn(move || chunk.iter().map(|x| x * x).sum::<i32>());
         handles.push(handle);
     }
 

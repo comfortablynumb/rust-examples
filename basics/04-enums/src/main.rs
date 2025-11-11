@@ -86,7 +86,7 @@ enum IpAddr {
 #[derive(Debug)]
 enum Message {
     Quit,                       // No data
-    Move { x: i32, y: i32 },   // Named fields like a struct
+    Move { x: i32, y: i32 },    // Named fields like a struct
     Write(String),              // Single String
     ChangeColor(i32, i32, i32), // Three i32 values
 }
@@ -205,10 +205,7 @@ fn option_examples() {
     println!("  Doubled: {:?}", doubled);
 
     // Chaining operations
-    let result = Some(10)
-        .map(|n| n * 2)
-        .filter(|n| n > &15)
-        .unwrap_or(0);
+    let result = Some(10).map(|n| n * 2).filter(|n| n > &15).unwrap_or(0);
     println!("  Chained result: {}", result);
 }
 
@@ -246,12 +243,10 @@ fn result_examples() {
     println!("  Safe division result: {}", safe_division);
 
     // Using map and unwrap_or_else
-    let result = divide(20.0, 4.0)
-        .map(|n| n * 2.0)
-        .unwrap_or_else(|e| {
-            println!("  Error occurred: {}", e);
-            0.0
-        });
+    let result = divide(20.0, 4.0).map(|n| n * 2.0).unwrap_or_else(|e| {
+        println!("  Error occurred: {}", e);
+        0.0
+    });
     println!("  Mapped result: {}", result);
 }
 

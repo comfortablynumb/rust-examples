@@ -208,7 +208,11 @@ impl Draw for Circle {
 
 impl Resize for Circle {
     fn resize(&self, scale: f32) -> String {
-        format!("Resizing circle from {} to {}", self.radius, self.radius * scale)
+        format!(
+            "Resizing circle from {} to {}",
+            self.radius,
+            self.radius * scale
+        )
     }
 }
 
@@ -330,7 +334,11 @@ fn trait_objects() {
         name: String::from("Max"),
     };
     let animal_ref: &dyn Animal = &dog;
-    println!("  Reference: {} says {}", animal_ref.name(), animal_ref.make_sound());
+    println!(
+        "  Reference: {} says {}",
+        animal_ref.name(),
+        animal_ref.make_sound()
+    );
 }
 
 // Example 8: Derivable traits
