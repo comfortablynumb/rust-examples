@@ -84,8 +84,8 @@ fn raw_pointers_example() {
     let mut num = 42;
 
     // Create raw pointers (safe to create, unsafe to dereference)
-    let r1 = &num as *const i32;  // Immutable raw pointer
-    let r2 = &mut num as *mut i32;  // Mutable raw pointer
+    let r1 = &num as *const i32; // Immutable raw pointer
+    let r2 = &mut num as *mut i32; // Mutable raw pointer
 
     // Can create raw pointers to arbitrary memory (dangerous!)
     let address = 0x012345usize;
