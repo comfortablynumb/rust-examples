@@ -304,7 +304,10 @@ struct Triangle {
 
 impl Drawable for Triangle {
     fn draw(&self) {
-        println!("Drawing a triangle with base {} and height {}", self.base, self.height);
+        println!(
+            "Drawing a triangle with base {} and height {}",
+            self.base, self.height
+        );
     }
 
     fn area(&self) -> f64 {
@@ -314,7 +317,10 @@ impl Drawable for Triangle {
 
 fn demonstrate_dispatch() {
     let circle = Circle { radius: 3.0 };
-    let rectangle = Rectangle { width: 4.0, height: 5.0 };
+    let rectangle = Rectangle {
+        width: 4.0,
+        height: 5.0,
+    };
 
     // Static dispatch - compiler knows exact types
     static_dispatch(&circle);
@@ -1127,10 +1133,7 @@ mod tests {
 
     #[test]
     fn test_person_builder() {
-        let person = PersonBuilder::new()
-            .name("Bob".to_string())
-            .age(25)
-            .build();
+        let person = PersonBuilder::new().name("Bob".to_string()).age(25).build();
 
         assert_eq!(person.name, "Bob");
         assert_eq!(person.age, 25);
