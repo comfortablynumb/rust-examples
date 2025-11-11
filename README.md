@@ -22,6 +22,8 @@ Core Rust language concepts and fundamental programming patterns:
 10. **[Concurrency](basics/10-concurrency/)** - Threads, channels, and shared state
 11. **[Macros](basics/11-macros/)** - Declarative macros (macro_rules!) and metaprogramming
 12. **[Unsafe](basics/12-unsafe/)** - Unsafe Rust, raw pointers, FFI, and unsafe traits
+13. **[Standard Library](basics/13-stdlib/)** - Collections, strings, time, memory utilities, and common traits
+14. **[Modules](basics/14-modules/)** - Module system, visibility, organization, and best practices
 
 ### [Networking](networking/)
 
@@ -93,7 +95,9 @@ For beginners, we recommend following the basics category in order:
 7. Learn **Smart Pointers** for advanced memory management
 8. Tackle **Concurrency** for parallel programming
 9. Study **Macros** for metaprogramming and code generation
-10. Finally, understand **Unsafe** for low-level control when needed
+10. Understand **Unsafe** for low-level control when needed
+11. Explore **Standard Library** for collections, strings, and common utilities
+12. Learn **Modules** for code organization and project structure
 
 After mastering the basics, explore:
 - **Networking** examples for network programming
