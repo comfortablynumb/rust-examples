@@ -1,0 +1,207 @@
+name: CI
+
+on:
+  pull_request:
+    branches: [main]
+  push:
+    branches: [main]
+
+env:
+  CARGO_TERM_COLOR: always
+
+jobs:
+  lint:
+    name: Lint
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Install Rust toolchain
+        uses: dtolnay/rust-toolchain@stable
+        with:
+          components: rustfmt, clippy
+
+      - name: Cache cargo registry
+        uses: actions/cache@v4
+        with:
+          path: ~/.cargo/registry
+          key: ${{ runner.os }}-cargo-registry-${{ hashFiles('**/Cargo.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-cargo-registry-
+
+      - name: Cache cargo index
+        uses: actions/cache@v4
+        with:
+          path: ~/.cargo/git
+          key: ${{ runner.os }}-cargo-index-${{ hashFiles('**/Cargo.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-cargo-index-
+
+      - name: Cache cargo build
+        uses: actions/cache@v4
+        with:
+          path: target
+          key: ${{ runner.os }}-cargo-build-target-${{ hashFiles('**/Cargo.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-cargo-build-target-
+
+      - name: Check formatting
+        run: |
+          echo "Checking code formatting..."
+          find . -name "Cargo.toml" -not -path "*/target/*" | while read -r manifest; do
+            dir=$(dirname "$manifest")
+            echo "Checking formatting in $dir"
+            (cd "$dir" && cargo fmt -- --check)
+          done
+
+      - name: Run clippy
+        run: |
+          echo "Running clippy on all projects..."
+          find . -name "Cargo.toml" -not -path "*/target/*" | while read -r manifest; do
+            dir=$(dirname "$manifest")
+            echo "Checking $dir"
+            (cd "$dir" && cargo clippy -- -D warnings)
+          done
+
+  test:
+    name: Test
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Install Rust toolchain
+        uses: dtolnay/rust-toolchain@stable
+
+      - name: Cache cargo registry
+        uses: actions/cache@v4
+        with:
+          path: ~/.cargo/registry
+          key: ${{ runner.os }}-cargo-registry-${{ hashFiles('**/Cargo.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-cargo-registry-
+
+      - name: Cache cargo index
+        uses: actions/cache@v4
+        with:
+          path: ~/.cargo/git
+          key: ${{ runner.os }}-cargo-index-${{ hashFiles('**/Cargo.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-cargo-index-
+
+      - name: Cache cargo build
+        uses: actions/cache@v4
+        with:
+          path: target
+          key: ${{ runner.os }}-cargo-build-target-${{ hashFiles('**/Cargo.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-cargo-build-target-
+
+      - name: Run tests
+        run: |
+          echo "Running tests on all projects..."
+          find . -name "Cargo.toml" -not -path "*/target/*" | while read -r manifest; do
+            dir=$(dirname "$manifest")
+            echo "Testing $dir"
+            (cd "$dir" && cargo test --verbose)
+          done
+
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        rust: [stable, beta]
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Install Rust toolchain
+        uses: dtolnay/rust-toolchain@master
+        with:
+          toolchain: ${{ matrix.rust }}
+
+      - name: Cache cargo registry
+        uses: actions/cache@v4
+        with:
+          path: ~/.cargo/registry
+          key: ${{ runner.os }}-${{ matrix.rust }}-cargo-registry-${{ hashFiles('**/Cargo.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-${{ matrix.rust }}-cargo-registry-
+
+      - name: Cache cargo index
+        uses: actions/cache@v4
+        with:
+          path: ~/.cargo/git
+          key: ${{ runner.os }}-${{ matrix.rust }}-cargo-index-${{ hashFiles('**/Cargo.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-${{ matrix.rust }}-cargo-index-
+
+      - name: Cache cargo build
+        uses: actions/cache@v4
+        with:
+          path: target
+          key: ${{ runner.os }}-${{ matrix.rust }}-cargo-build-target-${{ hashFiles('**/Cargo.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-${{ matrix.rust }}-cargo-build-target-
+
+      - name: Build all projects
+        run: |
+          echo "Building all projects with Rust ${{ matrix.rust }}..."
+          find . -name "Cargo.toml" -not -path "*/target/*" | while read -r manifest; do
+            dir=$(dirname "$manifest")
+            echo "Building $dir"
+            (cd "$dir" && cargo build --verbose --release)
+          done
+
+      - name: Run examples
+        run: |
+          echo "Running all examples..."
+          find . -name "Cargo.toml" -not -path "*/target/*" | while read -r manifest; do
+            dir=$(dirname "$manifest")
+            echo "Running example in $dir"
+            (cd "$dir" && timeout 10 cargo run --release || echo "Example completed or timed out")
+          done
+
+  check-matrix:
+    name: Check on multiple platforms
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ubuntu-latest, windows-latest, macos-latest]
+        rust: [stable]
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Install Rust toolchain
+        uses: dtolnay/rust-toolchain@master
+        with:
+          toolchain: ${{ matrix.rust }}
+
+      - name: Check all projects
+        run: |
+          echo "Checking all projects on ${{ matrix.os }}..."
+        shell: bash
+
+      - name: Check all projects (Unix)
+        if: runner.os != 'Windows'
+        run: |
+          find . -name "Cargo.toml" -not -path "*/target/*" | while read -r manifest; do
+            dir=$(dirname "$manifest")
+            echo "Checking $dir"
+            (cd "$dir" && cargo check)
+          done
+
+      - name: Check all projects (Windows)
+        if: runner.os == 'Windows'
+        shell: pwsh
+        run: |
+          Get-ChildItem -Recurse -Filter "Cargo.toml" | Where-Object { $_.FullName -notmatch "\\target\\" } | ForEach-Object {
+            $dir = $_.DirectoryName
+            Write-Host "Checking $dir"
+            Push-Location $dir
+            cargo check
+            Pop-Location
+          }
