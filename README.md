@@ -31,6 +31,19 @@ Advanced Rust concepts for experienced developers:
 3. **[Unsafe Rust](intermediate/03-unsafe/)** - Unsafe blocks, raw pointers, FFI, unions, and safety contracts
 4. **[Async/Await](intermediate/04-async/)** - Asynchronous programming with tokio, futures, and async patterns
 5. **[Traits & Generics](intermediate/05-traits-generics/)** - Advanced traits, generics, associated types, and type-level programming
+6. **[Testing](intermediate/06-testing/)** - Unit tests, integration tests, property-based testing, mocking, and benchmarking
+
+### [Libraries](libraries/)
+
+Popular Rust libraries and frameworks:
+
+1. **[Actix Web](libraries/01-actix-web/)** - High-performance async web framework
+2. **[Axum](libraries/02-axum/)** - Ergonomic web framework built on Tokio
+3. **[Rocket](libraries/03-rocket/)** - Web framework with focus on ease of use
+4. **[Serde](libraries/04-serde/)** - Serialization/deserialization framework (JSON, YAML, TOML, CSV)
+5. **[Clap](libraries/05-clap/)** - Command-line argument parser with derive macros
+6. **[Reqwest](libraries/06-reqwest/)** - HTTP client with async support
+7. **[SQLx](libraries/07-sqlx/)** - Async SQL toolkit with compile-time query validation
 
 ### [Networking](networking/)
 
@@ -113,14 +126,16 @@ After mastering the basics, dive into intermediate topics:
 2. **Concurrency** - Thread-based parallel programming
 3. **Async/Await** - Modern asynchronous programming
 4. **Traits & Generics** - Advanced type system features
-5. **Unsafe Rust** - When and how to break safety rules
+5. **Testing** - Comprehensive testing strategies
+6. **Unsafe Rust** - When and how to break safety rules
 
-### Specialized Topics
+### Real-World Applications
 
-Then explore specialized domains:
+Then apply your skills with popular libraries and specialized domains:
 
-- **Networking** examples for network programming
-- **OS** examples for system programming and file handling
+- **Libraries** - Web frameworks (Actix, Axum, Rocket), serialization (Serde), CLI (Clap), HTTP (Reqwest), databases (SQLx)
+- **Networking** - UDP, TCP, TLS, HTTP, DNS protocols
+- **OS** - System programming and file handling
 
 ## Contributing
 

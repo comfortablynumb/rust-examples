@@ -67,6 +67,19 @@ Advanced trait and generic patterns:
 - Marker traits (Send, Sync, Copy, Sized)
 - Advanced patterns (newtype, type state)
 
+### [06. Testing](06-testing/)
+Comprehensive testing strategies and tools:
+- Unit tests and test organization
+- Integration tests
+- Documentation tests
+- Property-based testing with proptest
+- Mocking with mockall
+- Benchmarking with Criterion
+- Test fixtures and helpers
+- Parameterized tests
+- Error testing and panic handling
+- Test best practices
+
 ## Learning Path
 
 We recommend working through these examples in order:
@@ -75,7 +88,8 @@ We recommend working through these examples in order:
 2. **Concurrency** - Thread-based parallel programming
 3. **Async/Await** - Modern asynchronous programming
 4. **Traits and Generics** - Advanced type system features
-5. **Unsafe Rust** - When and how to break the safety rules
+5. **Testing** - Comprehensive testing strategies and tools
+6. **Unsafe Rust** - When and how to break the safety rules
 
 ## Running Examples
 
