@@ -93,8 +93,12 @@ macro_rules! debug_print {
 
 // Example 8: Recursive macro (factorial at compile time)
 macro_rules! factorial {
-    (0) => { 1 };
-    ($n:expr) => { $n * factorial!($n - 1) };
+    (0) => {
+        1
+    };
+    ($n:expr) => {
+        $n * factorial!($n - 1)
+    };
 }
 
 // Example 9: Macro for implementing traits
@@ -123,15 +127,13 @@ macro_rules! assert_in_range {
 
 // Example 11: Timing macro
 macro_rules! time_it {
-    ($name:expr, $code:block) => {
-        {
-            let start = std::time::Instant::now();
-            let result = $code;
-            let duration = start.elapsed();
-            println!("{} took: {:?}", $name, duration);
-            result
-        }
-    };
+    ($name:expr, $code:block) => {{
+        let start = std::time::Instant::now();
+        let result = $code;
+        let duration = start.elapsed();
+        println!("{} took: {:?}", $name, duration);
+        result
+    }};
 }
 
 // Example 12: Macro for logging with level
@@ -335,18 +337,16 @@ fn main() {
 
     // This macro creates its own variable scope
     macro_rules! hygienic_macro {
-        () => {
-            {
-                let x = 100;
-                x
-            }
-        };
+        () => {{
+            let x = 100;
+            x
+        }};
     }
 
     let x = 50;
     let result = hygienic_macro!();
-    println!("Outer x: {}", x);  // Still 50
-    println!("Macro result: {}", result);  // 100
+    println!("Outer x: {}", x); // Still 50
+    println!("Macro result: {}", result); // 100
     println!();
 
     println!("=== Macro Patterns ===\n");
