@@ -18,12 +18,19 @@ Core Rust language concepts and fundamental programming patterns:
 6. **[Error Handling](basics/06-error-handling/)** - Result, Option, and error propagation
 7. **[Iterators](basics/07-iterators/)** - Iterators, iterator adapters, and consumers
 8. **[Closures](basics/08-closures/)** - Closures, capturing environment, and function traits
-9. **[Smart Pointers](basics/09-smart-pointers/)** - Box, Rc, Arc, RefCell, and interior mutability
-10. **[Concurrency](basics/10-concurrency/)** - Threads, channels, and shared state
-11. **[Macros](basics/11-macros/)** - Declarative macros (macro_rules!) and metaprogramming
-12. **[Unsafe](basics/12-unsafe/)** - Unsafe Rust, raw pointers, FFI, and unsafe traits
-13. **[Standard Library](basics/13-stdlib/)** - Collections, strings, time, memory utilities, and common traits
-14. **[Modules](basics/14-modules/)** - Module system, visibility, organization, and best practices
+9. **[Macros](basics/11-macros/)** - Declarative macros (macro_rules!) and metaprogramming
+10. **[Standard Library](basics/13-stdlib/)** - Collections, strings, time, memory utilities, and common traits
+11. **[Modules](basics/14-modules/)** - Module system, visibility, organization, and best practices
+
+### [Intermediate](intermediate/)
+
+Advanced Rust concepts for experienced developers:
+
+1. **[Smart Pointers](intermediate/01-smart-pointers/)** - Box, Rc, Arc, RefCell, Mutex, RwLock, Weak, Cow, and custom smart pointers
+2. **[Concurrency](intermediate/02-concurrency/)** - Threads, channels, shared state, synchronization, and parallel processing
+3. **[Unsafe Rust](intermediate/03-unsafe/)** - Unsafe blocks, raw pointers, FFI, unions, and safety contracts
+4. **[Async/Await](intermediate/04-async/)** - Asynchronous programming with tokio, futures, and async patterns
+5. **[Traits & Generics](intermediate/05-traits-generics/)** - Advanced traits, generics, associated types, and type-level programming
 
 ### [Networking](networking/)
 
@@ -84,6 +91,8 @@ example-name/
 
 ## Learning Path
 
+### Basics (Start Here)
+
 For beginners, we recommend following the basics category in order:
 
 1. Start with **Ownership** to understand Rust's core concept
@@ -92,14 +101,24 @@ For beginners, we recommend following the basics category in order:
 4. Understand **Traits** for shared behavior
 5. Master **Error Handling** for robust programs
 6. Explore **Iterators** and **Closures** for functional patterns
-7. Learn **Smart Pointers** for advanced memory management
-8. Tackle **Concurrency** for parallel programming
-9. Study **Macros** for metaprogramming and code generation
-10. Understand **Unsafe** for low-level control when needed
-11. Explore **Standard Library** for collections, strings, and common utilities
-12. Learn **Modules** for code organization and project structure
+7. Study **Macros** for metaprogramming and code generation
+8. Explore **Standard Library** for collections, strings, and common utilities
+9. Learn **Modules** for code organization and project structure
 
-After mastering the basics, explore:
+### Intermediate (Advanced Concepts)
+
+After mastering the basics, dive into intermediate topics:
+
+1. **Smart Pointers** - Advanced memory management patterns
+2. **Concurrency** - Thread-based parallel programming
+3. **Async/Await** - Modern asynchronous programming
+4. **Traits & Generics** - Advanced type system features
+5. **Unsafe Rust** - When and how to break safety rules
+
+### Specialized Topics
+
+Then explore specialized domains:
+
 - **Networking** examples for network programming
 - **OS** examples for system programming and file handling
 
