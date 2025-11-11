@@ -15,7 +15,7 @@
 //! - Response handling and error management
 //! - Async request patterns
 
-use reqwest::{Client, StatusCode, multipart};
+use reqwest::{multipart, Client, StatusCode};
 use serde::{Deserialize, Serialize};
 use std::collections::HashMap;
 use std::error::Error;
@@ -175,7 +175,10 @@ async fn get_with_query_params() -> Result<(), Box<dyn Error>> {
         .await?;
 
     let posts1: Vec<Post> = response1.json().await?;
-    println!("Method 1 - Posts by user 1 (limited to 5): {}", posts1.len());
+    println!(
+        "Method 1 - Posts by user 1 (limited to 5): {}",
+        posts1.len()
+    );
 
     // Method 2: Using query() with a HashMap
     let mut params = HashMap::new();
@@ -210,7 +213,10 @@ async fn get_with_query_params() -> Result<(), Box<dyn Error>> {
         .await?;
 
     let posts2: Vec<Post> = response3.json().await?;
-    println!("Method 3 - Posts by user 2 (limited to 3): {}", posts2.len());
+    println!(
+        "Method 3 - Posts by user 2 (limited to 3): {}",
+        posts2.len()
+    );
 
     Ok(())
 }
@@ -626,9 +632,15 @@ async fn concurrent_requests() -> Result<(), Box<dyn Error>> {
 
     // Make three requests concurrently
     let (result1, result2, result3) = tokio::join!(
-        client.get("https://jsonplaceholder.typicode.com/posts/1").send(),
-        client.get("https://jsonplaceholder.typicode.com/posts/2").send(),
-        client.get("https://jsonplaceholder.typicode.com/posts/3").send(),
+        client
+            .get("https://jsonplaceholder.typicode.com/posts/1")
+            .send(),
+        client
+            .get("https://jsonplaceholder.typicode.com/posts/2")
+            .send(),
+        client
+            .get("https://jsonplaceholder.typicode.com/posts/3")
+            .send(),
     );
 
     println!("Request 1 status: {}", result1?.status());
