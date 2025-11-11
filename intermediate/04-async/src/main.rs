@@ -551,23 +551,23 @@ async fn concurrent_file_operations() -> std::io::Result<()> {
 
 #[derive(Debug)]
 enum AppError {
-    IoError(std::io::Error),
-    TimeoutError,
-    CustomError(String),
+    Io(std::io::Error),
+    Timeout,
+    Custom(String),
 }
 
 impl From<std::io::Error> for AppError {
     fn from(err: std::io::Error) -> Self {
-        AppError::IoError(err)
+        AppError::Io(err)
     }
 }
 
 impl std::fmt::Display for AppError {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         match self {
-            AppError::IoError(e) => write!(f, "IO Error: {}", e),
-            AppError::TimeoutError => write!(f, "Timeout Error"),
-            AppError::CustomError(msg) => write!(f, "Custom Error: {}", msg),
+            AppError::Io(e) => write!(f, "IO Error: {}", e),
+            AppError::Timeout => write!(f, "Timeout Error"),
+            AppError::Custom(msg) => write!(f, "Custom Error: {}", msg),
         }
     }
 }
@@ -577,7 +577,7 @@ impl std::error::Error for AppError {}
 /// Async function with error handling using Result
 async fn async_with_error_handling(should_fail: bool) -> Result<String, AppError> {
     if should_fail {
-        return Err(AppError::CustomError("Intentional failure".to_string()));
+        return Err(AppError::Custom("Intentional failure".to_string()));
     }
 
     // Simulate some async work
@@ -601,7 +601,7 @@ async fn async_with_timeout_error() -> Result<String, AppError> {
 
     match timeout(Duration::from_millis(100), operation).await {
         Ok(result) => result,
-        Err(_) => Err(AppError::TimeoutError),
+        Err(_) => Err(AppError::Timeout),
     }
 }
 
@@ -616,7 +616,7 @@ async fn try_join_example() -> Result<(), AppError> {
 
     async fn task_failure() -> Result<i32, AppError> {
         sleep(Duration::from_millis(50)).await;
-        Err(AppError::CustomError("Task failed".to_string()))
+        Err(AppError::Custom("Task failed".to_string()))
     }
 
     // try_join! short-circuits on first error
