@@ -1,3 +1,15 @@
+#![allow(dead_code)]
+#![allow(clippy::useless_vec)]
+#![allow(clippy::needless_range_loop)]
+#![allow(clippy::manual_map)]
+#![allow(clippy::unnecessary_literal_unwrap)]
+#![allow(clippy::bind_instead_of_map)]
+#![allow(clippy::unnecessary_fold)]
+#![allow(clippy::unnecessary_sort_by)]
+#![allow(clippy::let_and_return)]
+#![allow(unused_variables)]
+#![allow(clippy::iter_count)]
+
 // Smart Pointers in Rust
 //
 // Smart pointers are data structures that act like pointers but have additional

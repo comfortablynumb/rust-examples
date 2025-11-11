@@ -1,3 +1,15 @@
+#![allow(dead_code)]
+#![allow(clippy::useless_vec)]
+#![allow(clippy::needless_range_loop)]
+#![allow(clippy::manual_map)]
+#![allow(clippy::unnecessary_literal_unwrap)]
+#![allow(clippy::bind_instead_of_map)]
+#![allow(clippy::unnecessary_fold)]
+#![allow(clippy::unnecessary_sort_by)]
+#![allow(clippy::let_and_return)]
+#![allow(unused_variables)]
+#![allow(clippy::iter_count)]
+
 // Enums in Rust
 //
 // Enumerations (enums) allow you to define a type by enumerating its possible variants.
@@ -44,6 +56,7 @@ fn main() {
 
 // Example 1: Basic enums without data
 #[derive(Debug)]
+#[allow(dead_code)]
 enum Direction {
     North,
     South,
@@ -143,10 +156,7 @@ impl TrafficLight {
     }
 
     fn can_go(&self) -> bool {
-        match self {
-            TrafficLight::Green => true,
-            _ => false,
-        }
+        matches!(self, TrafficLight::Green)
     }
 
     fn next(&self) -> TrafficLight {
@@ -198,7 +208,11 @@ fn option_examples() {
     let x: Option<i32> = Some(2);
     println!("  Is Some? {}", x.is_some());
     println!("  Is None? {}", x.is_none());
-    println!("  Unwrap or default: {}", x.unwrap_or(0));
+    // Demonstrating unwrap_or - would return 0 if None
+    #[allow(clippy::unnecessary_literal_unwrap)]
+    {
+        println!("  Unwrap or default: {}", x.unwrap_or(0));
+    }
 
     // Transforming Option
     let doubled = x.map(|n| n * 2);

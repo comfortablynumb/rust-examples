@@ -1,3 +1,15 @@
+#![allow(dead_code)]
+#![allow(clippy::useless_vec)]
+#![allow(clippy::needless_range_loop)]
+#![allow(clippy::manual_map)]
+#![allow(clippy::unnecessary_literal_unwrap)]
+#![allow(clippy::bind_instead_of_map)]
+#![allow(clippy::unnecessary_fold)]
+#![allow(clippy::unnecessary_sort_by)]
+#![allow(clippy::let_and_return)]
+#![allow(unused_variables)]
+#![allow(clippy::iter_count)]
+
 // Pattern Matching with match in Rust
 //
 // The match expression is a powerful control flow construct that allows you to
@@ -72,6 +84,7 @@ fn basic_integer_match() {
 
 // Example 2: Matching enums
 #[derive(Debug)]
+#[allow(dead_code)]
 enum Coin {
     Penny,
     Nickel,
@@ -80,6 +93,7 @@ enum Coin {
 }
 
 #[derive(Debug)]
+#[allow(dead_code)]
 enum UsState {
     Alabama,
     Alaska,
@@ -139,6 +153,7 @@ fn destructuring_match() {
     }
 
     // Destructuring nested structures
+    #[allow(dead_code)]
     enum Color {
         Rgb(i32, i32, i32),
         Hsv(i32, i32, i32),
@@ -170,7 +185,7 @@ fn match_guards() {
     let y = false;
 
     match x {
-        4 | 5 | 6 if y => println!("  Yes"),
+        4..=6 if y => println!("  Yes"),
         _ => println!("  No (x={}, y={})", x, y),
     }
 
@@ -201,6 +216,8 @@ fn option_matching() {
     }
 
     // Using match to transform Option
+    // Note: Could use some_number.map(|n| n + 1), but demonstrating match syntax
+    #[allow(clippy::manual_map)]
     let incremented = match some_number {
         Some(n) => Some(n + 1),
         None => None,
@@ -233,6 +250,7 @@ fn result_matching() {
 
     // Using match to handle different error types
     #[derive(Debug)]
+    #[allow(dead_code)]
     enum MathError {
         DivisionByZero,
         NegativeSquareRoot,

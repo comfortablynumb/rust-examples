@@ -1,3 +1,15 @@
+#![allow(dead_code)]
+#![allow(clippy::useless_vec)]
+#![allow(clippy::needless_range_loop)]
+#![allow(clippy::manual_map)]
+#![allow(clippy::unnecessary_literal_unwrap)]
+#![allow(clippy::bind_instead_of_map)]
+#![allow(clippy::unnecessary_fold)]
+#![allow(clippy::unnecessary_sort_by)]
+#![allow(clippy::let_and_return)]
+#![allow(unused_variables)]
+#![allow(clippy::iter_count)]
+
 // Ownership, Borrowing, and Lifetimes in Rust
 //
 // Rust's ownership system is what makes it unique. It enforces memory safety
@@ -87,7 +99,7 @@ fn borrowing_examples() {
     println!("  s1 is still valid: {}", s1);
 }
 
-fn calculate_length(s: &String) -> usize {
+fn calculate_length(s: &str) -> usize {
     s.len()
     // s goes out of scope but doesn't drop the data because it doesn't own it
 }
@@ -109,7 +121,7 @@ fn mutable_references() {
 
     // Now we can create a mutable borrow
     let r3 = &mut s;
-    r3.push_str("!");
+    r3.push('!');
     println!("  Mutable borrow: {}", r3);
 }
 

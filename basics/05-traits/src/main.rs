@@ -1,3 +1,15 @@
+#![allow(dead_code)]
+#![allow(clippy::useless_vec)]
+#![allow(clippy::needless_range_loop)]
+#![allow(clippy::manual_map)]
+#![allow(clippy::unnecessary_literal_unwrap)]
+#![allow(clippy::bind_instead_of_map)]
+#![allow(clippy::unnecessary_fold)]
+#![allow(clippy::unnecessary_sort_by)]
+#![allow(clippy::let_and_return)]
+#![allow(unused_variables)]
+#![allow(clippy::iter_count)]
+
 // Traits in Rust
 //
 // Traits define shared behavior across types. They're similar to interfaces
@@ -72,6 +84,7 @@ impl Summary for Article {
     }
 }
 
+#[allow(dead_code)]
 struct Tweet {
     username: String,
     content: String,
@@ -223,6 +236,7 @@ fn draw_and_resize<T: Draw + Resize>(shape: &T, scale: f32) {
 }
 
 // where clause for complex bounds
+#[allow(dead_code)]
 fn process<T, U>(t: &T, u: &U)
 where
     T: Draw + Resize,

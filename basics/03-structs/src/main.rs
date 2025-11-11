@@ -1,3 +1,15 @@
+#![allow(dead_code)]
+#![allow(clippy::useless_vec)]
+#![allow(clippy::needless_range_loop)]
+#![allow(clippy::manual_map)]
+#![allow(clippy::unnecessary_literal_unwrap)]
+#![allow(clippy::bind_instead_of_map)]
+#![allow(clippy::unnecessary_fold)]
+#![allow(clippy::unnecessary_sort_by)]
+#![allow(clippy::let_and_return)]
+#![allow(unused_variables)]
+#![allow(clippy::iter_count)]
+
 // Structs in Rust
 //
 // Structs are custom data types that let you name and package together
@@ -50,6 +62,7 @@ fn main() {
 
 // Example 1: Classic struct
 #[derive(Debug)]
+#[allow(dead_code)]
 struct User {
     username: String,
     email: String,
@@ -107,7 +120,7 @@ fn tuple_structs() {
 struct AlwaysEqual;
 
 fn unit_structs() {
-    let subject = AlwaysEqual;
+    let _subject = AlwaysEqual;
     // Unit structs are useful for implementing traits without storing data
     println!("  Created a unit struct instance");
 
