@@ -167,7 +167,11 @@ fn visit_dirs(dir: &Path, depth: usize) -> io::Result<()> {
             let path = entry.path();
 
             let indent = "  ".repeat(depth);
-            println!("    {}└─ {}", indent, path.file_name().unwrap().to_string_lossy());
+            println!(
+                "    {}└─ {}",
+                indent,
+                path.file_name().unwrap().to_string_lossy()
+            );
 
             if path.is_dir() {
                 visit_dirs(&path, depth + 1)?;
