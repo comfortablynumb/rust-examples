@@ -13,13 +13,13 @@
 
 // Declare modules
 // This tells Rust to look for frontend/mod.rs or frontend.rs
-mod frontend;
 mod backend;
+mod frontend;
 mod utils;
 
 // Use statements bring items into scope
-use frontend::ui::Button;
 use backend::database::User;
+use frontend::ui::Button;
 
 // Can also use glob imports (use sparingly)
 // use utils::*;
@@ -44,7 +44,7 @@ fn main() {
     window.show();
 
     // Using widgets through re-export
-    let label = frontend::Label::new("Text");  // Re-exported in frontend/mod.rs
+    let label = frontend::Label::new("Text"); // Re-exported in frontend/mod.rs
     label.display();
     println!();
 

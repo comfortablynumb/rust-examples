@@ -7,7 +7,7 @@ pub mod api;
 pub mod database;
 
 // Re-export commonly used types
-pub use database::{User, connect};
+pub use database::{connect, User};
 
 // Module-level initialization
 pub fn init() {

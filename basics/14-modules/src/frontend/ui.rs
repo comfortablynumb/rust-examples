@@ -2,8 +2,8 @@
 
 // Public struct with public fields
 pub struct Button {
-    label: String,  // Private field
-    pub enabled: bool,  // Public field
+    label: String,     // Private field
+    pub enabled: bool, // Public field
 }
 
 impl Button {

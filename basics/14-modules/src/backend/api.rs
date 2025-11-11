@@ -1,6 +1,6 @@
 // API module
 
-use super::database::User;  // Import from sibling module
+use super::database::User; // Import from sibling module
 
 // Public endpoint functions
 pub fn get_users() {
