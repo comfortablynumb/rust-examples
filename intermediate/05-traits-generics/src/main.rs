@@ -351,7 +351,7 @@ fn print_iter(iter: impl Iterator<Item = i32>) {
 
 /// Combining impl Trait with trait bounds
 fn create_iterator(start: i32, end: i32) -> impl Iterator<Item = i32> + Clone {
-    (start..end).into_iter()
+    start..end
 }
 
 /// Multiple impl Trait returns
