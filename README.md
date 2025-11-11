@@ -21,6 +21,16 @@ Core Rust language concepts and fundamental programming patterns:
 9. **[Smart Pointers](basics/09-smart-pointers/)** - Box, Rc, Arc, RefCell, and interior mutability
 10. **[Concurrency](basics/10-concurrency/)** - Threads, channels, and shared state
 
+### [Networking](networking/)
+
+Network programming with various protocols and patterns:
+
+1. **[UDP](networking/01-udp/)** - UDP server and client with datagram communication
+2. **[TCP](networking/02-tcp/)** - TCP server and client with stream-based communication
+3. **[TLS](networking/03-tls/)** - TLS encrypted connections with rustls
+4. **[HTTP](networking/04-http/)** - HTTP server and client from scratch
+5. **[DNS](networking/05-dns/)** - DNS server and client with hickory-dns
+
 ## Getting Started
 
 ### Prerequisites

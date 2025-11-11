@@ -1,0 +1,22 @@
+[package]
+name = "dns-example"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+hickory-client = "0.24"
+hickory-server = "0.24"
+hickory-proto = "0.24"
+tokio = { version = "1", features = ["full"] }
+
+[[bin]]
+name = "client"
+path = "src/client.rs"
+
+[[bin]]
+name = "resolver"
+path = "src/resolver.rs"
+
+[[bin]]
+name = "server"
+path = "src/server.rs"

@@ -1,0 +1,21 @@
+[package]
+name = "tls-example"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+rustls = "0.23"
+rustls-pemfile = "2.1"
+webpki-roots = "0.26"
+
+[[bin]]
+name = "server"
+path = "src/server.rs"
+
+[[bin]]
+name = "client"
+path = "src/client.rs"
+
+[[bin]]
+name = "generate_certs"
+path = "src/generate_certs.rs"

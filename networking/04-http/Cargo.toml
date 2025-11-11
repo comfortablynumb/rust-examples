@@ -1,0 +1,18 @@
+[package]
+name = "http-example"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+
+[[bin]]
+name = "server"
+path = "src/server.rs"
+
+[[bin]]
+name = "client"
+path = "src/client.rs"
+
+[[bin]]
+name = "rest_server"
+path = "src/rest_server.rs"
