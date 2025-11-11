@@ -15,12 +15,12 @@
 //! - Request guards and extractors
 //! - Multiple services and scopes
 
+use actix_web::http::header::HeaderValue;
 use actix_web::{
     dev::{forward_ready, Service, ServiceRequest, ServiceResponse, Transform},
-    error, get, middleware, post, put, web, App, Error, HttpRequest, HttpResponse,
-    HttpServer, Result,
+    error, get, middleware, post, put, web, App, Error, HttpRequest, HttpResponse, HttpServer,
+    Result,
 };
-use actix_web::http::header::HeaderValue;
 use serde::{Deserialize, Serialize};
 use std::collections::HashMap;
 use std::future::{ready, Ready};
@@ -41,7 +41,7 @@ struct Todo {
 }
 
 /// Request body for creating a new todo
-#[derive(Debug, Deserialize)]
+#[derive(Debug, Serialize, Deserialize)]
 struct CreateTodo {
     title: String,
     description: String,
@@ -143,18 +143,14 @@ impl std::fmt::Display for ApiError {
 impl error::ResponseError for ApiError {
     fn error_response(&self) -> HttpResponse {
         match self {
-            ApiError::NotFound(msg) => {
-                HttpResponse::NotFound().json(serde_json::json!({
-                    "error": "not_found",
-                    "message": msg
-                }))
-            }
-            ApiError::BadRequest(msg) => {
-                HttpResponse::BadRequest().json(serde_json::json!({
-                    "error": "bad_request",
-                    "message": msg
-                }))
-            }
+            ApiError::NotFound(msg) => HttpResponse::NotFound().json(serde_json::json!({
+                "error": "not_found",
+                "message": msg
+            })),
+            ApiError::BadRequest(msg) => HttpResponse::BadRequest().json(serde_json::json!({
+                "error": "bad_request",
+                "message": msg
+            })),
             ApiError::InternalError(msg) => {
                 HttpResponse::InternalServerError().json(serde_json::json!({
                     "error": "internal_error",
@@ -259,11 +255,10 @@ where
 
         Box::pin(async move {
             let mut res = fut.await?;
-            res.headers_mut()
-                .insert(
-                    actix_web::http::header::HeaderName::from_static("x-custom-header"),
-                    HeaderValue::from_static("actix-web-example")
-                );
+            res.headers_mut().insert(
+                actix_web::http::header::HeaderName::from_static("x-custom-header"),
+                HeaderValue::from_static("actix-web-example"),
+            );
             Ok(res)
         })
     }
@@ -471,10 +466,7 @@ async fn protected_route(_api_key: ApiKey) -> Result<HttpResponse> {
 
 /// Example of multiple extractors in one handler
 #[post("/users")]
-async fn create_user(
-    user_info: web::Json<UserInfo>,
-    req: HttpRequest,
-) -> Result<HttpResponse> {
+async fn create_user(user_info: web::Json<UserInfo>, req: HttpRequest) -> Result<HttpResponse> {
     // Access request headers
     let user_agent = req
         .headers()
@@ -491,14 +483,14 @@ async fn create_user(
 }
 
 /// WebSocket handler
-async fn websocket_route(
-    req: HttpRequest,
-    _stream: web::Payload,
-) -> Result<HttpResponse, Error> {
+async fn websocket_route(req: HttpRequest, _stream: web::Payload) -> Result<HttpResponse, Error> {
     // In a real application, you would use actix-web-actors for WebSocket support
     // This is a simplified example showing the concept
 
-    println!("WebSocket connection request from: {:?}", req.connection_info());
+    println!(
+        "WebSocket connection request from: {:?}",
+        req.connection_info()
+    );
 
     // For demonstration, we'll return a message about WebSocket support
     Ok(HttpResponse::Ok().json(serde_json::json!({
@@ -590,7 +582,7 @@ fn config_api(cfg: &mut web::ServiceConfig) {
             .service(update_todo)
             .service(complete_todo)
             .service(protected_route)
-            .route("/todos/{id}", web::delete().to(delete_todo))
+            .route("/todos/{id}", web::delete().to(delete_todo)),
     );
 }
 
@@ -600,7 +592,7 @@ fn config_extra(cfg: &mut web::ServiceConfig) {
         web::scope("/extra")
             .service(nested_resource)
             .route("/custom", web::get().to(custom_response))
-            .service(create_user)
+            .service(create_user),
     );
 }
 
@@ -681,15 +673,10 @@ mod tests {
     #[actix_web::test]
     async fn test_get_todos() {
         let app_state = web::Data::new(AppState::new());
-        let app = test::init_service(
-            App::new()
-                .app_data(app_state.clone())
-                .service(get_todos)
-        ).await;
+        let app =
+            test::init_service(App::new().app_data(app_state.clone()).service(get_todos)).await;
 
-        let req = test::TestRequest::get()
-            .uri("/todos")
-            .to_request();
+        let req = test::TestRequest::get().uri("/todos").to_request();
         let resp = test::call_service(&app, req).await;
         assert!(resp.status().is_success());
     }
@@ -697,11 +684,8 @@ mod tests {
     #[actix_web::test]
     async fn test_create_todo() {
         let app_state = web::Data::new(AppState::new());
-        let app = test::init_service(
-            App::new()
-                .app_data(app_state.clone())
-                .service(create_todo)
-        ).await;
+        let app =
+            test::init_service(App::new().app_data(app_state.clone()).service(create_todo)).await;
 
         let req = test::TestRequest::post()
             .uri("/todos")

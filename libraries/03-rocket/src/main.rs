@@ -16,13 +16,15 @@
 //! - Multiple mount points for API organization
 
 use rocket::{
+    delete,
     fairing::{Fairing, Info, Kind},
     form::{Form, FromForm},
+    get,
     http::{Header, Status},
+    patch, post, put,
     request::{FromRequest, Outcome, Request},
     serde::json::Json,
-    State, Rocket, Build,
-    get, post, put, delete, patch,
+    Build, Rocket, State,
 };
 use serde::{Deserialize, Serialize};
 use std::sync::{Arc, Mutex};
@@ -136,15 +138,13 @@ impl AppState {
             },
         ];
 
-        let posts = vec![
-            Post {
-                id: 1,
-                title: "Getting Started with Rocket".to_string(),
-                content: "Rocket is a web framework for Rust...".to_string(),
-                author: "Admin".to_string(),
-                published: true,
-            },
-        ];
+        let posts = vec![Post {
+            id: 1,
+            title: "Getting Started with Rocket".to_string(),
+            content: "Rocket is a web framework for Rust...".to_string(),
+            author: "Admin".to_string(),
+            published: true,
+        }];
 
         AppState {
             books: Arc::new(Mutex::new(books)),
@@ -200,9 +200,7 @@ impl<'r> FromRequest<'r> for Admin {
     async fn from_request(req: &'r Request<'_>) -> Outcome<Self, Self::Error> {
         // Check for admin key
         match req.headers().get_one("X-Admin-Key") {
-            Some(key) if key == "admin-secret-key" => {
-                Outcome::Success(Admin(key.to_string()))
-            }
+            Some(key) if key == "admin-secret-key" => Outcome::Success(Admin(key.to_string())),
             Some(_) => Outcome::Error((Status::Forbidden, ApiKeyError::Invalid)),
             None => Outcome::Error((Status::Forbidden, ApiKeyError::Missing)),
         }
@@ -536,7 +534,12 @@ fn internal_error() -> Json<ApiResponse<String>> {
 /// Default error handler
 #[rocket::catch(default)]
 fn default_catcher(status: Status, req: &Request) -> String {
-    format!("Error {}: {} at {}", status.code, status.reason().unwrap_or("Unknown"), req.uri())
+    format!(
+        "Error {}: {} at {}",
+        status.code,
+        status.reason().unwrap_or("Unknown"),
+        req.uri()
+    )
 }
 
 // ============================================================================
@@ -561,7 +564,10 @@ impl Fairing for RequestLogger {
             "[REQUEST] {} {} from {}",
             request.method(),
             request.uri(),
-            request.remote().map(|r| r.to_string()).unwrap_or_else(|| "unknown".to_string())
+            request
+                .remote()
+                .map(|r| r.to_string())
+                .unwrap_or_else(|| "unknown".to_string())
         );
 
         // Increment request counter
@@ -572,11 +578,7 @@ impl Fairing for RequestLogger {
     }
 
     /// Called on each response
-    async fn on_response<'r>(
-        &self,
-        request: &'r Request<'_>,
-        response: &mut rocket::Response<'r>,
-    ) {
+    async fn on_response<'r>(&self, request: &'r Request<'_>, response: &mut rocket::Response<'r>) {
         println!(
             "[RESPONSE] {} {} -> {}",
             request.method(),
@@ -633,32 +635,38 @@ fn rocket() -> Rocket<Build> {
         // Manage application state
         .manage(state)
         // Register custom error catchers
-        .register("/", rocket::catchers![
-            not_found,
-            unauthorized,
-            forbidden,
-            internal_error,
-            default_catcher
-        ])
+        .register(
+            "/",
+            rocket::catchers![
+                not_found,
+                unauthorized,
+                forbidden,
+                internal_error,
+                default_catcher
+            ],
+        )
         // Mount API routes at /api
-        .mount("/api", rocket::routes![
-            get_books,
-            get_book,
-            create_book,
-            update_book,
-            delete_book,
-            get_posts,
-            get_post,
-            create_post,
-            publish_post,
-        ])
+        .mount(
+            "/api",
+            rocket::routes![
+                get_books,
+                get_book,
+                create_book,
+                update_book,
+                delete_book,
+                get_posts,
+                get_post,
+                create_post,
+                publish_post,
+            ],
+        )
         // Mount form routes at /form
         .mount("/form", rocket::routes![book_form, submit_book_form])
         // Mount root routes
         .mount("/", rocket::routes![index, health, status])
-        // Serve static files from "static" directory (if it exists)
-        // In a real app, create a static/ directory with HTML, CSS, JS files
-        // .mount("/static", FileServer::from(relative!("static")))
+    // Serve static files from "static" directory (if it exists)
+    // In a real app, create a static/ directory with HTML, CSS, JS files
+    // .mount("/static", FileServer::from(relative!("static")))
 }
 
 /*

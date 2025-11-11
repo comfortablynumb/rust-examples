@@ -605,11 +605,14 @@ fn validate_date(s: &str) -> Result<String, String> {
         return Err(String::from("Date must be in format YYYY-MM-DD"));
     }
 
-    let year = parts[0].parse::<u32>()
+    let year = parts[0]
+        .parse::<u32>()
         .map_err(|_| String::from("Invalid year"))?;
-    let month = parts[1].parse::<u32>()
+    let month = parts[1]
+        .parse::<u32>()
         .map_err(|_| String::from("Invalid month"))?;
-    let day = parts[2].parse::<u32>()
+    let day = parts[2]
+        .parse::<u32>()
         .map_err(|_| String::from("Invalid day"))?;
 
     if !(2000..=2100).contains(&year) {
@@ -627,7 +630,8 @@ fn validate_date(s: &str) -> Result<String, String> {
 
 /// Validates positive u64 values (greater than 0)
 fn validate_positive_u64(s: &str) -> Result<u64, String> {
-    let value = s.parse::<u64>()
+    let value = s
+        .parse::<u64>()
         .map_err(|_| String::from("Must be a valid positive number"))?;
 
     if value == 0 {
@@ -639,7 +643,8 @@ fn validate_positive_u64(s: &str) -> Result<u64, String> {
 
 /// Validates positive usize values (greater than 0)
 fn validate_positive_usize(s: &str) -> Result<usize, String> {
-    let value = s.parse::<usize>()
+    let value = s
+        .parse::<usize>()
         .map_err(|_| String::from("Must be a valid positive number"))?;
 
     if value == 0 {
@@ -651,7 +656,8 @@ fn validate_positive_usize(s: &str) -> Result<usize, String> {
 
 /// Validates repeat days (1-365)
 fn validate_repeat_days(s: &str) -> Result<u32, String> {
-    let value = s.parse::<u32>()
+    let value = s
+        .parse::<u32>()
         .map_err(|_| String::from("Must be a valid number"))?;
 
     if !(1..=365).contains(&value) {
@@ -688,7 +694,14 @@ fn main() {
 
     // Handle commands
     match &cli.command {
-        Commands::Add { description, priority, tags, due, assignee, repeat } => {
+        Commands::Add {
+            description,
+            priority,
+            tags,
+            due,
+            assignee,
+            repeat,
+        } => {
             println!("Adding new task:");
             println!("  Description: {}", description);
             println!("  Priority: {:?}", priority);
@@ -706,7 +719,16 @@ fn main() {
             }
         }
 
-        Commands::List { filter, priority, tag, assignee, sort, reverse, limit, show_archived } => {
+        Commands::List {
+            filter,
+            priority,
+            tag,
+            assignee,
+            sort,
+            reverse,
+            limit,
+            show_archived,
+        } => {
             println!("Listing tasks:");
             if let Some(status) = filter {
                 println!("  Filter by status: {:?}", status);
@@ -728,13 +750,26 @@ fn main() {
             println!("  Show archived: {}", show_archived);
         }
 
-        Commands::Show { task_id, history, related } => {
+        Commands::Show {
+            task_id,
+            history,
+            related,
+        } => {
             println!("Showing task #{}:", task_id);
             println!("  Show history: {}", history);
             println!("  Show related: {}", related);
         }
 
-        Commands::Update { task_id, description, priority, status, add_tags, remove_tags, clear_tags, assignee } => {
+        Commands::Update {
+            task_id,
+            description,
+            priority,
+            status,
+            add_tags,
+            remove_tags,
+            clear_tags,
+            assignee,
+        } => {
             println!("Updating task #{}:", task_id);
             if let Some(desc) = description {
                 println!("  New description: {}", desc);
@@ -759,102 +794,130 @@ fn main() {
             }
         }
 
-        Commands::Delete { task_ids, force, cascade } => {
+        Commands::Delete {
+            task_ids,
+            force,
+            cascade,
+        } => {
             println!("Deleting tasks: {:?}", task_ids);
             println!("  Force: {}", force);
             println!("  Cascade: {}", cascade);
         }
 
-        Commands::Remote(remote_cmd) => {
-            match remote_cmd {
-                RemoteCommands::Add { name, url, token, default } => {
-                    println!("Adding remote:");
-                    println!("  Name: {}", name);
-                    println!("  URL: {}", url);
-                    if let Some(t) = token {
-                        println!("  Token: {}...", &t[..t.len().min(8)]);
-                    }
-                    println!("  Set as default: {}", default);
+        Commands::Remote(remote_cmd) => match remote_cmd {
+            RemoteCommands::Add {
+                name,
+                url,
+                token,
+                default,
+            } => {
+                println!("Adding remote:");
+                println!("  Name: {}", name);
+                println!("  URL: {}", url);
+                if let Some(t) = token {
+                    println!("  Token: {}...", &t[..t.len().min(8)]);
                 }
-                RemoteCommands::Remove { name, force } => {
-                    println!("Removing remote: {}", name);
-                    println!("  Force: {}", force);
+                println!("  Set as default: {}", default);
+            }
+            RemoteCommands::Remove { name, force } => {
+                println!("Removing remote: {}", name);
+                println!("  Force: {}", force);
+            }
+            RemoteCommands::List { verbose } => {
+                println!("Listing remotes:");
+                println!("  Verbose: {}", verbose);
+            }
+            RemoteCommands::Sync {
+                remote,
+                push,
+                pull,
+                force,
+            } => {
+                println!("Synchronizing with remote:");
+                if let Some(r) = remote {
+                    println!("  Remote: {}", r);
+                } else {
+                    println!("  Remote: default");
                 }
-                RemoteCommands::List { verbose } => {
-                    println!("Listing remotes:");
-                    println!("  Verbose: {}", verbose);
+                println!("  Push only: {}", push);
+                println!("  Pull only: {}", pull);
+                println!("  Force: {}", force);
+            }
+        },
+
+        Commands::Config(config_cmd) => match config_cmd {
+            ConfigCommands::Get { key } => {
+                println!("Getting config value: {}", key);
+            }
+            ConfigCommands::Set { key, value, global } => {
+                println!("Setting config:");
+                println!("  Key: {}", key);
+                println!("  Value: {}", value);
+                println!("  Global: {}", global);
+            }
+            ConfigCommands::Unset { key, global } => {
+                println!("Unsetting config:");
+                println!("  Key: {}", key);
+                println!("  Global: {}", global);
+            }
+            ConfigCommands::List {
+                global,
+                local,
+                show_origin,
+            } => {
+                println!("Listing configuration:");
+                println!("  Global: {}", global);
+                println!("  Local: {}", local);
+                println!("  Show origin: {}", show_origin);
+            }
+        },
+
+        Commands::Project(project_cmd) => match project_cmd {
+            ProjectCommands::Create {
+                name,
+                description,
+                template,
+            } => {
+                println!("Creating project:");
+                println!("  Name: {}", name);
+                if let Some(desc) = description {
+                    println!("  Description: {}", desc);
                 }
-                RemoteCommands::Sync { remote, push, pull, force } => {
-                    println!("Synchronizing with remote:");
-                    if let Some(r) = remote {
-                        println!("  Remote: {}", r);
-                    } else {
-                        println!("  Remote: default");
-                    }
-                    println!("  Push only: {}", push);
-                    println!("  Pull only: {}", pull);
-                    println!("  Force: {}", force);
+                if let Some(tpl) = template {
+                    println!("  Template: {:?}", tpl);
                 }
             }
-        }
-
-        Commands::Config(config_cmd) => {
-            match config_cmd {
-                ConfigCommands::Get { key } => {
-                    println!("Getting config value: {}", key);
-                }
-                ConfigCommands::Set { key, value, global } => {
-                    println!("Setting config:");
-                    println!("  Key: {}", key);
-                    println!("  Value: {}", value);
-                    println!("  Global: {}", global);
-                }
-                ConfigCommands::Unset { key, global } => {
-                    println!("Unsetting config:");
-                    println!("  Key: {}", key);
-                    println!("  Global: {}", global);
-                }
-                ConfigCommands::List { global, local, show_origin } => {
-                    println!("Listing configuration:");
-                    println!("  Global: {}", global);
-                    println!("  Local: {}", local);
-                    println!("  Show origin: {}", show_origin);
-                }
+            ProjectCommands::List { archived } => {
+                println!("Listing projects:");
+                println!("  Show archived: {}", archived);
             }
-        }
-
-        Commands::Project(project_cmd) => {
-            match project_cmd {
-                ProjectCommands::Create { name, description, template } => {
-                    println!("Creating project:");
-                    println!("  Name: {}", name);
-                    if let Some(desc) = description {
-                        println!("  Description: {}", desc);
-                    }
-                    if let Some(tpl) = template {
-                        println!("  Template: {:?}", tpl);
-                    }
-                }
-                ProjectCommands::List { archived } => {
-                    println!("Listing projects:");
-                    println!("  Show archived: {}", archived);
-                }
-                ProjectCommands::Show { project, stats } => {
-                    println!("Showing project: {}", project);
-                    println!("  Show stats: {}", stats);
-                }
-                ProjectCommands::Archive { project } => {
-                    println!("Archiving project: {}", project);
-                }
-                ProjectCommands::Delete { project, force, delete_tasks } => {
-                    println!("Deleting project: {}", project);
-                    println!("  Force: {}", force);
-                    println!("  Delete tasks: {}", delete_tasks);
-                }
+            ProjectCommands::Show { project, stats } => {
+                println!("Showing project: {}", project);
+                println!("  Show stats: {}", stats);
             }
-        }
+            ProjectCommands::Archive { project } => {
+                println!("Archiving project: {}", project);
+            }
+            ProjectCommands::Delete {
+                project,
+                force,
+                delete_tasks,
+            } => {
+                println!("Deleting project: {}", project);
+                println!("  Force: {}", force);
+                println!("  Delete tasks: {}", delete_tasks);
+            }
+        },
 
-        Commands::Search { query, case_sensitive, regex, descriptions, tags, comments, max_results } => {
+        Commands::Search {
+            query,
+            case_sensitive,
+            regex,
+            descriptions,
+            tags,
+            comments,
+            max_results,
+        } => {
             println!("Searching for: {}", query);
             println!("  Case sensitive: {}", case_sensitive);
             println!("  Use regex: {}", regex);
@@ -864,7 +927,12 @@ fn main() {
             println!("  Max results: {}", max_results);
         }
 
-        Commands::Export { output, format, include_archived, project } => {
+        Commands::Export {
+            output,
+            format,
+            include_archived,
+            project,
+        } => {
             println!("Exporting tasks:");
             println!("  Output file: {}", output.display());
             println!("  Format: {:?}", format);
@@ -874,7 +942,12 @@ fn main() {
             }
         }
 
-        Commands::Import { input, format, skip_validation, dry_run } => {
+        Commands::Import {
+            input,
+            format,
+            skip_validation,
+            dry_run,
+        } => {
             println!("Importing tasks:");
             println!("  Input file: {}", input.display());
             if let Some(fmt) = format {
@@ -890,9 +963,13 @@ fn main() {
             println!("Generating shell completions for: {:?}", shell);
             println!("To install, run the appropriate command for your shell:");
             match shell {
-                Shell::Bash => println!("  taskflow completions bash > /etc/bash_completion.d/taskflow"),
+                Shell::Bash => {
+                    println!("  taskflow completions bash > /etc/bash_completion.d/taskflow")
+                }
                 Shell::Zsh => println!("  taskflow completions zsh > ~/.zsh/completion/_taskflow"),
-                Shell::Fish => println!("  taskflow completions fish > ~/.config/fish/completions/taskflow.fish"),
+                Shell::Fish => println!(
+                    "  taskflow completions fish > ~/.config/fish/completions/taskflow.fish"
+                ),
                 Shell::PowerShell => println!("  taskflow completions powershell > taskflow.ps1"),
             }
         }
