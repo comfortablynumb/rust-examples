@@ -115,10 +115,7 @@ async fn create_schema(pool: &SqlitePool) -> Result<(), sqlx::Error> {
 // ============================================================================
 
 /// Insert a single product using query builder
-async fn insert_product(
-    pool: &SqlitePool,
-    product: NewProduct,
-) -> Result<i64, sqlx::Error> {
+async fn insert_product(pool: &SqlitePool, product: NewProduct) -> Result<i64, sqlx::Error> {
     let result = sqlx::query(
         r#"
         INSERT INTO products (name, description, price, quantity)
@@ -140,19 +137,13 @@ async fn insert_product(
 }
 
 /// Insert a user using prepared statement pattern
-async fn insert_user(
-    pool: &SqlitePool,
-    username: &str,
-    email: &str,
-) -> Result<i64, sqlx::Error> {
-    let result = sqlx::query(
-        "INSERT INTO users (username, email, active) VALUES (?, ?, ?)"
-    )
-    .bind(username)
-    .bind(email)
-    .bind(true)
-    .execute(pool)
-    .await?;
+async fn insert_user(pool: &SqlitePool, username: &str, email: &str) -> Result<i64, sqlx::Error> {
+    let result = sqlx::query("INSERT INTO users (username, email, active) VALUES (?, ?, ?)")
+        .bind(username)
+        .bind(email)
+        .bind(true)
+        .execute(pool)
+        .await?;
 
     let id = result.last_insert_rowid();
     println!("✓ Inserted user '{}' with ID: {}", username, id);
@@ -170,7 +161,7 @@ async fn batch_insert_products(
 
     for product in products {
         sqlx::query(
-            "INSERT INTO products (name, description, price, quantity) VALUES (?, ?, ?, ?)"
+            "INSERT INTO products (name, description, price, quantity) VALUES (?, ?, ?, ?)",
         )
         .bind(&product.name)
         .bind(&product.description)
@@ -192,12 +183,9 @@ async fn batch_insert_products(
 // ============================================================================
 
 /// Fetch a single product by ID
-async fn get_product_by_id(
-    pool: &SqlitePool,
-    id: i64,
-) -> Result<Option<Product>, sqlx::Error> {
+async fn get_product_by_id(pool: &SqlitePool, id: i64) -> Result<Option<Product>, sqlx::Error> {
     let product = sqlx::query_as::<_, Product>(
-        "SELECT id, name, description, price, quantity FROM products WHERE id = ?"
+        "SELECT id, name, description, price, quantity FROM products WHERE id = ?",
     )
     .bind(id)
     .fetch_optional(pool)
@@ -214,7 +202,7 @@ async fn get_product_by_id(
 /// Fetch all products from the database
 async fn get_all_products(pool: &SqlitePool) -> Result<Vec<Product>, sqlx::Error> {
     let products = sqlx::query_as::<_, Product>(
-        "SELECT id, name, description, price, quantity FROM products ORDER BY id"
+        "SELECT id, name, description, price, quantity FROM products ORDER BY id",
     )
     .fetch_all(pool)
     .await?;
@@ -235,7 +223,7 @@ async fn get_products_by_price_range(
         FROM products
         WHERE price BETWEEN ? AND ?
         ORDER BY price
-        "#
+        "#,
     )
     .bind(min_price)
     .bind(max_price)
@@ -258,7 +246,7 @@ async fn get_user_by_username(
     username: &str,
 ) -> Result<Option<User>, sqlx::Error> {
     let user = sqlx::query_as::<_, User>(
-        "SELECT id, username, email, active FROM users WHERE username = ?"
+        "SELECT id, username, email, active FROM users WHERE username = ?",
     )
     .bind(username)
     .fetch_optional(pool)
@@ -278,7 +266,7 @@ async fn get_products_with_low_stock(
 ) -> Result<Vec<Product>, sqlx::Error> {
     // Using query_as for runtime-checked queries
     let products = sqlx::query_as::<_, Product>(
-        "SELECT id, name, description, price, quantity FROM products WHERE quantity < ?"
+        "SELECT id, name, description, price, quantity FROM products WHERE quantity < ?",
     )
     .bind(threshold)
     .fetch_all(pool)
@@ -356,7 +344,7 @@ async fn update_product(
         UPDATE products
         SET name = ?, description = ?, price = ?, quantity = ?
         WHERE id = ?
-        "#
+        "#,
     )
     .bind(name)
     .bind(description)

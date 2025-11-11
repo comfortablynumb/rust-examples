@@ -12,7 +12,7 @@
 //! - Options and Results
 //! - Complex nested structures
 
-use serde::{Deserialize, Serialize, Deserializer, Serializer};
+use serde::{Deserialize, Deserializer, Serialize, Serializer};
 use std::collections::HashMap;
 
 // ============================================================================
@@ -188,9 +188,19 @@ enum Notification {
 #[derive(Debug, Serialize, Deserialize, Clone, PartialEq)]
 #[serde(tag = "event_type", content = "data")]
 enum Event {
-    UserLogin { user_id: u64, timestamp: i64 },
-    UserLogout { user_id: u64, timestamp: i64 },
-    Purchase { user_id: u64, amount: f64, items: Vec<String> },
+    UserLogin {
+        user_id: u64,
+        timestamp: i64,
+    },
+    UserLogout {
+        user_id: u64,
+        timestamp: i64,
+    },
+    Purchase {
+        user_id: u64,
+        amount: f64,
+        items: Vec<String>,
+    },
 }
 
 /// Untagged enum - tries to deserialize each variant until one succeeds
@@ -506,7 +516,10 @@ fn demo_csv() {
         let product: Product = result.expect("Failed to deserialize CSV record");
         deserialized_products.push(product);
     }
-    println!("Deserialized {} products from CSV", deserialized_products.len());
+    println!(
+        "Deserialized {} products from CSV",
+        deserialized_products.len()
+    );
 }
 
 /// Demonstrates custom serialization with serialize_with/deserialize_with
@@ -625,9 +638,8 @@ fn demo_api_responses() {
     println!("\n=== API Response Handling ===");
 
     // Success response
-    let success_response: ApiResponse<User, ErrorDetails> = ApiResponse::Ok(
-        User::new(1, "alice", "alice@example.com", 28, true)
-    );
+    let success_response: ApiResponse<User, ErrorDetails> =
+        ApiResponse::Ok(User::new(1, "alice", "alice@example.com", 28, true));
     let json = serde_json::to_string_pretty(&success_response).expect("Failed to serialize");
     println!("Success response:\n{}", json);
 
