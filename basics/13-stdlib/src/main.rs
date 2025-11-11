@@ -276,7 +276,10 @@ fn memory_examples() {
     println!("  Size and alignment:");
     println!("    size_of::<i32>() = {} bytes", mem::size_of::<i32>());
     println!("    size_of::<i64>() = {} bytes", mem::size_of::<i64>());
-    println!("    size_of::<String>() = {} bytes", mem::size_of::<String>());
+    println!(
+        "    size_of::<String>() = {} bytes",
+        mem::size_of::<String>()
+    );
     println!("    align_of::<i32>() = {} bytes", mem::align_of::<i32>());
 
     // replace
