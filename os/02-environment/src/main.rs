@@ -185,17 +185,17 @@ fn process_information() {
     // Number of CPUs (available threads)
     // Note: This is in std::thread, not std::env
     // Showing as related information
-    println!("  Available parallelism: {:?}", std::thread::available_parallelism());
+    println!(
+        "  Available parallelism: {:?}",
+        std::thread::available_parallelism()
+    );
 }
 
 // Example 5: Executing commands
 fn executing_commands() -> io::Result<()> {
     // Execute simple command
     println!("  Executing 'echo Hello, Rust!':");
-    let output = Command::new("echo")
-        .arg("Hello,")
-        .arg("Rust!")
-        .output()?;
+    let output = Command::new("echo").arg("Hello,").arg("Rust!").output()?;
 
     println!("    Exit code: {}", output.status);
     println!("    Output: {}", String::from_utf8_lossy(&output.stdout));
@@ -222,11 +222,12 @@ fn executing_commands() -> io::Result<()> {
 
     // Execute in different directory
     println!("  In different directory:");
-    let output = Command::new("pwd")
-        .current_dir("/tmp")
-        .output()?;
+    let output = Command::new("pwd").current_dir("/tmp").output()?;
 
-    println!("    Working dir: {}", String::from_utf8_lossy(&output.stdout));
+    println!(
+        "    Working dir: {}",
+        String::from_utf8_lossy(&output.stdout)
+    );
 
     Ok(())
 }
@@ -248,7 +249,10 @@ fn process_pipes() -> io::Result<()> {
         .stdin(Stdio::from(echo_out))
         .output()?;
 
-    println!("    Result: {}", String::from_utf8_lossy(&grep_output.stdout));
+    println!(
+        "    Result: {}",
+        String::from_utf8_lossy(&grep_output.stdout)
+    );
 
     // Capture stderr separately
     println!("  Capturing stderr:");
@@ -263,9 +267,7 @@ fn process_pipes() -> io::Result<()> {
 
     // Spawn without waiting
     println!("  Spawning background process:");
-    let mut child = Command::new("sleep")
-        .arg("1")
-        .spawn()?;
+    let mut child = Command::new("sleep").arg("1").spawn()?;
 
     println!("    Process spawned with PID: {}", child.id());
     println!("    Waiting for completion...");
