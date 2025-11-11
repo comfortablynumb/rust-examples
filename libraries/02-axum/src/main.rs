@@ -16,7 +16,7 @@
 
 use axum::{
     extract::{Path, Query, State},
-    http::{HeaderMap, StatusCode, Request},
+    http::{HeaderMap, Request, StatusCode},
     middleware::{self, Next},
     response::{IntoResponse, Response},
     routing::get,
@@ -313,19 +313,12 @@ impl Validate for UpdateProductRequest {
 
 /// Custom logging middleware that logs request method and path
 /// Middleware functions in Axum take a request and Next, and return a Response
-async fn logging_middleware(
-    req: Request<axum::body::Body>,
-    next: Next,
-) -> Response {
+async fn logging_middleware(req: Request<axum::body::Body>, next: Next) -> Response {
     let method = req.method().clone();
     let uri = req.uri().clone();
 
     // Log the request
-    println!("[{}] {} {}",
-        get_current_timestamp(),
-        method,
-        uri
-    );
+    println!("[{}] {} {}", get_current_timestamp(), method, uri);
 
     // Call the next middleware/handler
     next.run(req).await
@@ -333,10 +326,7 @@ async fn logging_middleware(
 
 /// CORS middleware (simplified version)
 /// In production, use tower-http's CorsLayer for more features
-async fn cors_middleware(
-    req: Request<axum::body::Body>,
-    next: Next,
-) -> Response {
+async fn cors_middleware(req: Request<axum::body::Body>, next: Next) -> Response {
     // Process the request
     let mut response = next.run(req).await;
 
@@ -464,11 +454,7 @@ async fn list_products(
     let limit = params.limit.unwrap_or(10).min(100); // Cap at 100
 
     // Apply pagination
-    let paginated: Vec<Product> = filtered
-        .into_iter()
-        .skip(offset)
-        .take(limit)
-        .collect();
+    let paginated: Vec<Product> = filtered.into_iter().skip(offset).take(limit).collect();
 
     Json(ApiResponse::success(ProductListResponse {
         products: paginated,
@@ -637,7 +623,10 @@ fn products_router() -> Router<AppState> {
         // Route with multiple HTTP methods on root path
         .route("/", get(list_products).post(create_product))
         // Route with path parameter
-        .route("/:id", get(get_product).put(update_product).delete(delete_product))
+        .route(
+            "/:id",
+            get(get_product).put(update_product).delete(delete_product),
+        )
 }
 
 /// Create the users router (nested router example)
@@ -665,22 +654,17 @@ fn app(state: AppState) -> Router {
     Router::new()
         // Root endpoint
         .route("/", get(root_handler))
-
         // Health check at root level
         .route("/health", get(health_check))
-
         // API routes (nested under /api prefix)
         .nest("/api", api_router())
-
         // Static file serving example
         // In a real app, create a "static" directory with files
         // This shows how to serve static files like images, CSS, JS
         .nest_service("/static", ServeDir::new("static"))
-
         // Inject shared state into the router
         // All handlers with State<AppState> will receive this state
         .with_state(state)
-
         // Add middleware layers
         // Middleware is executed in reverse order (bottom to top)
         // So requests flow: cors -> logging -> tracing -> handlers
@@ -690,12 +674,12 @@ fn app(state: AppState) -> Router {
                 // Provides detailed request/response logging
                 .layer(
                     TraceLayer::new_for_http()
-                        .make_span_with(DefaultMakeSpan::new().include_headers(true))
+                        .make_span_with(DefaultMakeSpan::new().include_headers(true)),
                 )
                 // Custom logging middleware
                 .layer(middleware::from_fn(logging_middleware))
                 // CORS middleware
-                .layer(middleware::from_fn(cors_middleware))
+                .layer(middleware::from_fn(cors_middleware)),
         )
 }
 
