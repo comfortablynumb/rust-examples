@@ -20,6 +20,8 @@ Core Rust language concepts and fundamental programming patterns:
 8. **[Closures](basics/08-closures/)** - Closures, capturing environment, and function traits
 9. **[Smart Pointers](basics/09-smart-pointers/)** - Box, Rc, Arc, RefCell, and interior mutability
 10. **[Concurrency](basics/10-concurrency/)** - Threads, channels, and shared state
+11. **[Macros](basics/11-macros/)** - Declarative macros (macro_rules!) and metaprogramming
+12. **[Unsafe](basics/12-unsafe/)** - Unsafe Rust, raw pointers, FFI, and unsafe traits
 
 ### [Networking](networking/)
 
@@ -30,6 +32,13 @@ Network programming with various protocols and patterns:
 3. **[TLS](networking/03-tls/)** - TLS encrypted connections with rustls
 4. **[HTTP](networking/04-http/)** - HTTP server and client from scratch
 5. **[DNS](networking/05-dns/)** - DNS server and client with hickory-dns
+
+### [OS](os/)
+
+Operating system interaction and system programming:
+
+1. **[File Handling](os/01-file-handling/)** - File I/O, metadata, directories, and path handling
+2. **[Environment](os/02-environment/)** - Command-line arguments, environment variables, and process management
 
 ## Getting Started
 
@@ -82,7 +91,13 @@ For beginners, we recommend following the basics category in order:
 5. Master **Error Handling** for robust programs
 6. Explore **Iterators** and **Closures** for functional patterns
 7. Learn **Smart Pointers** for advanced memory management
-8. Finally, tackle **Concurrency** for parallel programming
+8. Tackle **Concurrency** for parallel programming
+9. Study **Macros** for metaprogramming and code generation
+10. Finally, understand **Unsafe** for low-level control when needed
+
+After mastering the basics, explore:
+- **Networking** examples for network programming
+- **OS** examples for system programming and file handling
 
 ## Contributing
 
