@@ -1,0 +1,16 @@
+[package]
+name = "build-scripts"
+version.workspace = true
+edition.workspace = true
+authors.workspace = true
+license.workspace = true
+
+[dependencies]
+anyhow = { workspace = true }
+
+[build-dependencies]
+chrono = "0.4"
+
+[[bin]]
+name = "build-example"
+path = "src/main.rs"

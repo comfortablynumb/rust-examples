@@ -1,0 +1,21 @@
+[package]
+name = "bin-app"
+version.workspace = true
+edition.workspace = true
+authors.workspace = true
+license.workspace = true
+
+[features]
+default = ["all-features"]
+all-features = ["lib-core/advanced"]
+
+[dependencies]
+# Path dependency to workspace member
+lib-core = { path = "../lib-core", features = ["json", "extra"] }
+
+# Workspace dependencies
+anyhow = { workspace = true }
+
+[[bin]]
+name = "app"
+path = "src/main.rs"
