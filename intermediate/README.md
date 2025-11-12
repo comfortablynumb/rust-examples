@@ -1,6 +1,6 @@
 # Intermediate Rust Examples
 
-Advanced Rust concepts for developers who have mastered the basics. These examples cover more complex topics including smart pointers, concurrency, unsafe code, async programming, and advanced trait usage.
+Intermediate Rust concepts that bridge the gap between basics and advanced topics. These examples cover concurrency, async programming, advanced traits, testing, and practical Cargo usage.
 
 ## Prerequisites
 
@@ -12,17 +12,7 @@ Before working through these examples, you should be comfortable with:
 
 ## Examples
 
-### [01. Smart Pointers](01-smart-pointers/)
-Comprehensive coverage of Rust's smart pointer types:
-- **Box<T>** - Heap allocation and recursive types
-- **Rc<T>** / **Weak<T>** - Reference counting and cycle breaking
-- **Arc<T>** - Thread-safe reference counting
-- **RefCell<T>** / **Cell<T>** - Interior mutability
-- **Cow<T>** - Clone-on-write optimization
-- **Mutex<T>** / **RwLock<T>** - Thread-safe mutation
-- Custom smart pointers and performance considerations
-
-### [02. Concurrency](02-concurrency/)
+### [01. Concurrency](01-concurrency/)
 Thread-based concurrency patterns:
 - Creating and managing threads
 - Message passing with channels (mpsc)
@@ -31,17 +21,7 @@ Thread-based concurrency patterns:
 - Synchronization primitives
 - Deadlock prevention
 
-### [03. Unsafe Rust](03-unsafe/)
-Working with unsafe Rust when necessary:
-- Raw pointers and dereferencing
-- Unsafe functions and blocks
-- FFI (Foreign Function Interface)
-- Union types
-- Memory transmutation
-- Unsafe traits
-- Safety contracts and documentation
-
-### [04. Async/Await](04-async/)
+### [02. Async/Await](02-async/)
 Asynchronous programming with async/await:
 - Async functions and blocks
 - The Future trait
@@ -53,7 +33,7 @@ Asynchronous programming with async/await:
 - Async file I/O
 - Error handling in async contexts
 
-### [05. Traits and Generics](05-traits-generics/)
+### [03. Traits and Generics](03-traits-generics/)
 Advanced trait and generic patterns:
 - Generic functions, structs, and enums
 - Trait bounds and where clauses
@@ -67,7 +47,7 @@ Advanced trait and generic patterns:
 - Marker traits (Send, Sync, Copy, Sized)
 - Advanced patterns (newtype, type state)
 
-### [06. Testing](06-testing/)
+### [04. Testing](04-testing/)
 Comprehensive testing strategies and tools:
 - Unit tests and test organization
 - Integration tests
@@ -80,16 +60,29 @@ Comprehensive testing strategies and tools:
 - Error testing and panic handling
 - Test best practices
 
+### [05. Cargo and Workspaces](05-cargo/)
+Practical Cargo usage and project management:
+- Workspace structure and organization
+- Shared dependencies across crates
+- Feature flags for conditional compilation
+- Build scripts (build.rs)
+- Custom build profiles
+- Path dependencies between crates
+- Binary and library crates
+- Publishing and versioning
+- Cargo commands and workflows
+
 ## Learning Path
 
 We recommend working through these examples in order:
 
-1. **Smart Pointers** - Understanding memory management patterns
-2. **Concurrency** - Thread-based parallel programming
-3. **Async/Await** - Modern asynchronous programming
-4. **Traits and Generics** - Advanced type system features
-5. **Testing** - Comprehensive testing strategies and tools
-6. **Unsafe Rust** - When and how to break the safety rules
+1. **Concurrency** - Thread-based parallel programming
+2. **Async/Await** - Modern asynchronous programming
+3. **Traits and Generics** - Advanced type system features
+4. **Testing** - Comprehensive testing strategies and tools
+5. **Cargo and Workspaces** - Project organization and management
+
+After mastering these intermediate concepts, proceed to the **Advanced** category for unsafe Rust, smart pointers, macros, and more sophisticated patterns.
 
 ## Running Examples
 
@@ -105,13 +98,6 @@ cargo test
 
 ### When to Use Each Pattern
 
-**Smart Pointers:**
-- Use `Box<T>` for heap allocation and trait objects
-- Use `Rc<T>` for shared ownership (single-threaded)
-- Use `Arc<T>` for shared ownership (multi-threaded)
-- Use `RefCell<T>` for interior mutability (single-threaded)
-- Use `Mutex<T>` or `RwLock<T>` for interior mutability (multi-threaded)
-
 **Concurrency vs Async:**
 - Use threads for CPU-bound parallel work
 - Use async for I/O-bound concurrent work
@@ -122,18 +108,7 @@ cargo test
 - Generics: static dispatch, monomorphization, faster but larger binary
 - Trait objects: dynamic dispatch, runtime polymorphism, smaller binary
 
-**When to Use Unsafe:**
-- Interfacing with C/C++ (FFI)
-- Implementing low-level data structures
-- Performance-critical code (with proof)
-- Building safe abstractions
-
 ## Common Pitfalls
-
-### Smart Pointers
-- **Reference cycles**: Use `Weak<T>` to break cycles
-- **Deadlocks**: Lock order matters with multiple Mutexes
-- **Performance**: Rc/Arc have overhead, use only when needed
 
 ### Concurrency
 - **Data races**: Always use Arc<Mutex<T>> for shared mutation
@@ -145,15 +120,10 @@ cargo test
 - **CPU work**: Async is for I/O, not CPU-bound tasks
 - **Runtime**: Tokio vs async-std vs others
 
-### Unsafe
-- **Undefined behavior**: Easy to cause, hard to debug
-- **Minimize scope**: Keep unsafe blocks small
-- **Document safety**: Always document safety requirements
-
 ## Best Practices
 
-1. **Prefer safe Rust** - Use unsafe only when necessary
-2. **Start with the simplest option** - Box before Rc, Rc before Arc
+1. **Prefer concurrency patterns** - Choose threads vs async based on workload
+2. **Test async code thoroughly** - Async bugs can be subtle
 3. **Test concurrent code** - Use tools like loom for testing
 4. **Profile before optimizing** - Measure, don't guess
 5. **Document complexity** - Explain non-obvious patterns
@@ -218,10 +188,10 @@ These intermediate concepts are essential for:
 ## Summary
 
 The intermediate examples build on Rust fundamentals to cover:
-- Advanced memory management with smart pointers
 - Concurrent and parallel programming
 - Asynchronous I/O and task management
 - Generic programming and trait system mastery
-- Safe abstractions over unsafe code
+- Comprehensive testing strategies
+- Practical Cargo usage and project organization
 
-Master these concepts to write production-grade Rust applications that are fast, safe, and concurrent.
+Master these concepts to write production-grade Rust applications that are fast, safe, and well-tested. For more advanced topics like unsafe Rust, smart pointers, macros, and advanced type system features, proceed to the **Advanced** category.

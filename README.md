@@ -18,20 +18,30 @@ Core Rust language concepts and fundamental programming patterns:
 6. **[Error Handling](basics/06-error-handling/)** - Result, Option, and error propagation
 7. **[Iterators](basics/07-iterators/)** - Iterators, iterator adapters, and consumers
 8. **[Closures](basics/08-closures/)** - Closures, capturing environment, and function traits
-9. **[Macros](basics/11-macros/)** - Declarative macros (macro_rules!) and metaprogramming
-10. **[Standard Library](basics/13-stdlib/)** - Collections, strings, time, memory utilities, and common traits
-11. **[Modules](basics/14-modules/)** - Module system, visibility, organization, and best practices
+9. **[Unsafe Rust](basics/11-unsafe/)** - Unsafe blocks, raw pointers, and when to use unsafe code
+10. **[Standard Library](basics/12-stdlib/)** - Collections, strings, time, memory utilities, and common traits
+11. **[Modules](basics/13-modules/)** - Module system, visibility, organization, and best practices
 
 ### [Intermediate](intermediate/)
 
 Advanced Rust concepts for experienced developers:
 
-1. **[Smart Pointers](intermediate/01-smart-pointers/)** - Box, Rc, Arc, RefCell, Mutex, RwLock, Weak, Cow, and custom smart pointers
-2. **[Concurrency](intermediate/02-concurrency/)** - Threads, channels, shared state, synchronization, and parallel processing
-3. **[Unsafe Rust](intermediate/03-unsafe/)** - Unsafe blocks, raw pointers, FFI, unions, and safety contracts
-4. **[Async/Await](intermediate/04-async/)** - Asynchronous programming with tokio, futures, and async patterns
-5. **[Traits & Generics](intermediate/05-traits-generics/)** - Advanced traits, generics, associated types, and type-level programming
-6. **[Testing](intermediate/06-testing/)** - Unit tests, integration tests, property-based testing, mocking, and benchmarking
+1. **[Concurrency](intermediate/01-concurrency/)** - Threads, channels, shared state, synchronization, and parallel processing
+2. **[Async/Await](intermediate/02-async/)** - Asynchronous programming with tokio, futures, and async patterns
+3. **[Traits & Generics](intermediate/03-traits-generics/)** - Advanced traits, generics, associated types, and type-level programming
+4. **[Testing](intermediate/04-testing/)** - Unit tests, integration tests, property-based testing, mocking, and benchmarking
+5. **[Cargo](intermediate/05-cargo/)** - Cargo workspaces, custom build scripts, and project organization
+
+### [Advanced](advanced/)
+
+Expert-level Rust programming and advanced language features:
+
+1. **[Unsafe Rust](advanced/01-unsafe/)** - Unsafe blocks, raw pointers, FFI, unions, and safety contracts
+2. **[Smart Pointers](advanced/02-smart-pointers/)** - Box, Rc, Arc, RefCell, Mutex, RwLock, Weak, Cow, and custom smart pointers
+3. **[Macros](advanced/03-macros/)** - Declarative macros (macro_rules!) and metaprogramming
+4. **[Advanced Traits](advanced/04-advanced-traits/)** - Associated types, GATs, trait objects, and advanced trait patterns
+5. **[Advanced Types](advanced/05-advanced-types/)** - Type aliases, newtype pattern, DSTs, and advanced type system features
+6. **[Advanced Closures](advanced/06-advanced-closures/)** - Closure internals, Fn traits, and advanced closure patterns
 
 ### [Libraries](libraries/)
 
@@ -114,24 +124,34 @@ For beginners, we recommend following the basics category in order:
 4. Understand **Traits** for shared behavior
 5. Master **Error Handling** for robust programs
 6. Explore **Iterators** and **Closures** for functional patterns
-7. Study **Macros** for metaprogramming and code generation
+7. Introduction to **Unsafe Rust** basics
 8. Explore **Standard Library** for collections, strings, and common utilities
 9. Learn **Modules** for code organization and project structure
 
-### Intermediate (Advanced Concepts)
+### Intermediate (Level Up)
 
 After mastering the basics, dive into intermediate topics:
 
-1. **Smart Pointers** - Advanced memory management patterns
-2. **Concurrency** - Thread-based parallel programming
-3. **Async/Await** - Modern asynchronous programming
-4. **Traits & Generics** - Advanced type system features
-5. **Testing** - Comprehensive testing strategies
-6. **Unsafe Rust** - When and how to break safety rules
+1. **Concurrency** - Thread-based parallel programming
+2. **Async/Await** - Modern asynchronous programming
+3. **Traits & Generics** - Advanced type system features
+4. **Testing** - Comprehensive testing strategies
+5. **Cargo** - Workspaces and project organization
+
+### Advanced (Expert Level)
+
+For experienced Rustaceans ready to master the language:
+
+1. **Unsafe Rust** - Deep dive into unsafe blocks, raw pointers, FFI, and safety contracts
+2. **Smart Pointers** - Advanced memory management with custom smart pointers
+3. **Macros** - Metaprogramming and code generation with macro_rules!
+4. **Advanced Traits** - Associated types, GATs, and complex trait patterns
+5. **Advanced Types** - Type system internals and advanced type features
+6. **Advanced Closures** - Closure internals and the Fn trait family
 
 ### Real-World Applications
 
-Then apply your skills with popular libraries and specialized domains:
+Apply your skills with popular libraries and specialized domains:
 
 - **Libraries** - Web frameworks (Actix, Axum, Rocket), serialization (Serde), CLI (Clap), HTTP (Reqwest), databases (SQLx)
 - **Networking** - UDP, TCP, TLS, HTTP, DNS protocols
