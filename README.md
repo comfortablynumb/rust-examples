@@ -71,6 +71,41 @@ Popular Rust libraries and frameworks:
 6. **[Reqwest](06-libraries/06-reqwest/)** - HTTP client with async support
 7. **[SQLx](06-libraries/07-sqlx/)** - Async SQL toolkit with compile-time query validation
 
+### [07. CLI](07-cli/)
+
+Command-line interface applications and TUI frameworks:
+
+1. **[Clap Advanced](07-cli/01-clap-advanced/)** - Advanced CLI argument parsing with subcommands, validators, and config files
+2. **[Ratatui](07-cli/02-ratatui/)** - Terminal UI dashboard with widgets, charts, and real-time updates
+3. **[Crossterm](07-cli/03-crossterm/)** - Direct terminal manipulation, colors, cursor control, and raw mode
+4. **[Indicatif](07-cli/04-indicatif/)** - Progress bars, spinners, and multi-progress for parallel tasks
+5. **[Dialoguer](07-cli/05-dialoguer/)** - Interactive prompts, menus, and user input validation
+
+### [08. 3D Graphics](08-3d/)
+
+3D graphics programming with wgpu (WebGPU):
+
+1. **[Triangle](08-3d/01-triangle/)** - Basic wgpu setup and rendering pipeline
+2. **[Buffers & Indices](08-3d/02-buffers-indices/)** - Vertex and index buffers with interleaved data
+3. **[Textures](08-3d/03-textures/)** - Texture loading, samplers, and UV mapping
+4. **[3D Cube](08-3d/04-3d-cube/)** - 3D transformations with MVP matrices and depth testing
+5. **[Camera](08-3d/05-camera/)** - Interactive camera with WASD movement and mouse look
+6. **[Lighting](08-3d/06-lighting/)** - Phong shading with ambient, diffuse, and specular components
+7. **[Multiple Objects](08-3d/07-multiple-objects/)** - GPU instancing for rendering many objects efficiently
+8. **[Compute Shader](08-3d/08-compute-shader/)** - Particle systems using compute shaders
+
+### [09. Bare Metal](09-bare-metal/)
+
+Embedded systems and OS development without standard library (no_std):
+
+1. **[No-Std Basics](09-bare-metal/01-no-std-basics/)** - Introduction to no_std programming and panic handlers
+2. **[Custom Allocator](09-bare-metal/02-custom-allocator/)** - Implementing bump and linked-list allocators
+3. **[Embedded HAL](09-bare-metal/03-embedded-hal/)** - Hardware abstraction layer for portable embedded code
+4. **[ARM Cortex-M](09-bare-metal/04-arm-cortex-m/)** - ARM programming with interrupts and peripherals
+5. **[Bootloader](09-bare-metal/05-bootloader/)** - x86_64 OS kernel with VGA output and IDT
+6. **[RISC-V](09-bare-metal/06-riscv-baremetal/)** - RISC-V bare metal with CSRs and trap handling
+7. **[Heapless Collections](09-bare-metal/07-heapless-collections/)** - Fixed-capacity data structures without heap allocation
+
 ## Getting Started
 
 ### Prerequisites
@@ -147,13 +182,16 @@ For experienced Rustaceans ready to master the language:
 5. **Advanced Types** - Type system internals and advanced type features
 6. **Advanced Closures** - Closure internals and the Fn trait family
 
-### 04-06. Real-World Applications
+### 04-09. Specialized Domains
 
-Apply your skills with specialized domains and popular libraries:
+Apply your skills with specialized domains and technologies:
 
 - **04. Networking** - UDP, TCP, TLS, HTTP, DNS protocols
 - **05. OS** - System programming and file handling
 - **06. Libraries** - Web frameworks (Actix, Axum, Rocket), serialization (Serde), CLI (Clap), HTTP (Reqwest), databases (SQLx)
+- **07. CLI** - Terminal UIs (ratatui), argument parsing (clap), progress bars (indicatif), interactive prompts (dialoguer)
+- **08. 3D Graphics** - GPU programming with wgpu, shaders, lighting, compute shaders
+- **09. Bare Metal** - Embedded systems (ARM, RISC-V), OS development, no_std programming
 
 ## Contributing
 

@@ -1,0 +1,18 @@
+[package]
+name = "arm_cortex_m"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+cortex-m = "0.7"
+cortex-m-rt = "0.7"
+panic-halt = "0.2"
+
+[profile.dev]
+opt-level = 1
+debug = true
+
+[profile.release]
+opt-level = "z"
+lto = true
+codegen-units = 1

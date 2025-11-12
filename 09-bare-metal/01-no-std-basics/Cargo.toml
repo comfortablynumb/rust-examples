@@ -1,0 +1,15 @@
+[package]
+name = "no_std_basics"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+# No dependencies needed for basic no_std example
+
+[profile.dev]
+panic = "abort"
+
+[profile.release]
+panic = "abort"
+lto = true
+opt-level = "z"  # Optimize for size
