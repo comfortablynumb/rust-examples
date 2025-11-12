@@ -18,8 +18,49 @@ Core Rust language concepts and fundamental programming patterns:
 6. **[Error Handling](basics/06-error-handling/)** - Result, Option, and error propagation
 7. **[Iterators](basics/07-iterators/)** - Iterators, iterator adapters, and consumers
 8. **[Closures](basics/08-closures/)** - Closures, capturing environment, and function traits
-9. **[Smart Pointers](basics/09-smart-pointers/)** - Box, Rc, Arc, RefCell, and interior mutability
-10. **[Concurrency](basics/10-concurrency/)** - Threads, channels, and shared state
+9. **[Macros](basics/11-macros/)** - Declarative macros (macro_rules!) and metaprogramming
+10. **[Standard Library](basics/13-stdlib/)** - Collections, strings, time, memory utilities, and common traits
+11. **[Modules](basics/14-modules/)** - Module system, visibility, organization, and best practices
+
+### [Intermediate](intermediate/)
+
+Advanced Rust concepts for experienced developers:
+
+1. **[Smart Pointers](intermediate/01-smart-pointers/)** - Box, Rc, Arc, RefCell, Mutex, RwLock, Weak, Cow, and custom smart pointers
+2. **[Concurrency](intermediate/02-concurrency/)** - Threads, channels, shared state, synchronization, and parallel processing
+3. **[Unsafe Rust](intermediate/03-unsafe/)** - Unsafe blocks, raw pointers, FFI, unions, and safety contracts
+4. **[Async/Await](intermediate/04-async/)** - Asynchronous programming with tokio, futures, and async patterns
+5. **[Traits & Generics](intermediate/05-traits-generics/)** - Advanced traits, generics, associated types, and type-level programming
+6. **[Testing](intermediate/06-testing/)** - Unit tests, integration tests, property-based testing, mocking, and benchmarking
+
+### [Libraries](libraries/)
+
+Popular Rust libraries and frameworks:
+
+1. **[Actix Web](libraries/01-actix-web/)** - High-performance async web framework
+2. **[Axum](libraries/02-axum/)** - Ergonomic web framework built on Tokio
+3. **[Rocket](libraries/03-rocket/)** - Web framework with focus on ease of use
+4. **[Serde](libraries/04-serde/)** - Serialization/deserialization framework (JSON, YAML, TOML, CSV)
+5. **[Clap](libraries/05-clap/)** - Command-line argument parser with derive macros
+6. **[Reqwest](libraries/06-reqwest/)** - HTTP client with async support
+7. **[SQLx](libraries/07-sqlx/)** - Async SQL toolkit with compile-time query validation
+
+### [Networking](networking/)
+
+Network programming with various protocols and patterns:
+
+1. **[UDP](networking/01-udp/)** - UDP server and client with datagram communication
+2. **[TCP](networking/02-tcp/)** - TCP server and client with stream-based communication
+3. **[TLS](networking/03-tls/)** - TLS encrypted connections with rustls
+4. **[HTTP](networking/04-http/)** - HTTP server and client from scratch
+5. **[DNS](networking/05-dns/)** - DNS server and client with hickory-dns
+
+### [OS](os/)
+
+Operating system interaction and system programming:
+
+1. **[File Handling](os/01-file-handling/)** - File I/O, metadata, directories, and path handling
+2. **[Environment](os/02-environment/)** - Command-line arguments, environment variables, and process management
 
 ## Getting Started
 
@@ -63,6 +104,8 @@ example-name/
 
 ## Learning Path
 
+### Basics (Start Here)
+
 For beginners, we recommend following the basics category in order:
 
 1. Start with **Ownership** to understand Rust's core concept
@@ -71,8 +114,28 @@ For beginners, we recommend following the basics category in order:
 4. Understand **Traits** for shared behavior
 5. Master **Error Handling** for robust programs
 6. Explore **Iterators** and **Closures** for functional patterns
-7. Learn **Smart Pointers** for advanced memory management
-8. Finally, tackle **Concurrency** for parallel programming
+7. Study **Macros** for metaprogramming and code generation
+8. Explore **Standard Library** for collections, strings, and common utilities
+9. Learn **Modules** for code organization and project structure
+
+### Intermediate (Advanced Concepts)
+
+After mastering the basics, dive into intermediate topics:
+
+1. **Smart Pointers** - Advanced memory management patterns
+2. **Concurrency** - Thread-based parallel programming
+3. **Async/Await** - Modern asynchronous programming
+4. **Traits & Generics** - Advanced type system features
+5. **Testing** - Comprehensive testing strategies
+6. **Unsafe Rust** - When and how to break safety rules
+
+### Real-World Applications
+
+Then apply your skills with popular libraries and specialized domains:
+
+- **Libraries** - Web frameworks (Actix, Axum, Rocket), serialization (Serde), CLI (Clap), HTTP (Reqwest), databases (SQLx)
+- **Networking** - UDP, TCP, TLS, HTTP, DNS protocols
+- **OS** - System programming and file handling
 
 ## Contributing
 
