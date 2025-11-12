@@ -72,6 +72,15 @@ Practical Cargo usage and project management:
 - Publishing and versioning
 - Cargo commands and workflows
 
+### [06. Standard Library](06-stdlib/)
+Collections, strings, time, and memory utilities:
+- Common collections (Vec, HashMap, HashSet, BTreeMap)
+- String handling (String, &str, formatting)
+- Time and duration utilities
+- Memory and reference patterns
+- File system and path operations
+- Common traits and their implementations
+
 ## Learning Path
 
 We recommend working through these examples in order:
@@ -81,15 +90,16 @@ We recommend working through these examples in order:
 3. **Traits and Generics** - Advanced type system features
 4. **Testing** - Comprehensive testing strategies and tools
 5. **Cargo and Workspaces** - Project organization and management
+6. **Standard Library** - Collections, strings, and common utilities
 
-After mastering these intermediate concepts, proceed to the **Advanced** category for unsafe Rust, smart pointers, macros, and more sophisticated patterns.
+After mastering these intermediate concepts, proceed to the **03. Advanced** category for unsafe Rust, smart pointers, macros, and more sophisticated patterns.
 
 ## Running Examples
 
 Each example can be run independently:
 
 ```bash
-cd intermediate/01-smart-pointers
+cd 02-intermediate/01-concurrency
 cargo run
 cargo test
 ```
@@ -135,7 +145,7 @@ Each example includes comprehensive tests:
 
 ```bash
 # Test all intermediate examples
-for dir in intermediate/*/; do
+for dir in 02-intermediate/*/; do
     cd "$dir"
     cargo test
     cd -

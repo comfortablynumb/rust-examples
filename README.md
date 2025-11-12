@@ -6,71 +6,70 @@ A comprehensive collection of Rust examples organized by category. Each example 
 
 ## Categories
 
-### [Basics](basics/)
+### [01. Basics](01-basics/)
 
 Core Rust language concepts and fundamental programming patterns:
 
-1. **[Ownership](basics/01-ownership/)** - Ownership, borrowing, references, and lifetimes
-2. **[Match](basics/02-match/)** - Pattern matching and match expressions
-3. **[Structs](basics/03-structs/)** - Structs, methods, and associated functions
-4. **[Enums](basics/04-enums/)** - Enumerations and pattern matching with enums
-5. **[Traits](basics/05-traits/)** - Traits, trait bounds, and trait objects
-6. **[Error Handling](basics/06-error-handling/)** - Result, Option, and error propagation
-7. **[Iterators](basics/07-iterators/)** - Iterators, iterator adapters, and consumers
-8. **[Closures](basics/08-closures/)** - Closures, capturing environment, and function traits
-9. **[Unsafe Rust](basics/11-unsafe/)** - Unsafe blocks, raw pointers, and when to use unsafe code
-10. **[Standard Library](basics/12-stdlib/)** - Collections, strings, time, memory utilities, and common traits
-11. **[Modules](basics/13-modules/)** - Module system, visibility, organization, and best practices
+1. **[Ownership](01-basics/01-ownership/)** - Ownership, borrowing, references, and lifetimes
+2. **[Match](01-basics/02-match/)** - Pattern matching and match expressions
+3. **[Structs](01-basics/03-structs/)** - Structs, methods, and associated functions
+4. **[Enums](01-basics/04-enums/)** - Enumerations and pattern matching with enums
+5. **[Traits](01-basics/05-traits/)** - Traits, trait bounds, and trait objects
+6. **[Error Handling](01-basics/06-error-handling/)** - Result, Option, and error propagation
+7. **[Iterators](01-basics/07-iterators/)** - Iterators, iterator adapters, and consumers
+8. **[Closures](01-basics/08-closures/)** - Closures, capturing environment, and function traits
+9. **[Modules](01-basics/09-modules/)** - Module system, visibility, organization, and best practices
 
-### [Intermediate](intermediate/)
+### [02. Intermediate](02-intermediate/)
 
 Advanced Rust concepts for experienced developers:
 
-1. **[Concurrency](intermediate/01-concurrency/)** - Threads, channels, shared state, synchronization, and parallel processing
-2. **[Async/Await](intermediate/02-async/)** - Asynchronous programming with tokio, futures, and async patterns
-3. **[Traits & Generics](intermediate/03-traits-generics/)** - Advanced traits, generics, associated types, and type-level programming
-4. **[Testing](intermediate/04-testing/)** - Unit tests, integration tests, property-based testing, mocking, and benchmarking
-5. **[Cargo](intermediate/05-cargo/)** - Cargo workspaces, custom build scripts, and project organization
+1. **[Concurrency](02-intermediate/01-concurrency/)** - Threads, channels, shared state, synchronization, and parallel processing
+2. **[Async/Await](02-intermediate/02-async/)** - Asynchronous programming with tokio, futures, and async patterns
+3. **[Traits & Generics](02-intermediate/03-traits-generics/)** - Advanced traits, generics, associated types, and type-level programming
+4. **[Testing](02-intermediate/04-testing/)** - Unit tests, integration tests, property-based testing, mocking, and benchmarking
+5. **[Cargo](02-intermediate/05-cargo/)** - Cargo workspaces, custom build scripts, and project organization
+6. **[Standard Library](02-intermediate/06-stdlib/)** - Collections, strings, time, memory utilities, and common traits
 
-### [Advanced](advanced/)
+### [03. Advanced](03-advanced/)
 
 Expert-level Rust programming and advanced language features:
 
-1. **[Unsafe Rust](advanced/01-unsafe/)** - Unsafe blocks, raw pointers, FFI, unions, and safety contracts
-2. **[Smart Pointers](advanced/02-smart-pointers/)** - Box, Rc, Arc, RefCell, Mutex, RwLock, Weak, Cow, and custom smart pointers
-3. **[Macros](advanced/03-macros/)** - Declarative macros (macro_rules!) and metaprogramming
-4. **[Advanced Traits](advanced/04-advanced-traits/)** - Associated types, GATs, trait objects, and advanced trait patterns
-5. **[Advanced Types](advanced/05-advanced-types/)** - Type aliases, newtype pattern, DSTs, and advanced type system features
-6. **[Advanced Closures](advanced/06-advanced-closures/)** - Closure internals, Fn traits, and advanced closure patterns
+1. **[Unsafe Rust](03-advanced/01-unsafe/)** - Unsafe blocks, raw pointers, FFI, unions, and safety contracts
+2. **[Smart Pointers](03-advanced/02-smart-pointers/)** - Box, Rc, Arc, RefCell, Mutex, RwLock, Weak, Cow, and custom smart pointers
+3. **[Macros](03-advanced/03-macros/)** - Declarative macros (macro_rules!) and metaprogramming
+4. **[Advanced Traits](03-advanced/04-advanced-traits/)** - Associated types, GATs, trait objects, and advanced trait patterns
+5. **[Advanced Types](03-advanced/05-advanced-types/)** - Type aliases, newtype pattern, DSTs, and advanced type system features
+6. **[Advanced Closures](03-advanced/06-advanced-closures/)** - Closure internals, Fn traits, and advanced closure patterns
 
-### [Libraries](libraries/)
-
-Popular Rust libraries and frameworks:
-
-1. **[Actix Web](libraries/01-actix-web/)** - High-performance async web framework
-2. **[Axum](libraries/02-axum/)** - Ergonomic web framework built on Tokio
-3. **[Rocket](libraries/03-rocket/)** - Web framework with focus on ease of use
-4. **[Serde](libraries/04-serde/)** - Serialization/deserialization framework (JSON, YAML, TOML, CSV)
-5. **[Clap](libraries/05-clap/)** - Command-line argument parser with derive macros
-6. **[Reqwest](libraries/06-reqwest/)** - HTTP client with async support
-7. **[SQLx](libraries/07-sqlx/)** - Async SQL toolkit with compile-time query validation
-
-### [Networking](networking/)
+### [04. Networking](04-networking/)
 
 Network programming with various protocols and patterns:
 
-1. **[UDP](networking/01-udp/)** - UDP server and client with datagram communication
-2. **[TCP](networking/02-tcp/)** - TCP server and client with stream-based communication
-3. **[TLS](networking/03-tls/)** - TLS encrypted connections with rustls
-4. **[HTTP](networking/04-http/)** - HTTP server and client from scratch
-5. **[DNS](networking/05-dns/)** - DNS server and client with hickory-dns
+1. **[UDP](04-networking/01-udp/)** - UDP server and client with datagram communication
+2. **[TCP](04-networking/02-tcp/)** - TCP server and client with stream-based communication
+3. **[TLS](04-networking/03-tls/)** - TLS encrypted connections with rustls
+4. **[HTTP](04-networking/04-http/)** - HTTP server and client from scratch
+5. **[DNS](04-networking/05-dns/)** - DNS server and client with hickory-dns
 
-### [OS](os/)
+### [05. OS](05-os/)
 
 Operating system interaction and system programming:
 
-1. **[File Handling](os/01-file-handling/)** - File I/O, metadata, directories, and path handling
-2. **[Environment](os/02-environment/)** - Command-line arguments, environment variables, and process management
+1. **[File Handling](05-os/01-file-handling/)** - File I/O, metadata, directories, and path handling
+2. **[Environment](05-os/02-environment/)** - Command-line arguments, environment variables, and process management
+
+### [06. Libraries](06-libraries/)
+
+Popular Rust libraries and frameworks:
+
+1. **[Actix Web](06-libraries/01-actix-web/)** - High-performance async web framework
+2. **[Axum](06-libraries/02-axum/)** - Ergonomic web framework built on Tokio
+3. **[Rocket](06-libraries/03-rocket/)** - Web framework with focus on ease of use
+4. **[Serde](06-libraries/04-serde/)** - Serialization/deserialization framework (JSON, YAML, TOML, CSV)
+5. **[Clap](06-libraries/05-clap/)** - Command-line argument parser with derive macros
+6. **[Reqwest](06-libraries/06-reqwest/)** - HTTP client with async support
+7. **[SQLx](06-libraries/07-sqlx/)** - Async SQL toolkit with compile-time query validation
 
 ## Getting Started
 
@@ -84,14 +83,14 @@ Operating system interaction and system programming:
 Each example is self-contained and can be run independently:
 
 ```bash
-cd basics/01-ownership
+cd 01-basics/01-ownership
 cargo run
 ```
 
 Or to run all examples in a category:
 
 ```bash
-cd basics
+cd 01-basics
 for dir in */; do
   echo "Running $dir"
   cd "$dir"
@@ -114,7 +113,7 @@ example-name/
 
 ## Learning Path
 
-### Basics (Start Here)
+### 01. Basics (Start Here)
 
 For beginners, we recommend following the basics category in order:
 
@@ -124,11 +123,9 @@ For beginners, we recommend following the basics category in order:
 4. Understand **Traits** for shared behavior
 5. Master **Error Handling** for robust programs
 6. Explore **Iterators** and **Closures** for functional patterns
-7. Introduction to **Unsafe Rust** basics
-8. Explore **Standard Library** for collections, strings, and common utilities
-9. Learn **Modules** for code organization and project structure
+7. Learn **Modules** for code organization and project structure
 
-### Intermediate (Level Up)
+### 02. Intermediate (Level Up)
 
 After mastering the basics, dive into intermediate topics:
 
@@ -137,8 +134,9 @@ After mastering the basics, dive into intermediate topics:
 3. **Traits & Generics** - Advanced type system features
 4. **Testing** - Comprehensive testing strategies
 5. **Cargo** - Workspaces and project organization
+6. **Standard Library** - Collections, strings, time, and memory utilities
 
-### Advanced (Expert Level)
+### 03. Advanced (Expert Level)
 
 For experienced Rustaceans ready to master the language:
 
@@ -149,13 +147,13 @@ For experienced Rustaceans ready to master the language:
 5. **Advanced Types** - Type system internals and advanced type features
 6. **Advanced Closures** - Closure internals and the Fn trait family
 
-### Real-World Applications
+### 04-06. Real-World Applications
 
-Apply your skills with popular libraries and specialized domains:
+Apply your skills with specialized domains and popular libraries:
 
-- **Libraries** - Web frameworks (Actix, Axum, Rocket), serialization (Serde), CLI (Clap), HTTP (Reqwest), databases (SQLx)
-- **Networking** - UDP, TCP, TLS, HTTP, DNS protocols
-- **OS** - System programming and file handling
+- **04. Networking** - UDP, TCP, TLS, HTTP, DNS protocols
+- **05. OS** - System programming and file handling
+- **06. Libraries** - Web frameworks (Actix, Axum, Rocket), serialization (Serde), CLI (Clap), HTTP (Reqwest), databases (SQLx)
 
 ## Contributing
 
