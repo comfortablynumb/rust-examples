@@ -99,8 +99,8 @@ Deep dive into closures and function traits:
 ## Prerequisites
 
 Before tackling these examples, you should be comfortable with:
-- All basics examples (ownership, borrowing, traits, lifetimes)
-- All intermediate examples (concurrency, async, testing)
+- All 01-basics examples (ownership, borrowing, traits, lifetimes)
+- All 02-intermediate examples (concurrency, async, testing)
 - The Rust Book chapters 15-20
 
 ## Running Examples

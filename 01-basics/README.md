@@ -12,11 +12,7 @@ This directory contains comprehensive examples of core Rust language concepts. E
 6. **[06-error-handling](06-error-handling/)** - Result, Option, and error propagation
 7. **[07-iterators](07-iterators/)** - Iterators, iterator adapters, and consumers
 8. **[08-closures](08-closures/)** - Closures, capturing environment, and function traits
-9. **[09-smart-pointers](09-smart-pointers/)** - Box, Rc, Arc, RefCell, and interior mutability
-10. **[10-concurrency](10-concurrency/)** - Threads, channels, and shared state
-11. **[11-unsafe](11-unsafe/)** - Introduction to unsafe Rust and raw pointers
-12. **[12-stdlib](12-stdlib/)** - Standard library collections, algorithms, and utilities
-13. **[13-modules](13-modules/)** - Module system, visibility, and code organization
+9. **[09-modules](09-modules/)** - Module system, visibility, and code organization
 
 ## Running Examples
 
