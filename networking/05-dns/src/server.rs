@@ -6,12 +6,11 @@
 // Demonstrates building a simple DNS server that responds to queries.
 // This is a minimal example for educational purposes.
 
-use hickory_proto::op::{Message, MessageType, OpCode, Query, ResponseCode};
+use hickory_proto::op::{Message, MessageType, OpCode, ResponseCode};
 use hickory_proto::rr::rdata::A;
-use hickory_proto::rr::{Name, RData, Record, RecordType};
+use hickory_proto::rr::{RData, Record, RecordType};
 use hickory_proto::serialize::binary::{BinDecodable, BinEncodable};
-use std::net::{Ipv4Addr, SocketAddr, UdpSocket};
-use std::str::FromStr;
+use std::net::{Ipv4Addr, UdpSocket};
 
 fn handle_query(query: &Message) -> Message {
     let mut response = Message::new();

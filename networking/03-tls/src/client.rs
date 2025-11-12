@@ -39,7 +39,7 @@ fn main() -> io::Result<()> {
         .map_err(|_| io::Error::new(io::ErrorKind::InvalidInput, "Invalid server name"))?;
 
     let conn = rustls::ClientConnection::new(config, server_name.to_owned())
-        .map_err(|e| io::Error::new(io::ErrorKind::Other, format!("TLS error: {}", e)))?;
+        .map_err(|e| io::Error::other(format!("TLS error: {}", e)))?;
 
     let mut tls_stream = rustls::StreamOwned::new(conn, stream);
 

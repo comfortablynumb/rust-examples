@@ -50,7 +50,7 @@ fn handle_client(stream: TcpStream, config: Arc<ServerConfig>) -> io::Result<()>
 
     // Create TLS session
     let conn = rustls::ServerConnection::new(config)
-        .map_err(|e| io::Error::new(io::ErrorKind::Other, format!("TLS error: {}", e)))?;
+        .map_err(|e| io::Error::other(format!("TLS error: {}", e)))?;
 
     let mut tls_stream = rustls::StreamOwned::new(conn, stream);
 
@@ -92,17 +92,17 @@ fn main() -> io::Result<()> {
 
     // Load certificate and private key
     println!("Loading certificates...");
-    let certs = load_certs("cert.pem").or_else(|_| {
+    let certs = load_certs("cert.pem").map_err(|_| {
         eprintln!("Note: cert.pem not found. Using demo certificates.");
         eprintln!("In production, generate proper certificates with:");
         eprintln!(
             "  openssl req -x509 -newkey rsa:4096 -nodes -keyout key.pem -out cert.pem -days 365\n"
         );
         // For demo, we'll just note this - in real usage you'd need actual certs
-        Err(io::Error::new(
+        io::Error::new(
             io::ErrorKind::NotFound,
             "Certificate files not found",
-        ))
+        )
     })?;
 
     let key = load_private_key("key.pem")?;

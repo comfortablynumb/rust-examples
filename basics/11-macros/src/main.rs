@@ -1,6 +1,11 @@
 #![allow(unused_macros)]
 #![allow(unused_variables)]
 #![allow(dead_code)]
+#![allow(clippy::approx_constant)]
+#![allow(clippy::vec_init_then_push)]
+#![allow(clippy::manual_range_contains)]
+#![allow(clippy::assertions_on_constants)]
+#![allow(clippy::eq_op)]
 
 // Macros in Rust
 //

@@ -42,19 +42,17 @@ fn resolve_hostname(hostname: &str) -> Result<(), Box<dyn std::error::Error>> {
     }
 
     // Try CNAME record
-    match client.query(&name, DNSClass::IN, RecordType::CNAME) {
-        Ok(response) => {
-            let answers = response.answers();
-            if !answers.is_empty() {
-                println!("\nCanonical Name:");
-                for record in answers {
-                    if let Some(data) = record.data() {
-                        println!("  {}", data);
-                    }
+    // CNAME not required, so we ignore errors
+    if let Ok(response) = client.query(&name, DNSClass::IN, RecordType::CNAME) {
+        let answers = response.answers();
+        if !answers.is_empty() {
+            println!("\nCanonical Name:");
+            for record in answers {
+                if let Some(data) = record.data() {
+                    println!("  {}", data);
                 }
             }
         }
-        Err(_) => {} // CNAME not required
     }
 
     Ok(())
