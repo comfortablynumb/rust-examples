@@ -29,7 +29,7 @@ fn integration_calculator_full_workflow() {
     let result4 = calc.subtract(result3, 5);
     assert_eq!(result4, 5);
 
-    let factorial = calc.factorial(result4 as u32);
+    let factorial = Calculator::factorial(result4 as u32);
     assert_eq!(factorial, 120);
 }
 
@@ -482,14 +482,14 @@ fn integration_stress_test_bank_account() {
 
 #[test]
 fn integration_calculator_large_factorial() {
-    let calc = Calculator::new();
+    let _calc = Calculator::new();
 
     // Test factorials up to 20
     let expected_factorials = vec![(0, 1), (1, 1), (5, 120), (10, 3628800), (15, 1307674368000)];
 
     for (n, expected) in expected_factorials {
         assert_eq!(
-            calc.factorial(n),
+            Calculator::factorial(n),
             expected,
             "{}! should equal {}",
             n,

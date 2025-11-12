@@ -92,10 +92,10 @@ impl Calculator {
     }
 
     /// Computes factorial (demonstrates recursive testing)
-    pub fn factorial(&self, n: u32) -> u64 {
+    pub fn factorial(n: u32) -> u64 {
         match n {
             0 | 1 => 1,
-            _ => n as u64 * self.factorial(n - 1),
+            _ => n as u64 * Self::factorial(n - 1),
         }
     }
 
@@ -393,7 +393,7 @@ fn main() {
     println!("  10 - 4 = {}", calc.subtract(10, 4));
     println!("  4 * 5 = {}", calc.multiply(4, 5));
     println!("  10 / 2 = {:?}", calc.divide(10, 2));
-    println!("  5! = {}", calc.factorial(5));
+    println!("  5! = {}", Calculator::factorial(5));
 
     // User service demo
     println!("\nUser Service:");
@@ -571,8 +571,8 @@ mod tests {
     #[ignore]
     fn expensive_test() {
         // This test is ignored by default, run with: cargo test -- --ignored
-        let calc = Calculator::new();
-        let result = calc.factorial(20);
+        let _calc = Calculator::new();
+        let result = Calculator::factorial(20);
         assert!(result > 0);
     }
 
@@ -607,11 +607,11 @@ mod tests {
 
     #[test]
     fn test_calculator_factorial() {
-        let calc = Calculator::new();
-        assert_eq!(calc.factorial(0), 1);
-        assert_eq!(calc.factorial(1), 1);
-        assert_eq!(calc.factorial(5), 120);
-        assert_eq!(calc.factorial(10), 3628800);
+        let _calc = Calculator::new();
+        assert_eq!(Calculator::factorial(0), 1);
+        assert_eq!(Calculator::factorial(1), 1);
+        assert_eq!(Calculator::factorial(5), 120);
+        assert_eq!(Calculator::factorial(10), 3628800);
     }
 
     #[test]
