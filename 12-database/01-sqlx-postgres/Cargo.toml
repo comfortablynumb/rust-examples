@@ -1,0 +1,9 @@
+[package]
+name = "sqlx-postgres"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+sqlx = { version = "0.7", features = ["runtime-tokio", "tls-rustls", "postgres", "macros", "chrono"] }
+tokio = { version = "1.0", features = ["full"] }
+chrono = "0.4"

@@ -106,6 +106,53 @@ Embedded systems and OS development without standard library (no_std):
 6. **[RISC-V](09-bare-metal/06-riscv-baremetal/)** - RISC-V bare metal with CSRs and trap handling
 7. **[Heapless Collections](09-bare-metal/07-heapless-collections/)** - Fixed-capacity data structures without heap allocation
 
+### [10. WebAssembly](10-wasm/)
+
+Compile Rust to WebAssembly for web applications:
+
+1. **[WASM Basics](10-wasm/01-wasm-basics/)** - Basic Rust to WASM compilation and JS interop
+2. **[DOM Manipulation](10-wasm/02-dom-manipulation/)** - Browser DOM interaction with web-sys
+3. **[wasm-pack](10-wasm/03-wasm-pack/)** - Building and publishing WASM packages to npm
+4. **[Canvas Graphics](10-wasm/04-canvas-graphics/)** - Drawing graphics on HTML canvas
+5. **[Web Workers](10-wasm/05-web-workers/)** - CPU-intensive tasks in background threads
+6. **[Local Storage](10-wasm/06-local-storage/)** - Browser storage APIs for persistent data
+
+### [11. GUI](11-gui/)
+
+Desktop GUI applications with various frameworks:
+
+1. **[egui Basics](11-gui/01-egui-basics/)** - Immediate mode GUI basics with egui
+2. **[egui App](11-gui/02-egui-app/)** - Complex egui application with tabs and plotting
+3. **[iced Counter](11-gui/03-iced-counter/)** - Simple counter with iced framework
+4. **[iced Todo](11-gui/04-iced-todo/)** - TodoMVC application with iced
+5. **[Tauri App](11-gui/05-tauri-app/)** - Desktop app with web frontend using Tauri
+6. **[Slint](11-gui/06-slint/)** - Declarative UI with Slint markup language
+
+### [12. Database](12-database/)
+
+Database integration and data persistence:
+
+1. **[SQLx PostgreSQL](12-database/01-sqlx-postgres/)** - Async PostgreSQL with compile-time checked queries
+2. **[SQLx SQLite](12-database/02-sqlx-sqlite/)** - Lightweight embedded database with SQLx
+3. **[Diesel](12-database/03-diesel/)** - Type-safe ORM with query builder
+4. **[Redis](12-database/04-redis/)** - In-memory data store for caching and messaging
+5. **[Sled](12-database/05-sled/)** - Embedded database written in pure Rust
+6. **[Connection Pooling](12-database/06-connection-pool/)** - Efficient database connection management
+7. **[Migrations](12-database/07-migrations/)** - Database schema version control
+
+### [13. Security & Encryption](13-security/)
+
+Cryptography and security best practices:
+
+1. **[Hashing](13-security/01-hashing/)** - SHA-256, BLAKE3, and HMAC
+2. **[Password Hashing](13-security/02-password-hashing/)** - Argon2 and bcrypt for secure password storage
+3. **[Symmetric Encryption](13-security/03-symmetric-encryption/)** - AES-GCM and ChaCha20-Poly1305
+4. **[Asymmetric Encryption](13-security/04-asymmetric-encryption/)** - RSA public-key cryptography
+5. **[Digital Signatures](13-security/05-digital-signatures/)** - Ed25519 signatures for authentication
+6. **[JWT](13-security/06-jwt/)** - JSON Web Tokens for stateless authentication
+7. **[TLS Certificates](13-security/07-tls-certificates/)** - X.509 certificate generation
+8. **[Crypto Random](13-security/08-crypto-random/)** - Cryptographically secure random numbers
+
 ## Getting Started
 
 ### Prerequisites
@@ -182,7 +229,7 @@ For experienced Rustaceans ready to master the language:
 5. **Advanced Types** - Type system internals and advanced type features
 6. **Advanced Closures** - Closure internals and the Fn trait family
 
-### 04-09. Specialized Domains
+### 04-13. Specialized Domains
 
 Apply your skills with specialized domains and technologies:
 
@@ -192,6 +239,10 @@ Apply your skills with specialized domains and technologies:
 - **07. CLI** - Terminal UIs (ratatui), argument parsing (clap), progress bars (indicatif), interactive prompts (dialoguer)
 - **08. 3D Graphics** - GPU programming with wgpu, shaders, lighting, compute shaders
 - **09. Bare Metal** - Embedded systems (ARM, RISC-V), OS development, no_std programming
+- **10. WebAssembly** - Compile Rust to WASM, browser APIs, web workers, DOM manipulation
+- **11. GUI** - Desktop applications with egui, iced, Tauri, and Slint frameworks
+- **12. Database** - SQL databases (PostgreSQL, SQLite), NoSQL (Redis), ORMs (Diesel, SQLx), embedded databases (Sled)
+- **13. Security & Encryption** - Cryptographic hashing, password hashing, symmetric/asymmetric encryption, digital signatures, JWT
 
 ## Contributing
 
