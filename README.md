@@ -51,6 +51,10 @@ Network programming with various protocols and patterns:
 3. **[TLS](04-networking/03-tls/)** - TLS encrypted connections with rustls
 4. **[HTTP](04-networking/04-http/)** - HTTP server and client from scratch
 5. **[DNS](04-networking/05-dns/)** - DNS server and client with hickory-dns
+6. **[WebSocket](04-networking/06-websocket/)** - Real-time bidirectional communication
+7. **[gRPC](04-networking/07-grpc/)** - Protocol buffers and RPC with Tonic
+8. **[QUIC](04-networking/08-quic/)** - Modern transport protocol with Quinn
+9. **[GraphQL](04-networking/09-graphql/)** - GraphQL server with async-graphql
 
 ### [05. OS](05-os/)
 
@@ -58,6 +62,11 @@ Operating system interaction and system programming:
 
 1. **[File Handling](05-os/01-file-handling/)** - File I/O, metadata, directories, and path handling
 2. **[Environment](05-os/02-environment/)** - Command-line arguments, environment variables, and process management
+3. **[Process Management](05-os/03-process-management/)** - Spawning processes, pipes, and stdio redirection
+4. **[Signals](05-os/04-signals/)** - Unix signal handling for graceful shutdown
+5. **[Filesystem Watching](05-os/05-filesystem-watching/)** - Monitor file system events with notify
+6. **[Memory Mapping](05-os/06-memory-mapping/)** - Memory-mapped files and shared memory (mmap)
+7. **[Permissions](05-os/07-permissions/)** - Unix file permissions and access control
 
 ### [06. Libraries](06-libraries/)
 
@@ -70,6 +79,9 @@ Popular Rust libraries and frameworks:
 5. **[Clap](06-libraries/05-clap/)** - Command-line argument parser with derive macros
 6. **[Reqwest](06-libraries/06-reqwest/)** - HTTP client with async support
 7. **[SQLx](06-libraries/07-sqlx/)** - Async SQL toolkit with compile-time query validation
+8. **[Rayon](06-libraries/08-rayon/)** - Data parallelism with work-stealing thread pools
+9. **[Tokio Advanced](06-libraries/09-tokio-advanced/)** - Advanced async runtime features (timeouts, select, channels)
+10. **[Tracing](06-libraries/10-tracing/)** - Structured logging and diagnostics
 
 ### [07. CLI](07-cli/)
 
@@ -233,9 +245,9 @@ For experienced Rustaceans ready to master the language:
 
 Apply your skills with specialized domains and technologies:
 
-- **04. Networking** - UDP, TCP, TLS, HTTP, DNS protocols
-- **05. OS** - System programming and file handling
-- **06. Libraries** - Web frameworks (Actix, Axum, Rocket), serialization (Serde), CLI (Clap), HTTP (Reqwest), databases (SQLx)
+- **04. Networking** - UDP, TCP, TLS, HTTP, DNS, WebSocket, gRPC, QUIC, GraphQL
+- **05. OS** - File handling, process management, signals, filesystem watching, memory mapping, permissions
+- **06. Libraries** - Web frameworks (Actix, Axum, Rocket), serialization (Serde), CLI (Clap), HTTP (Reqwest), databases (SQLx), parallelism (Rayon), async runtime (Tokio), logging (Tracing)
 - **07. CLI** - Terminal UIs (ratatui), argument parsing (clap), progress bars (indicatif), interactive prompts (dialoguer)
 - **08. 3D Graphics** - GPU programming with wgpu, shaders, lighting, compute shaders
 - **09. Bare Metal** - Embedded systems (ARM, RISC-V), OS development, no_std programming
