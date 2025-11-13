@@ -2,6 +2,27 @@
 
 High-performance RPC framework using Protocol Buffers.
 
+## Prerequisites
+
+**IMPORTANT**: This example requires `protoc` (Protocol Buffers compiler) to be installed.
+
+### Installing protoc
+
+```bash
+# macOS
+brew install protobuf
+
+# Ubuntu/Debian
+sudo apt-get install protobuf-compiler
+
+# Or download from: https://github.com/protocolbuffers/protobuf/releases
+```
+
+Verify installation:
+```bash
+protoc --version
+```
+
 ## Concepts Covered
 
 - Protocol Buffers (protobuf) definition

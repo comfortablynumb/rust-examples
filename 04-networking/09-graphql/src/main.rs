@@ -1,11 +1,11 @@
 use async_graphql::{Context, EmptyMutation, EmptySubscription, Object, Schema, SimpleObject};
-use async_graphql_axum::{GraphQLRequest, GraphQLResponse};
 use axum::{
     extract::State,
-    response::{Html, IntoResponse},
+    response::{Html, IntoResponse, Response},
     routing::{get, post},
-    Router,
+    Json, Router,
 };
+use serde_json::json;
 use std::sync::Arc;
 
 #[derive(SimpleObject, Clone)]
@@ -72,11 +72,29 @@ impl QueryRoot {
 
 type AppSchema = Schema<QueryRoot, EmptyMutation, EmptySubscription>;
 
+#[derive(serde::Deserialize)]
+struct GraphQLRequest {
+    query: String,
+    #[serde(default)]
+    variables: serde_json::Value,
+}
+
 async fn graphql_handler(
-    State(schema): State<AppSchema>,
-    req: GraphQLRequest,
-) -> GraphQLResponse {
-    schema.execute(req.into_inner()).await.into()
+    State(schema): State<Arc<AppSchema>>,
+    Json(request): Json<GraphQLRequest>,
+) -> Response {
+    let response = schema
+        .execute(
+            async_graphql::Request::new(request.query)
+                .variables(async_graphql::Variables::from_json(request.variables)),
+        )
+        .await;
+
+    Json(json!({
+        "data": response.data,
+        "errors": response.errors,
+    }))
+    .into_response()
 }
 
 async fn graphql_playground() -> impl IntoResponse {
@@ -86,18 +104,14 @@ async fn graphql_playground() -> impl IntoResponse {
         <html>
         <head>
             <title>GraphQL Playground</title>
-            <style>body { margin: 0; }</style>
+            <style>body { margin: 0; font-family: Arial; padding: 20px; }</style>
         </head>
         <body>
-            <div id="root"></div>
-            <script>
-                // Simple GraphQL playground interface
-                document.getElementById('root').innerHTML = `
-                    <div style="padding: 20px; font-family: Arial;">
-                        <h1>GraphQL API</h1>
-                        <p>Post queries to <code>/graphql</code></p>
-                        <h3>Example Query:</h3>
-                        <pre>
+            <div id="root">
+                <h1>GraphQL API</h1>
+                <p>Post queries to <code>/graphql</code></p>
+                <h3>Example Query:</h3>
+                <pre>
 query {
   books {
     id
@@ -106,9 +120,9 @@ query {
     year
   }
 }
-                        </pre>
-                        <h3>Example Query with Parameter:</h3>
-                        <pre>
+                </pre>
+                <h3>Example Query with Parameter:</h3>
+                <pre>
 query {
   book(id: 1) {
     id
@@ -116,19 +130,17 @@ query {
     author
   }
 }
-                        </pre>
-                        <h3>Search Example:</h3>
-                        <pre>
+                </pre>
+                <h3>Search Example:</h3>
+                <pre>
 query {
   searchBooks(query: "the") {
     title
     author
   }
 }
-                        </pre>
-                    </div>
-                `;
-            </script>
+                </pre>
+            </div>
         </body>
         </html>
         "#,
@@ -184,6 +196,8 @@ async fn main() {
         .data(books)
         .data(authors)
         .finish();
+
+    let schema = Arc::new(schema);
 
     // Build Axum app
     let app = Router::new()
