@@ -1,5 +1,6 @@
 use redis::AsyncCommands;
 use serde::{Deserialize, Serialize};
+use anyhow::Result;
 
 #[derive(Debug, Serialize, Deserialize)]
 struct User {
@@ -9,7 +10,7 @@ struct User {
 }
 
 #[tokio::main]
-async fn main() -> redis::RedisResult<()> {
+async fn main() -> Result<()> {
     println!("Connecting to Redis...");
 
     // Connect to Redis (default: redis://127.0.0.1/)
@@ -89,7 +90,7 @@ async fn main() -> redis::RedisResult<()> {
     };
 
     let json = serde_json::to_string(&user)?;
-    con.set("user:json:1", json).await?;
+    con.set::<_, _, ()>("user:json:1", json).await?;
 
     let retrieved: String = con.get("user:json:1").await?;
     let user_back: User = serde_json::from_str(&retrieved)?;
@@ -110,13 +111,13 @@ async fn main() -> redis::RedisResult<()> {
 
     // Pub/Sub example (simplified)
     println!("\n=== Pub/Sub ===");
-    con.publish("notifications", "New message!").await?;
+    con.publish::<_, _, ()>("notifications", "New message!").await?;
     println!("Published message to 'notifications' channel");
 
     // Key expiration
     println!("\n=== Expiration ===");
-    con.set("temp_key", "temporary").await?;
-    con.expire("temp_key", 60).await?;
+    con.set::<_, _, ()>("temp_key", "temporary").await?;
+    con.expire::<_, ()>("temp_key", 60).await?;
     let ttl: i32 = con.ttl("temp_key").await?;
     println!("TTL for temp_key: {} seconds", ttl);
 
@@ -126,7 +127,7 @@ async fn main() -> redis::RedisResult<()> {
         .atomic()
         .set("account:1", 1000)
         .set("account:2", 500)
-        .query_async(&mut con)
+        .query_async::<_, ()>(&mut con)
         .await?;
     println!("Transaction completed");
 

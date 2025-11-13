@@ -1,9 +1,11 @@
 use argon2::{
-    password_hash::{rand_core::OsRng, PasswordHash, PasswordHasher, PasswordVerifier, SaltString},
+    password_hash::{PasswordHash, PasswordHasher, PasswordVerifier, SaltString},
     Argon2,
 };
+use rand_core::OsRng;
+use anyhow::Result;
 
-fn main() -> Result<(), Box<dyn std::error::Error>> {
+fn main() -> Result<()> {
     println!("Password Hashing Examples\n");
 
     let password = b"hunter2";  // User's password
@@ -26,21 +28,24 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
     Ok(())
 }
 
-fn argon2_example(password: &[u8]) -> Result<(), Box<dyn std::error::Error>> {
+fn argon2_example(password: &[u8]) -> Result<()> {
     let argon2 = Argon2::default();
 
     // Generate salt
     let salt = SaltString::generate(&mut OsRng);
 
     // Hash password
-    let password_hash = argon2.hash_password(password, &salt)?.to_string();
+    let password_hash = argon2
+        .hash_password(password, &salt)
+        .map_err(|e| anyhow::anyhow!("{}", e))?
+        .to_string();
 
     println!("Password:      {:?}", std::str::from_utf8(password)?);
     println!("Hashed:        {}", password_hash);
     println!("Length:        {} characters", password_hash.len());
 
     // Verify correct password
-    let parsed_hash = PasswordHash::new(&password_hash)?;
+    let parsed_hash = PasswordHash::new(&password_hash).map_err(|e| anyhow::anyhow!("{}", e))?;
     match argon2.verify_password(password, &parsed_hash) {
         Ok(()) => println!("✓ Password verified"),
         Err(_) => println!("✗ Password verification failed"),
@@ -61,7 +66,7 @@ fn argon2_example(password: &[u8]) -> Result<(), Box<dyn std::error::Error>> {
     Ok(())
 }
 
-fn bcrypt_example(password: &[u8]) -> Result<(), Box<dyn std::error::Error>> {
+fn bcrypt_example(password: &[u8]) -> Result<()> {
     // Hash with default cost (12)
     let hashed = bcrypt::hash(password, bcrypt::DEFAULT_COST)?;
 

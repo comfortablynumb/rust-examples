@@ -19,6 +19,8 @@ web-sys = { version = "0.3", features = [
     "Event",
     "EventTarget",
     "MouseEvent",
+    "DomTokenList",
+    "CssStyleDeclaration",
 ] }
 js-sys = "0.3"
 
