@@ -137,12 +137,8 @@ impl Statistics {
         }
 
         let mean = self.mean()?;
-        let variance = self
-            .data
-            .iter()
-            .map(|x| (x - mean).powi(2))
-            .sum::<f64>()
-            / self.data.len() as f64;
+        let variance =
+            self.data.iter().map(|x| (x - mean).powi(2)).sum::<f64>() / self.data.len() as f64;
 
         Some(variance.sqrt())
     }

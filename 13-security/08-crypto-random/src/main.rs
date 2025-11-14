@@ -1,4 +1,4 @@
-use rand::{Rng, RngCore, distributions::Alphanumeric, rngs::OsRng};
+use rand::{distributions::Alphanumeric, rngs::OsRng, Rng, RngCore};
 
 fn main() {
     println!("Cryptographically Secure Random Numbers\n");

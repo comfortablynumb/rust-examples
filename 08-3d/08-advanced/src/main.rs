@@ -36,35 +36,107 @@ impl Vertex {
 fn create_cube() -> (Vec<Vertex>, Vec<u16>) {
     let vertices = vec![
         // Front
-        Vertex { position: [-0.5, -0.5, 0.5], normal: [0.0, 0.0, 1.0] },
-        Vertex { position: [0.5, -0.5, 0.5], normal: [0.0, 0.0, 1.0] },
-        Vertex { position: [0.5, 0.5, 0.5], normal: [0.0, 0.0, 1.0] },
-        Vertex { position: [-0.5, 0.5, 0.5], normal: [0.0, 0.0, 1.0] },
+        Vertex {
+            position: [-0.5, -0.5, 0.5],
+            normal: [0.0, 0.0, 1.0],
+        },
+        Vertex {
+            position: [0.5, -0.5, 0.5],
+            normal: [0.0, 0.0, 1.0],
+        },
+        Vertex {
+            position: [0.5, 0.5, 0.5],
+            normal: [0.0, 0.0, 1.0],
+        },
+        Vertex {
+            position: [-0.5, 0.5, 0.5],
+            normal: [0.0, 0.0, 1.0],
+        },
         // Back
-        Vertex { position: [0.5, -0.5, -0.5], normal: [0.0, 0.0, -1.0] },
-        Vertex { position: [-0.5, -0.5, -0.5], normal: [0.0, 0.0, -1.0] },
-        Vertex { position: [-0.5, 0.5, -0.5], normal: [0.0, 0.0, -1.0] },
-        Vertex { position: [0.5, 0.5, -0.5], normal: [0.0, 0.0, -1.0] },
+        Vertex {
+            position: [0.5, -0.5, -0.5],
+            normal: [0.0, 0.0, -1.0],
+        },
+        Vertex {
+            position: [-0.5, -0.5, -0.5],
+            normal: [0.0, 0.0, -1.0],
+        },
+        Vertex {
+            position: [-0.5, 0.5, -0.5],
+            normal: [0.0, 0.0, -1.0],
+        },
+        Vertex {
+            position: [0.5, 0.5, -0.5],
+            normal: [0.0, 0.0, -1.0],
+        },
         // Right
-        Vertex { position: [0.5, -0.5, 0.5], normal: [1.0, 0.0, 0.0] },
-        Vertex { position: [0.5, -0.5, -0.5], normal: [1.0, 0.0, 0.0] },
-        Vertex { position: [0.5, 0.5, -0.5], normal: [1.0, 0.0, 0.0] },
-        Vertex { position: [0.5, 0.5, 0.5], normal: [1.0, 0.0, 0.0] },
+        Vertex {
+            position: [0.5, -0.5, 0.5],
+            normal: [1.0, 0.0, 0.0],
+        },
+        Vertex {
+            position: [0.5, -0.5, -0.5],
+            normal: [1.0, 0.0, 0.0],
+        },
+        Vertex {
+            position: [0.5, 0.5, -0.5],
+            normal: [1.0, 0.0, 0.0],
+        },
+        Vertex {
+            position: [0.5, 0.5, 0.5],
+            normal: [1.0, 0.0, 0.0],
+        },
         // Left
-        Vertex { position: [-0.5, -0.5, -0.5], normal: [-1.0, 0.0, 0.0] },
-        Vertex { position: [-0.5, -0.5, 0.5], normal: [-1.0, 0.0, 0.0] },
-        Vertex { position: [-0.5, 0.5, 0.5], normal: [-1.0, 0.0, 0.0] },
-        Vertex { position: [-0.5, 0.5, -0.5], normal: [-1.0, 0.0, 0.0] },
+        Vertex {
+            position: [-0.5, -0.5, -0.5],
+            normal: [-1.0, 0.0, 0.0],
+        },
+        Vertex {
+            position: [-0.5, -0.5, 0.5],
+            normal: [-1.0, 0.0, 0.0],
+        },
+        Vertex {
+            position: [-0.5, 0.5, 0.5],
+            normal: [-1.0, 0.0, 0.0],
+        },
+        Vertex {
+            position: [-0.5, 0.5, -0.5],
+            normal: [-1.0, 0.0, 0.0],
+        },
         // Top
-        Vertex { position: [-0.5, 0.5, 0.5], normal: [0.0, 1.0, 0.0] },
-        Vertex { position: [0.5, 0.5, 0.5], normal: [0.0, 1.0, 0.0] },
-        Vertex { position: [0.5, 0.5, -0.5], normal: [0.0, 1.0, 0.0] },
-        Vertex { position: [-0.5, 0.5, -0.5], normal: [0.0, 1.0, 0.0] },
+        Vertex {
+            position: [-0.5, 0.5, 0.5],
+            normal: [0.0, 1.0, 0.0],
+        },
+        Vertex {
+            position: [0.5, 0.5, 0.5],
+            normal: [0.0, 1.0, 0.0],
+        },
+        Vertex {
+            position: [0.5, 0.5, -0.5],
+            normal: [0.0, 1.0, 0.0],
+        },
+        Vertex {
+            position: [-0.5, 0.5, -0.5],
+            normal: [0.0, 1.0, 0.0],
+        },
         // Bottom
-        Vertex { position: [-0.5, -0.5, -0.5], normal: [0.0, -1.0, 0.0] },
-        Vertex { position: [0.5, -0.5, -0.5], normal: [0.0, -1.0, 0.0] },
-        Vertex { position: [0.5, -0.5, 0.5], normal: [0.0, -1.0, 0.0] },
-        Vertex { position: [-0.5, -0.5, 0.5], normal: [0.0, -1.0, 0.0] },
+        Vertex {
+            position: [-0.5, -0.5, -0.5],
+            normal: [0.0, -1.0, 0.0],
+        },
+        Vertex {
+            position: [0.5, -0.5, -0.5],
+            normal: [0.0, -1.0, 0.0],
+        },
+        Vertex {
+            position: [0.5, -0.5, 0.5],
+            normal: [0.0, -1.0, 0.0],
+        },
+        Vertex {
+            position: [-0.5, -0.5, 0.5],
+            normal: [0.0, -1.0, 0.0],
+        },
     ];
     let indices = vec![
         0, 1, 2, 2, 3, 0, 4, 5, 6, 6, 7, 4, 8, 9, 10, 10, 11, 8, 12, 13, 14, 14, 15, 12, 16, 17,
@@ -547,10 +619,22 @@ impl State {
 
         // Update shadow uniforms for each object
         let objects = vec![
-            (cgmath::Vector3::new(0.0, -1.0, 0.0), cgmath::Vector3::new(10.0, 0.1, 10.0)),
-            (cgmath::Vector3::new(-2.0, 0.5, 0.0), cgmath::Vector3::new(1.0, 1.0, 1.0)),
-            (cgmath::Vector3::new(0.0, 0.5, 0.0), cgmath::Vector3::new(1.0, 1.0, 1.0)),
-            (cgmath::Vector3::new(2.0, 0.5, 0.0), cgmath::Vector3::new(1.0, 1.0, 1.0)),
+            (
+                cgmath::Vector3::new(0.0, -1.0, 0.0),
+                cgmath::Vector3::new(10.0, 0.1, 10.0),
+            ),
+            (
+                cgmath::Vector3::new(-2.0, 0.5, 0.0),
+                cgmath::Vector3::new(1.0, 1.0, 1.0),
+            ),
+            (
+                cgmath::Vector3::new(0.0, 0.5, 0.0),
+                cgmath::Vector3::new(1.0, 1.0, 1.0),
+            ),
+            (
+                cgmath::Vector3::new(2.0, 0.5, 0.0),
+                cgmath::Vector3::new(1.0, 1.0, 1.0),
+            ),
         ];
 
         // Store matrices for render pass
@@ -611,10 +695,22 @@ impl State {
 
             // Draw all objects to shadow map
             let objects = vec![
-                (cgmath::Vector3::new(0.0, -1.0, 0.0), cgmath::Vector3::new(10.0, 0.1, 10.0)),
-                (cgmath::Vector3::new(-2.0, 0.5, 0.0), cgmath::Vector3::new(1.0, 1.0, 1.0)),
-                (cgmath::Vector3::new(0.0, 0.5, 0.0), cgmath::Vector3::new(1.0, 1.0, 1.0)),
-                (cgmath::Vector3::new(2.0, 0.5, 0.0), cgmath::Vector3::new(1.0, 1.0, 1.0)),
+                (
+                    cgmath::Vector3::new(0.0, -1.0, 0.0),
+                    cgmath::Vector3::new(10.0, 0.1, 10.0),
+                ),
+                (
+                    cgmath::Vector3::new(-2.0, 0.5, 0.0),
+                    cgmath::Vector3::new(1.0, 1.0, 1.0),
+                ),
+                (
+                    cgmath::Vector3::new(0.0, 0.5, 0.0),
+                    cgmath::Vector3::new(1.0, 1.0, 1.0),
+                ),
+                (
+                    cgmath::Vector3::new(2.0, 0.5, 0.0),
+                    cgmath::Vector3::new(1.0, 1.0, 1.0),
+                ),
             ];
 
             for (pos, scale) in objects {
@@ -685,10 +781,26 @@ impl State {
 
             // Draw all objects with shadows
             let objects = vec![
-                (cgmath::Vector3::new(0.0, -1.0, 0.0), cgmath::Vector3::new(10.0, 0.1, 10.0), [0.3, 0.3, 0.3]),
-                (cgmath::Vector3::new(-2.0, 0.5, 0.0), cgmath::Vector3::new(1.0, 1.0, 1.0), [0.8, 0.2, 0.2]),
-                (cgmath::Vector3::new(0.0, 0.5, 0.0), cgmath::Vector3::new(1.0, 1.0, 1.0), [0.2, 0.8, 0.2]),
-                (cgmath::Vector3::new(2.0, 0.5, 0.0), cgmath::Vector3::new(1.0, 1.0, 1.0), [0.2, 0.2, 0.8]),
+                (
+                    cgmath::Vector3::new(0.0, -1.0, 0.0),
+                    cgmath::Vector3::new(10.0, 0.1, 10.0),
+                    [0.3, 0.3, 0.3],
+                ),
+                (
+                    cgmath::Vector3::new(-2.0, 0.5, 0.0),
+                    cgmath::Vector3::new(1.0, 1.0, 1.0),
+                    [0.8, 0.2, 0.2],
+                ),
+                (
+                    cgmath::Vector3::new(0.0, 0.5, 0.0),
+                    cgmath::Vector3::new(1.0, 1.0, 1.0),
+                    [0.2, 0.8, 0.2],
+                ),
+                (
+                    cgmath::Vector3::new(2.0, 0.5, 0.0),
+                    cgmath::Vector3::new(1.0, 1.0, 1.0),
+                    [0.2, 0.2, 0.8],
+                ),
             ];
 
             for (pos, scale, color) in objects {

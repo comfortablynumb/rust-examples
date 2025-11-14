@@ -2,8 +2,8 @@
 #![no_main]
 #![feature(abi_x86_interrupt)]
 
+use bootloader::{entry_point, BootInfo};
 use core::panic::PanicInfo;
-use bootloader::{BootInfo, entry_point};
 use x86_64::structures::idt::{InterruptDescriptorTable, InterruptStackFrame};
 
 // VGA text buffer constants
@@ -103,7 +103,8 @@ extern "x86-interrupt" fn double_fault_handler(
 
 /// Clear the VGA text buffer
 fn clear_screen() {
-    let buffer = unsafe { core::slice::from_raw_parts_mut(VGA_BUFFER, BUFFER_HEIGHT * BUFFER_WIDTH * 2) };
+    let buffer =
+        unsafe { core::slice::from_raw_parts_mut(VGA_BUFFER, BUFFER_HEIGHT * BUFFER_WIDTH * 2) };
 
     for i in (0..buffer.len()).step_by(2) {
         buffer[i] = b' ';
@@ -121,7 +122,8 @@ fn clear_screen() {
 /// - 0x0E: Black bg, yellow fg
 fn print_string(row: usize, col: usize, text: &[u8], color: u8) {
     let offset = (row * BUFFER_WIDTH + col) * 2;
-    let buffer = unsafe { core::slice::from_raw_parts_mut(VGA_BUFFER, BUFFER_HEIGHT * BUFFER_WIDTH * 2) };
+    let buffer =
+        unsafe { core::slice::from_raw_parts_mut(VGA_BUFFER, BUFFER_HEIGHT * BUFFER_WIDTH * 2) };
 
     for (i, &byte) in text.iter().enumerate() {
         let pos = offset + i * 2;

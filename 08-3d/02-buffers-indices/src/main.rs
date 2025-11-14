@@ -34,8 +34,8 @@ impl Vertex {
             attributes: &[
                 // Position attribute at location 0
                 wgpu::VertexAttribute {
-                    offset: 0, // Starts at byte 0
-                    shader_location: 0, // Matches @location(0) in vertex shader
+                    offset: 0,                             // Starts at byte 0
+                    shader_location: 0,                    // Matches @location(0) in vertex shader
                     format: wgpu::VertexFormat::Float32x3, // 3 floats (x, y, z)
                 },
                 // Color attribute at location 1
@@ -177,7 +177,7 @@ impl<'a> State<'a> {
         let vertex_buffer = device.create_buffer_init(&wgpu::util::BufferInitDescriptor {
             label: Some("Vertex Buffer"),
             contents: bytemuck::cast_slice(VERTICES), // Convert vertices to bytes
-            usage: wgpu::BufferUsages::VERTEX, // This buffer will be used as a vertex buffer
+            usage: wgpu::BufferUsages::VERTEX,        // This buffer will be used as a vertex buffer
         });
 
         // Create the index buffer
@@ -185,7 +185,7 @@ impl<'a> State<'a> {
         let index_buffer = device.create_buffer_init(&wgpu::util::BufferInitDescriptor {
             label: Some("Index Buffer"),
             contents: bytemuck::cast_slice(INDICES), // Convert indices to bytes
-            usage: wgpu::BufferUsages::INDEX, // This buffer will be used as an index buffer
+            usage: wgpu::BufferUsages::INDEX,        // This buffer will be used as an index buffer
         });
 
         let num_indices = INDICES.len() as u32;
@@ -341,8 +341,8 @@ fn main() {
 
     let mut state = pollster::block_on(State::new(window));
 
-    event_loop.run(move |event, elwt| {
-        match event {
+    event_loop
+        .run(move |event, elwt| match event {
             Event::WindowEvent {
                 ref event,
                 window_id,
@@ -379,6 +379,6 @@ fn main() {
                 state.window().request_redraw();
             }
             _ => {}
-        }
-    }).unwrap();
+        })
+        .unwrap();
 }

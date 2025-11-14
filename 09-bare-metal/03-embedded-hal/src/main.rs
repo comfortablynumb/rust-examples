@@ -3,11 +3,11 @@
 
 use core::panic::PanicInfo;
 
-mod mock_hal;
 mod drivers;
+mod mock_hal;
 
-use mock_hal::{MockGpio, MockSpi, MockI2c, MockDelay};
-use drivers::{led_controller, spi_sensor, i2c_sensor};
+use drivers::{i2c_sensor, led_controller, spi_sensor};
+use mock_hal::{MockDelay, MockGpio, MockI2c, MockSpi};
 
 #[no_mangle]
 pub extern "C" fn _start() -> ! {

@@ -63,7 +63,11 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
     Ok(())
 }
 
-fn create_jwt(secret: &str, user_id: &str, role: &str) -> Result<String, jsonwebtoken::errors::Error> {
+fn create_jwt(
+    secret: &str,
+    user_id: &str,
+    role: &str,
+) -> Result<String, jsonwebtoken::errors::Error> {
     let expiration = Utc::now()
         .checked_add_signed(Duration::hours(24))
         .expect("valid timestamp")
@@ -83,7 +87,11 @@ fn create_jwt(secret: &str, user_id: &str, role: &str) -> Result<String, jsonweb
     )
 }
 
-fn create_expired_jwt(secret: &str, user_id: &str, role: &str) -> Result<String, jsonwebtoken::errors::Error> {
+fn create_expired_jwt(
+    secret: &str,
+    user_id: &str,
+    role: &str,
+) -> Result<String, jsonwebtoken::errors::Error> {
     let claims = Claims {
         sub: user_id.to_string(),
         exp: (Utc::now() - Duration::hours(1)).timestamp() as usize,

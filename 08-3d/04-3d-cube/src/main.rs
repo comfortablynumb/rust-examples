@@ -41,33 +41,51 @@ impl Vertex {
 // The cube is centered at origin, with sides of length 2 (from -1 to 1)
 const VERTICES: &[Vertex] = &[
     // Front face (red tint)
-    Vertex { position: [-1.0, -1.0,  1.0], color: [1.0, 0.0, 0.0] }, // 0
-    Vertex { position: [ 1.0, -1.0,  1.0], color: [1.0, 0.5, 0.0] }, // 1
-    Vertex { position: [ 1.0,  1.0,  1.0], color: [1.0, 1.0, 0.0] }, // 2
-    Vertex { position: [-1.0,  1.0,  1.0], color: [1.0, 0.0, 0.5] }, // 3
-
+    Vertex {
+        position: [-1.0, -1.0, 1.0],
+        color: [1.0, 0.0, 0.0],
+    }, // 0
+    Vertex {
+        position: [1.0, -1.0, 1.0],
+        color: [1.0, 0.5, 0.0],
+    }, // 1
+    Vertex {
+        position: [1.0, 1.0, 1.0],
+        color: [1.0, 1.0, 0.0],
+    }, // 2
+    Vertex {
+        position: [-1.0, 1.0, 1.0],
+        color: [1.0, 0.0, 0.5],
+    }, // 3
     // Back face (blue tint)
-    Vertex { position: [-1.0, -1.0, -1.0], color: [0.0, 0.0, 1.0] }, // 4
-    Vertex { position: [ 1.0, -1.0, -1.0], color: [0.0, 0.5, 1.0] }, // 5
-    Vertex { position: [ 1.0,  1.0, -1.0], color: [0.5, 1.0, 1.0] }, // 6
-    Vertex { position: [-1.0,  1.0, -1.0], color: [0.0, 0.5, 0.5] }, // 7
+    Vertex {
+        position: [-1.0, -1.0, -1.0],
+        color: [0.0, 0.0, 1.0],
+    }, // 4
+    Vertex {
+        position: [1.0, -1.0, -1.0],
+        color: [0.0, 0.5, 1.0],
+    }, // 5
+    Vertex {
+        position: [1.0, 1.0, -1.0],
+        color: [0.5, 1.0, 1.0],
+    }, // 6
+    Vertex {
+        position: [-1.0, 1.0, -1.0],
+        color: [0.0, 0.5, 0.5],
+    }, // 7
 ];
 
 // Indices for the 6 faces of the cube (2 triangles per face = 36 indices)
 // Each face is defined counter-clockwise when viewed from outside
 const INDICES: &[u16] = &[
     // Front face
-    0, 1, 2,  0, 2, 3,
-    // Right face
-    1, 5, 6,  1, 6, 2,
-    // Back face
-    5, 4, 7,  5, 7, 6,
-    // Left face
-    4, 0, 3,  4, 3, 7,
-    // Top face
-    3, 2, 6,  3, 6, 7,
-    // Bottom face
-    4, 5, 1,  4, 1, 0,
+    0, 1, 2, 0, 2, 3, // Right face
+    1, 5, 6, 1, 6, 2, // Back face
+    5, 4, 7, 5, 7, 6, // Left face
+    4, 0, 3, 4, 3, 7, // Top face
+    3, 2, 6, 3, 6, 7, // Bottom face
+    4, 5, 1, 4, 1, 0,
 ];
 
 /// Uniforms contain transformation matrices sent to the GPU
@@ -91,7 +109,12 @@ impl Uniforms {
     /// model: object's transformation in the world
     /// view: camera's view of the world
     /// proj: perspective projection
-    fn update_view_proj(&mut self, model: cgmath::Matrix4<f32>, view: cgmath::Matrix4<f32>, proj: cgmath::Matrix4<f32>) {
+    fn update_view_proj(
+        &mut self,
+        model: cgmath::Matrix4<f32>,
+        view: cgmath::Matrix4<f32>,
+        proj: cgmath::Matrix4<f32>,
+    ) {
         // Combine transformations: projection * view * model
         // This transforms from model space -> world space -> view space -> clip space
         self.view_proj = (proj * view * model).into();
@@ -204,13 +227,13 @@ impl<'a> State<'a> {
         let view = cgmath::Matrix4::look_at_rh(
             cgmath::Point3::new(0.0, 2.0, 5.0), // Eye position
             cgmath::Point3::new(0.0, 0.0, 0.0), // Look at point
-            cgmath::Vector3::unit_y(),           // Up direction
+            cgmath::Vector3::unit_y(),          // Up direction
         );
         let proj = cgmath::perspective(
-            cgmath::Deg(45.0),                     // Field of view
+            cgmath::Deg(45.0),                          // Field of view
             config.width as f32 / config.height as f32, // Aspect ratio
-            0.1,                                   // Near plane
-            100.0,                                 // Far plane
+            0.1,                                        // Near plane
+            100.0,                                      // Far plane
         );
 
         uniforms.update_view_proj(model, view, proj);
@@ -357,11 +380,14 @@ impl<'a> State<'a> {
                 sample_count: 1,
                 dimension: wgpu::TextureDimension::D2,
                 format: wgpu::TextureFormat::Depth24Plus,
-                usage: wgpu::TextureUsages::RENDER_ATTACHMENT | wgpu::TextureUsages::TEXTURE_BINDING,
+                usage: wgpu::TextureUsages::RENDER_ATTACHMENT
+                    | wgpu::TextureUsages::TEXTURE_BINDING,
                 view_formats: &[],
             });
 
-            self.depth_view = self.depth_texture.create_view(&wgpu::TextureViewDescriptor::default());
+            self.depth_view = self
+                .depth_texture
+                .create_view(&wgpu::TextureViewDescriptor::default());
         }
     }
 
@@ -475,8 +501,8 @@ fn main() {
 
     let mut state = pollster::block_on(State::new(window));
 
-    event_loop.run(move |event, elwt| {
-        match event {
+    event_loop
+        .run(move |event, elwt| match event {
             Event::WindowEvent {
                 ref event,
                 window_id,
@@ -513,6 +539,6 @@ fn main() {
                 state.window().request_redraw();
             }
             _ => {}
-        }
-    }).unwrap();
+        })
+        .unwrap();
 }

@@ -38,35 +38,107 @@ impl Vertex {
 fn create_cube() -> (Vec<Vertex>, Vec<u16>) {
     let vertices = vec![
         // Front
-        Vertex { position: [-0.5, -0.5, 0.5], normal: [0.0, 0.0, 1.0] },
-        Vertex { position: [0.5, -0.5, 0.5], normal: [0.0, 0.0, 1.0] },
-        Vertex { position: [0.5, 0.5, 0.5], normal: [0.0, 0.0, 1.0] },
-        Vertex { position: [-0.5, 0.5, 0.5], normal: [0.0, 0.0, 1.0] },
+        Vertex {
+            position: [-0.5, -0.5, 0.5],
+            normal: [0.0, 0.0, 1.0],
+        },
+        Vertex {
+            position: [0.5, -0.5, 0.5],
+            normal: [0.0, 0.0, 1.0],
+        },
+        Vertex {
+            position: [0.5, 0.5, 0.5],
+            normal: [0.0, 0.0, 1.0],
+        },
+        Vertex {
+            position: [-0.5, 0.5, 0.5],
+            normal: [0.0, 0.0, 1.0],
+        },
         // Back
-        Vertex { position: [0.5, -0.5, -0.5], normal: [0.0, 0.0, -1.0] },
-        Vertex { position: [-0.5, -0.5, -0.5], normal: [0.0, 0.0, -1.0] },
-        Vertex { position: [-0.5, 0.5, -0.5], normal: [0.0, 0.0, -1.0] },
-        Vertex { position: [0.5, 0.5, -0.5], normal: [0.0, 0.0, -1.0] },
+        Vertex {
+            position: [0.5, -0.5, -0.5],
+            normal: [0.0, 0.0, -1.0],
+        },
+        Vertex {
+            position: [-0.5, -0.5, -0.5],
+            normal: [0.0, 0.0, -1.0],
+        },
+        Vertex {
+            position: [-0.5, 0.5, -0.5],
+            normal: [0.0, 0.0, -1.0],
+        },
+        Vertex {
+            position: [0.5, 0.5, -0.5],
+            normal: [0.0, 0.0, -1.0],
+        },
         // Right
-        Vertex { position: [0.5, -0.5, 0.5], normal: [1.0, 0.0, 0.0] },
-        Vertex { position: [0.5, -0.5, -0.5], normal: [1.0, 0.0, 0.0] },
-        Vertex { position: [0.5, 0.5, -0.5], normal: [1.0, 0.0, 0.0] },
-        Vertex { position: [0.5, 0.5, 0.5], normal: [1.0, 0.0, 0.0] },
+        Vertex {
+            position: [0.5, -0.5, 0.5],
+            normal: [1.0, 0.0, 0.0],
+        },
+        Vertex {
+            position: [0.5, -0.5, -0.5],
+            normal: [1.0, 0.0, 0.0],
+        },
+        Vertex {
+            position: [0.5, 0.5, -0.5],
+            normal: [1.0, 0.0, 0.0],
+        },
+        Vertex {
+            position: [0.5, 0.5, 0.5],
+            normal: [1.0, 0.0, 0.0],
+        },
         // Left
-        Vertex { position: [-0.5, -0.5, -0.5], normal: [-1.0, 0.0, 0.0] },
-        Vertex { position: [-0.5, -0.5, 0.5], normal: [-1.0, 0.0, 0.0] },
-        Vertex { position: [-0.5, 0.5, 0.5], normal: [-1.0, 0.0, 0.0] },
-        Vertex { position: [-0.5, 0.5, -0.5], normal: [-1.0, 0.0, 0.0] },
+        Vertex {
+            position: [-0.5, -0.5, -0.5],
+            normal: [-1.0, 0.0, 0.0],
+        },
+        Vertex {
+            position: [-0.5, -0.5, 0.5],
+            normal: [-1.0, 0.0, 0.0],
+        },
+        Vertex {
+            position: [-0.5, 0.5, 0.5],
+            normal: [-1.0, 0.0, 0.0],
+        },
+        Vertex {
+            position: [-0.5, 0.5, -0.5],
+            normal: [-1.0, 0.0, 0.0],
+        },
         // Top
-        Vertex { position: [-0.5, 0.5, 0.5], normal: [0.0, 1.0, 0.0] },
-        Vertex { position: [0.5, 0.5, 0.5], normal: [0.0, 1.0, 0.0] },
-        Vertex { position: [0.5, 0.5, -0.5], normal: [0.0, 1.0, 0.0] },
-        Vertex { position: [-0.5, 0.5, -0.5], normal: [0.0, 1.0, 0.0] },
+        Vertex {
+            position: [-0.5, 0.5, 0.5],
+            normal: [0.0, 1.0, 0.0],
+        },
+        Vertex {
+            position: [0.5, 0.5, 0.5],
+            normal: [0.0, 1.0, 0.0],
+        },
+        Vertex {
+            position: [0.5, 0.5, -0.5],
+            normal: [0.0, 1.0, 0.0],
+        },
+        Vertex {
+            position: [-0.5, 0.5, -0.5],
+            normal: [0.0, 1.0, 0.0],
+        },
         // Bottom
-        Vertex { position: [-0.5, -0.5, -0.5], normal: [0.0, -1.0, 0.0] },
-        Vertex { position: [0.5, -0.5, -0.5], normal: [0.0, -1.0, 0.0] },
-        Vertex { position: [0.5, -0.5, 0.5], normal: [0.0, -1.0, 0.0] },
-        Vertex { position: [-0.5, -0.5, 0.5], normal: [0.0, -1.0, 0.0] },
+        Vertex {
+            position: [-0.5, -0.5, -0.5],
+            normal: [0.0, -1.0, 0.0],
+        },
+        Vertex {
+            position: [0.5, -0.5, -0.5],
+            normal: [0.0, -1.0, 0.0],
+        },
+        Vertex {
+            position: [0.5, -0.5, 0.5],
+            normal: [0.0, -1.0, 0.0],
+        },
+        Vertex {
+            position: [-0.5, -0.5, 0.5],
+            normal: [0.0, -1.0, 0.0],
+        },
     ];
 
     let indices = vec![
@@ -82,26 +154,61 @@ fn create_sphere(subdivisions: u32) -> (Vec<Vertex>, Vec<u16>) {
     let t = (1.0 + 5.0_f32.sqrt()) / 2.0;
 
     let mut vertices = vec![
-        Vertex { position: [-1.0, t, 0.0], normal: [0.0, 0.0, 0.0] },
-        Vertex { position: [1.0, t, 0.0], normal: [0.0, 0.0, 0.0] },
-        Vertex { position: [-1.0, -t, 0.0], normal: [0.0, 0.0, 0.0] },
-        Vertex { position: [1.0, -t, 0.0], normal: [0.0, 0.0, 0.0] },
-        Vertex { position: [0.0, -1.0, t], normal: [0.0, 0.0, 0.0] },
-        Vertex { position: [0.0, 1.0, t], normal: [0.0, 0.0, 0.0] },
-        Vertex { position: [0.0, -1.0, -t], normal: [0.0, 0.0, 0.0] },
-        Vertex { position: [0.0, 1.0, -t], normal: [0.0, 0.0, 0.0] },
-        Vertex { position: [t, 0.0, -1.0], normal: [0.0, 0.0, 0.0] },
-        Vertex { position: [t, 0.0, 1.0], normal: [0.0, 0.0, 0.0] },
-        Vertex { position: [-t, 0.0, -1.0], normal: [0.0, 0.0, 0.0] },
-        Vertex { position: [-t, 0.0, 1.0], normal: [0.0, 0.0, 0.0] },
+        Vertex {
+            position: [-1.0, t, 0.0],
+            normal: [0.0, 0.0, 0.0],
+        },
+        Vertex {
+            position: [1.0, t, 0.0],
+            normal: [0.0, 0.0, 0.0],
+        },
+        Vertex {
+            position: [-1.0, -t, 0.0],
+            normal: [0.0, 0.0, 0.0],
+        },
+        Vertex {
+            position: [1.0, -t, 0.0],
+            normal: [0.0, 0.0, 0.0],
+        },
+        Vertex {
+            position: [0.0, -1.0, t],
+            normal: [0.0, 0.0, 0.0],
+        },
+        Vertex {
+            position: [0.0, 1.0, t],
+            normal: [0.0, 0.0, 0.0],
+        },
+        Vertex {
+            position: [0.0, -1.0, -t],
+            normal: [0.0, 0.0, 0.0],
+        },
+        Vertex {
+            position: [0.0, 1.0, -t],
+            normal: [0.0, 0.0, 0.0],
+        },
+        Vertex {
+            position: [t, 0.0, -1.0],
+            normal: [0.0, 0.0, 0.0],
+        },
+        Vertex {
+            position: [t, 0.0, 1.0],
+            normal: [0.0, 0.0, 0.0],
+        },
+        Vertex {
+            position: [-t, 0.0, -1.0],
+            normal: [0.0, 0.0, 0.0],
+        },
+        Vertex {
+            position: [-t, 0.0, 1.0],
+            normal: [0.0, 0.0, 0.0],
+        },
     ];
 
     // Normalize positions to create unit sphere and set normals
     for vertex in &mut vertices {
-        let len = (vertex.position[0].powi(2)
-            + vertex.position[1].powi(2)
-            + vertex.position[2].powi(2))
-        .sqrt();
+        let len =
+            (vertex.position[0].powi(2) + vertex.position[1].powi(2) + vertex.position[2].powi(2))
+                .sqrt();
         vertex.position[0] /= len;
         vertex.position[1] /= len;
         vertex.position[2] /= len;
@@ -109,9 +216,9 @@ fn create_sphere(subdivisions: u32) -> (Vec<Vertex>, Vec<u16>) {
     }
 
     let indices = vec![
-        0, 11, 5, 0, 5, 1, 0, 1, 7, 0, 7, 10, 0, 10, 11, 1, 5, 9, 5, 11, 4, 11, 10, 2, 10, 7, 6,
-        7, 1, 8, 3, 9, 4, 3, 4, 2, 3, 2, 6, 3, 6, 8, 3, 8, 9, 4, 9, 5, 2, 4, 11, 6, 2, 10, 8, 6,
-        7, 9, 8, 1,
+        0, 11, 5, 0, 5, 1, 0, 1, 7, 0, 7, 10, 0, 10, 11, 1, 5, 9, 5, 11, 4, 11, 10, 2, 10, 7, 6, 7,
+        1, 8, 3, 9, 4, 3, 4, 2, 3, 2, 6, 3, 6, 8, 3, 8, 9, 4, 9, 5, 2, 4, 11, 6, 2, 10, 8, 6, 7, 9,
+        8, 1,
     ];
 
     (vertices, indices)
@@ -157,7 +264,8 @@ impl SceneObject {
         let rotation = cgmath::Matrix4::from_angle_x(cgmath::Rad(self.rotation.x))
             * cgmath::Matrix4::from_angle_y(cgmath::Rad(self.rotation.y))
             * cgmath::Matrix4::from_angle_z(cgmath::Rad(self.rotation.z));
-        let scale = cgmath::Matrix4::from_nonuniform_scale(self.scale.x, self.scale.y, self.scale.z);
+        let scale =
+            cgmath::Matrix4::from_nonuniform_scale(self.scale.x, self.scale.y, self.scale.z);
         translation * rotation * scale
     }
 }
@@ -426,18 +534,16 @@ impl State {
 
         let material_bind_group_layout =
             device.create_bind_group_layout(&wgpu::BindGroupLayoutDescriptor {
-                entries: &[
-                    wgpu::BindGroupLayoutEntry {
-                        binding: 0,
-                        visibility: wgpu::ShaderStages::FRAGMENT,
-                        ty: wgpu::BindingType::Buffer {
-                            ty: wgpu::BufferBindingType::Uniform,
-                            has_dynamic_offset: false,
-                            min_binding_size: None,
-                        },
-                        count: None,
+                entries: &[wgpu::BindGroupLayoutEntry {
+                    binding: 0,
+                    visibility: wgpu::ShaderStages::FRAGMENT,
+                    ty: wgpu::BindingType::Buffer {
+                        ty: wgpu::BufferBindingType::Uniform,
+                        has_dynamic_offset: false,
+                        min_binding_size: None,
                     },
-                ],
+                    count: None,
+                }],
                 label: Some("material_bind_group_layout"),
             });
 
@@ -588,8 +694,11 @@ impl State {
         self.uniforms.projection = projection.into();
         self.uniforms.camera_position = camera_pos.into();
 
-        self.queue
-            .write_buffer(&self.uniform_buffer, 0, bytemuck::cast_slice(&[self.uniforms]));
+        self.queue.write_buffer(
+            &self.uniform_buffer,
+            0,
+            bytemuck::cast_slice(&[self.uniforms]),
+        );
 
         // Animate objects
         self.objects[1].rotation.y += 0.01;
@@ -672,14 +781,18 @@ impl State {
                 match object.mesh_type {
                     MeshType::Cube => {
                         render_pass.set_vertex_buffer(0, self.cube_vertex_buffer.slice(..));
-                        render_pass
-                            .set_index_buffer(self.cube_index_buffer.slice(..), wgpu::IndexFormat::Uint16);
+                        render_pass.set_index_buffer(
+                            self.cube_index_buffer.slice(..),
+                            wgpu::IndexFormat::Uint16,
+                        );
                         render_pass.draw_indexed(0..self.cube_num_indices, 0, 0..1);
                     }
                     MeshType::Sphere => {
                         render_pass.set_vertex_buffer(0, self.sphere_vertex_buffer.slice(..));
-                        render_pass
-                            .set_index_buffer(self.sphere_index_buffer.slice(..), wgpu::IndexFormat::Uint16);
+                        render_pass.set_index_buffer(
+                            self.sphere_index_buffer.slice(..),
+                            wgpu::IndexFormat::Uint16,
+                        );
                         render_pass.draw_indexed(0..self.sphere_num_indices, 0, 0..1);
                     }
                 }

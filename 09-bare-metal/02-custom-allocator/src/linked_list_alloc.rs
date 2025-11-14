@@ -13,7 +13,6 @@
 ///             |              |
 ///         linked list of free blocks
 /// ```
-
 use linked_list_allocator::LockedHeap;
 
 /// Size of the heap in bytes (64 KB)
@@ -74,8 +73,11 @@ mod custom_implementation {
             (*self.head).next = None;
         }
 
-        unsafe fn find_free_block(&mut self, size: usize, align: usize)
-            -> Option<(*mut FreeBlock, *mut FreeBlock)> {
+        unsafe fn find_free_block(
+            &mut self,
+            size: usize,
+            align: usize,
+        ) -> Option<(*mut FreeBlock, *mut FreeBlock)> {
             let mut current = self.head;
             let mut prev: *mut FreeBlock = ptr::null_mut();
 

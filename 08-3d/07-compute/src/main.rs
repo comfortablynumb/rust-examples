@@ -156,12 +156,7 @@ impl State {
                     theta.sin() * phi.sin() * speed,
                 ],
                 _padding2: 0.0,
-                color: [
-                    rng.gen::<f32>(),
-                    rng.gen::<f32>(),
-                    rng.gen::<f32>(),
-                    1.0,
-                ],
+                color: [rng.gen::<f32>(), rng.gen::<f32>(), rng.gen::<f32>(), 1.0],
                 life: rng.gen::<f32>() * 5.0 + 2.0,
                 _padding3: [0.0; 3],
             });
@@ -528,8 +523,10 @@ impl State {
                 label: Some("compute_bind_group"),
             });
 
-            let mut compute_pass =
-                encoder.begin_compute_pass(&wgpu::ComputePassDescriptor { label: None, timestamp_writes: None });
+            let mut compute_pass = encoder.begin_compute_pass(&wgpu::ComputePassDescriptor {
+                label: None,
+                timestamp_writes: None,
+            });
             compute_pass.set_pipeline(&self.compute_pipeline);
             compute_pass.set_bind_group(0, &compute_bind_group, &[]);
             let workgroups = (NUM_PARTICLES + WORKGROUP_SIZE - 1) / WORKGROUP_SIZE;

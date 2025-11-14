@@ -9,10 +9,10 @@ async fn main() -> Result<(), sqlx::Error> {
     // Create connection pool
     println!("Creating connection pool...");
     let pool = SqlitePoolOptions::new()
-        .max_connections(5)                    // Maximum connections
-        .min_connections(2)                     // Minimum connections
+        .max_connections(5) // Maximum connections
+        .min_connections(2) // Minimum connections
         .acquire_timeout(Duration::from_secs(3)) // Timeout for acquiring connection
-        .idle_timeout(Duration::from_secs(600))  // Close idle connections after 10 min
+        .idle_timeout(Duration::from_secs(600)) // Close idle connections after 10 min
         .max_lifetime(Duration::from_secs(1800)) // Max connection lifetime (30 min)
         .connect("sqlite::memory:")
         .await?;
@@ -38,9 +38,7 @@ async fn main() -> Result<(), sqlx::Error> {
     let tasks: Vec<_> = (0..10)
         .map(|i| {
             let pool = pool.clone();
-            tokio::spawn(async move {
-                query_data(&pool, i).await
-            })
+            tokio::spawn(async move { query_data(&pool, i).await })
         })
         .collect();
 
@@ -64,9 +62,7 @@ async fn main() -> Result<(), sqlx::Error> {
     let tasks: Vec<_> = (0..100)
         .map(|i| {
             let pool = pool.clone();
-            tokio::spawn(async move {
-                insert_data(&pool, i).await
-            })
+            tokio::spawn(async move { insert_data(&pool, i).await })
         })
         .collect();
 
@@ -118,7 +114,7 @@ async fn setup_database(pool: &SqlitePool) -> Result<(), sqlx::Error> {
         "CREATE TABLE IF NOT EXISTS data (
             id INTEGER PRIMARY KEY,
             value INTEGER
-        )"
+        )",
     )
     .execute(pool)
     .await?;
@@ -128,9 +124,7 @@ async fn setup_database(pool: &SqlitePool) -> Result<(), sqlx::Error> {
 
 async fn query_data(pool: &SqlitePool, id: i32) -> Result<(), sqlx::Error> {
     // Simulate some work
-    sqlx::query("SELECT 1")
-        .execute(pool)
-        .await?;
+    sqlx::query("SELECT 1").execute(pool).await?;
 
     tokio::time::sleep(Duration::from_millis(10)).await;
 

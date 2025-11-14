@@ -1,6 +1,6 @@
+use anyhow::Result;
 use redis::AsyncCommands;
 use serde::{Deserialize, Serialize};
-use anyhow::Result;
 
 #[derive(Debug, Serialize, Deserialize)]
 struct User {
@@ -56,11 +56,15 @@ async fn main() -> Result<()> {
 
     // Hash operations
     println!("\n=== Hash Operations ===");
-    con.hset_multiple("user:1", &[
-        ("name", "Alice"),
-        ("email", "alice@example.com"),
-        ("age", "30"),
-    ]).await?;
+    con.hset_multiple(
+        "user:1",
+        &[
+            ("name", "Alice"),
+            ("email", "alice@example.com"),
+            ("age", "30"),
+        ],
+    )
+    .await?;
 
     let name: String = con.hget("user:1", "name").await?;
     println!("HGET user:1 name: {}", name);
@@ -99,9 +103,12 @@ async fn main() -> Result<()> {
     // Pipelining
     println!("\n=== Pipeline ===");
     let (v1, v2, v3): (i32, i32, i32) = redis::pipe()
-        .set("key1", 10).ignore()
-        .set("key2", 20).ignore()
-        .set("key3", 30).ignore()
+        .set("key1", 10)
+        .ignore()
+        .set("key2", 20)
+        .ignore()
+        .set("key3", 30)
+        .ignore()
         .get("key1")
         .get("key2")
         .get("key3")
@@ -111,7 +118,8 @@ async fn main() -> Result<()> {
 
     // Pub/Sub example (simplified)
     println!("\n=== Pub/Sub ===");
-    con.publish::<_, _, ()>("notifications", "New message!").await?;
+    con.publish::<_, _, ()>("notifications", "New message!")
+        .await?;
     println!("Published message to 'notifications' channel");
 
     // Key expiration

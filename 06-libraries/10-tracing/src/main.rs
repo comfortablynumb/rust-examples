@@ -8,8 +8,7 @@ async fn main() {
         .with_max_level(Level::TRACE)
         .finish();
 
-    tracing::subscriber::set_global_default(subscriber)
-        .expect("Failed to set subscriber");
+    tracing::subscriber::set_global_default(subscriber).expect("Failed to set subscriber");
 
     info!("Starting tracing example");
 

@@ -1,6 +1,6 @@
 use serde::{Deserialize, Serialize};
 use wasm_bindgen::prelude::*;
-use web_sys::{Storage, console};
+use web_sys::{console, Storage};
 
 /// Get the localStorage object
 fn local_storage() -> Result<Storage, JsValue> {
@@ -121,8 +121,7 @@ impl UserPreferences {
 
     /// Save preferences to localStorage
     pub fn save(&self) -> Result<(), JsValue> {
-        let json = serde_json::to_string(self)
-            .map_err(|e| JsValue::from_str(&e.to_string()))?;
+        let json = serde_json::to_string(self).map_err(|e| JsValue::from_str(&e.to_string()))?;
         set_item("user_preferences", &json)?;
         console::log_1(&"Preferences saved".into());
         Ok(())
@@ -132,8 +131,8 @@ impl UserPreferences {
     pub fn load() -> Result<UserPreferences, JsValue> {
         match get_item("user_preferences")? {
             Some(json) => {
-                let prefs: UserPreferences = serde_json::from_str(&json)
-                    .map_err(|e| JsValue::from_str(&e.to_string()))?;
+                let prefs: UserPreferences =
+                    serde_json::from_str(&json).map_err(|e| JsValue::from_str(&e.to_string()))?;
                 console::log_1(&"Preferences loaded".into());
                 Ok(prefs)
             }
@@ -185,7 +184,9 @@ impl TodoList {
 
     /// Toggle a todo item
     pub fn toggle(&mut self, id: u32) -> Result<(), JsValue> {
-        let item = self.items.iter_mut()
+        let item = self
+            .items
+            .iter_mut()
             .find(|item| item.id == id)
             .ok_or_else(|| JsValue::from_str("Item not found"))?;
         item.completed = !item.completed;
@@ -199,8 +200,7 @@ impl TodoList {
 
     /// Get all items as JSON
     pub fn get_all(&self) -> Result<JsValue, JsValue> {
-        serde_wasm_bindgen::to_value(&self.items)
-            .map_err(|e| JsValue::from_str(&e.to_string()))
+        serde_wasm_bindgen::to_value(&self.items).map_err(|e| JsValue::from_str(&e.to_string()))
     }
 
     /// Get count of items
@@ -215,8 +215,8 @@ impl TodoList {
 
     /// Save to localStorage
     pub fn save(&self) -> Result<(), JsValue> {
-        let json = serde_json::to_string(&self.items)
-            .map_err(|e| JsValue::from_str(&e.to_string()))?;
+        let json =
+            serde_json::to_string(&self.items).map_err(|e| JsValue::from_str(&e.to_string()))?;
         set_item("todo_list", &json)?;
         console::log_1(&"Todo list saved".into());
         Ok(())
@@ -226,8 +226,8 @@ impl TodoList {
     pub fn load() -> Result<TodoList, JsValue> {
         match get_item("todo_list")? {
             Some(json) => {
-                let items: Vec<TodoItem> = serde_json::from_str(&json)
-                    .map_err(|e| JsValue::from_str(&e.to_string()))?;
+                let items: Vec<TodoItem> =
+                    serde_json::from_str(&json).map_err(|e| JsValue::from_str(&e.to_string()))?;
                 console::log_1(&"Todo list loaded".into());
                 Ok(TodoList { items })
             }

@@ -83,13 +83,12 @@ async fn create_table(pool: &PgPool) -> Result<(), sqlx::Error> {
 }
 
 async fn insert_user(pool: &PgPool, username: &str, email: &str) -> Result<i32, sqlx::Error> {
-    let row: (i32,) = sqlx::query_as(
-        "INSERT INTO users (username, email) VALUES ($1, $2) RETURNING id",
-    )
-    .bind(username)
-    .bind(email)
-    .fetch_one(pool)
-    .await?;
+    let row: (i32,) =
+        sqlx::query_as("INSERT INTO users (username, email) VALUES ($1, $2) RETURNING id")
+            .bind(username)
+            .bind(email)
+            .fetch_one(pool)
+            .await?;
 
     Ok(row.0)
 }
@@ -102,10 +101,7 @@ async fn get_all_users(pool: &PgPool) -> Result<Vec<User>, sqlx::Error> {
     Ok(users)
 }
 
-async fn find_user_by_username(
-    pool: &PgPool,
-    username: &str,
-) -> Result<Option<User>, sqlx::Error> {
+async fn find_user_by_username(pool: &PgPool, username: &str) -> Result<Option<User>, sqlx::Error> {
     let user = sqlx::query_as::<_, User>("SELECT * FROM users WHERE username = $1")
         .bind(username)
         .fetch_optional(pool)

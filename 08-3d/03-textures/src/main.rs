@@ -1,5 +1,6 @@
 use anyhow::*;
 use image::GenericImageView;
+use std::result::Result::Ok as StdOk;
 use std::sync::Arc;
 use winit::{
     event::*,
@@ -7,7 +8,6 @@ use winit::{
     keyboard::{Key, NamedKey},
     window::{Window, WindowBuilder},
 };
-use std::result::Result::Ok as StdOk;
 
 /// Vertex with position and texture coordinates (UVs)
 #[repr(C)]
@@ -529,45 +529,43 @@ fn main() -> Result<()> {
 
     let mut state = pollster::block_on(State::new(window))?;
 
-    event_loop.run(move |event, elwt| {
-        match event {
-            Event::WindowEvent {
-                ref event,
-                window_id,
-            } if window_id == state.window().id() => {
-                if !state.input(event) {
-                    match event {
-                        WindowEvent::CloseRequested
-                        | WindowEvent::KeyboardInput {
-                            event:
-                                KeyEvent {
-                                    state: ElementState::Pressed,
-                                    logical_key: Key::Named(NamedKey::Escape),
-                                    ..
-                                },
-                            ..
-                        } => elwt.exit(),
-                        WindowEvent::Resized(physical_size) => {
-                            state.resize(*physical_size);
-                        }
-                        WindowEvent::RedrawRequested => {
-                            state.update();
-                            match state.render() {
-                                StdOk(_) => {}
-                                Err(wgpu::SurfaceError::Lost) => state.resize(state.size),
-                                Err(wgpu::SurfaceError::OutOfMemory) => elwt.exit(),
-                                Err(e) => eprintln!("{:?}", e),
-                            }
-                        }
-                        _ => {}
+    event_loop.run(move |event, elwt| match event {
+        Event::WindowEvent {
+            ref event,
+            window_id,
+        } if window_id == state.window().id() => {
+            if !state.input(event) {
+                match event {
+                    WindowEvent::CloseRequested
+                    | WindowEvent::KeyboardInput {
+                        event:
+                            KeyEvent {
+                                state: ElementState::Pressed,
+                                logical_key: Key::Named(NamedKey::Escape),
+                                ..
+                            },
+                        ..
+                    } => elwt.exit(),
+                    WindowEvent::Resized(physical_size) => {
+                        state.resize(*physical_size);
                     }
+                    WindowEvent::RedrawRequested => {
+                        state.update();
+                        match state.render() {
+                            StdOk(_) => {}
+                            Err(wgpu::SurfaceError::Lost) => state.resize(state.size),
+                            Err(wgpu::SurfaceError::OutOfMemory) => elwt.exit(),
+                            Err(e) => eprintln!("{:?}", e),
+                        }
+                    }
+                    _ => {}
                 }
             }
-            Event::AboutToWait => {
-                state.window().request_redraw();
-            }
-            _ => {}
         }
+        Event::AboutToWait => {
+            state.window().request_redraw();
+        }
+        _ => {}
     })?;
 
     Ok(())

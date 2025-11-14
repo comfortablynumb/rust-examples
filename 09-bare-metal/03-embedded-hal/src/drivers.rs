@@ -3,8 +3,8 @@
 /// These drivers work with ANY platform that implements the embedded-hal traits
 
 pub mod led_controller {
-    use embedded_hal::digital::OutputPin;
     use embedded_hal::delay::DelayNs;
+    use embedded_hal::digital::OutputPin;
 
     /// Blink an LED using any GPIO pin and delay implementation
     ///
@@ -84,16 +84,13 @@ pub mod spi_sensor {
     where
         S: SpiDevice,
     {
-        spi.transaction(&mut [
-            embedded_hal::spi::Operation::Write(&[0x1A, config]),
-        ])?;
+        spi.transaction(&mut [embedded_hal::spi::Operation::Write(&[0x1A, config])])?;
 
         Ok(())
     }
 
     /// Advanced: Read multiple registers
-    pub fn read_registers<S>(spi: &mut S, start_reg: u8, buffer: &mut [u8])
-        -> Result<(), S::Error>
+    pub fn read_registers<S>(spi: &mut S, start_reg: u8, buffer: &mut [u8]) -> Result<(), S::Error>
     where
         S: SpiDevice,
     {
@@ -154,8 +151,8 @@ pub mod i2c_sensor {
 
 /// Example of a complete driver for a specific sensor
 pub mod bme280 {
-    use embedded_hal::i2c::I2c;
     use embedded_hal::delay::DelayNs;
+    use embedded_hal::i2c::I2c;
 
     const BME280_ADDR: u8 = 0x76;
     const CHIP_ID_REG: u8 = 0xD0;

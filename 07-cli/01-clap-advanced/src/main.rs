@@ -382,9 +382,7 @@ fn validate_date(s: &str) -> Result<String, String> {
 
 /// Custom validator for email addresses
 fn validate_email(s: &str) -> Result<String, String> {
-    let email_regex = Regex::new(
-        r"^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$"
-    ).unwrap();
+    let email_regex = Regex::new(r"^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$").unwrap();
 
     if !email_regex.is_match(s) {
         return Err("Invalid email address format".to_string());
@@ -405,16 +403,13 @@ fn load_config(config_path: Option<PathBuf>) -> Result<Config> {
         return Ok(Config::default());
     }
 
-    let contents = fs::read_to_string(&path)
-        .context("Failed to read config file")?;
+    let contents = fs::read_to_string(&path).context("Failed to read config file")?;
 
     // Try TOML first, then JSON
     if path.extension().and_then(|s| s.to_str()) == Some("toml") {
-        toml::from_str(&contents)
-            .context("Failed to parse TOML config")
+        toml::from_str(&contents).context("Failed to parse TOML config")
     } else {
-        serde_json::from_str(&contents)
-            .context("Failed to parse JSON config")
+        serde_json::from_str(&contents).context("Failed to parse JSON config")
     }
 }
 
@@ -424,8 +419,7 @@ fn get_default_config_path() -> Result<PathBuf> {
         .context("Failed to determine config directory")?;
 
     let config_dir = proj_dirs.config_dir();
-    fs::create_dir_all(config_dir)
-        .context("Failed to create config directory")?;
+    fs::create_dir_all(config_dir).context("Failed to create config directory")?;
 
     Ok(config_dir.join("config.toml"))
 }
@@ -438,11 +432,9 @@ fn save_config(config: &Config, config_path: Option<PathBuf>) -> Result<()> {
         get_default_config_path()?
     };
 
-    let contents = toml::to_string_pretty(config)
-        .context("Failed to serialize config")?;
+    let contents = toml::to_string_pretty(config).context("Failed to serialize config")?;
 
-    fs::write(&path, contents)
-        .context("Failed to write config file")?;
+    fs::write(&path, contents).context("Failed to write config file")?;
 
     Ok(())
 }
@@ -543,7 +535,10 @@ fn handle_list(args: ListArgs, _config: &Config, format: &OutputFormat) -> Resul
         OutputFormat::Text => {
             println!("\nTasks:");
             for (id, desc, priority, status) in tasks {
-                println!("  [{}] {} (Priority: {}, Status: {})", id, desc, priority, status);
+                println!(
+                    "  [{}] {} (Priority: {}, Status: {})",
+                    id, desc, priority, status
+                );
             }
         }
         OutputFormat::Json | OutputFormat::JsonPretty => {
@@ -606,7 +601,10 @@ fn handle_update(args: UpdateArgs, _config: &Config, verbose: bool) -> Result<()
 
 fn handle_delete(args: DeleteArgs, verbose: bool) -> Result<()> {
     if !args.yes {
-        println!("Would delete {} task(s). Use -y to confirm.", args.ids.len());
+        println!(
+            "Would delete {} task(s). Use -y to confirm.",
+            args.ids.len()
+        );
         return Ok(());
     }
 
@@ -685,14 +683,20 @@ fn handle_config(args: ConfigArgs, config_path: Option<PathBuf>) -> Result<()> {
             }
 
             save_config(&config, config_path)?;
-            println!("Configuration updated: {} = {:?}", key,
+            println!(
+                "Configuration updated: {} = {:?}",
+                key,
                 match key.as_str() {
                     "default_format" => config.default_format,
                     "default_sort" => config.default_sort,
                     "user_email" => config.user_email.unwrap_or_default(),
-                    "data_dir" => config.data_dir.map(|p| p.display().to_string()).unwrap_or_default(),
+                    "data_dir" => config
+                        .data_dir
+                        .map(|p| p.display().to_string())
+                        .unwrap_or_default(),
                     _ => String::new(),
-                });
+                }
+            );
         }
         ConfigAction::Get { key } => {
             let config = load_config(config_path)?;
@@ -701,7 +705,8 @@ fn handle_config(args: ConfigArgs, config_path: Option<PathBuf>) -> Result<()> {
                 "default_format" => config.default_format,
                 "default_sort" => config.default_sort,
                 "user_email" => config.user_email.unwrap_or_else(|| "(not set)".to_string()),
-                "data_dir" => config.data_dir
+                "data_dir" => config
+                    .data_dir
                     .map(|p| p.display().to_string())
                     .unwrap_or_else(|| "(not set)".to_string()),
                 _ => anyhow::bail!("Unknown config key: {}", key),
@@ -726,7 +731,11 @@ fn handle_config(args: ConfigArgs, config_path: Option<PathBuf>) -> Result<()> {
 
 fn handle_transfer(args: TransferArgs) -> Result<()> {
     match args.operation {
-        TransferOperation::Export { output, format, include_completed } => {
+        TransferOperation::Export {
+            output,
+            format,
+            include_completed,
+        } => {
             println!("Exporting tasks to: {}", output.display());
             println!("  Format: {:?}", format);
             println!("  Include completed: {}", include_completed);
@@ -748,8 +757,10 @@ fn handle_transfer(args: TransferArgs) -> Result<()> {
             let contents = fs::read_to_string(&input)?;
             let data: serde_json::Value = serde_json::from_str(&contents)?;
 
-            println!("Imported {} tasks",
-                data["tasks"].as_array().map(|a| a.len()).unwrap_or(0));
+            println!(
+                "Imported {} tasks",
+                data["tasks"].as_array().map(|a| a.len()).unwrap_or(0)
+            );
         }
     }
 

@@ -2,7 +2,7 @@
 #![no_main]
 
 use core::panic::PanicInfo;
-use heapless::{Vec, String, Deque, FnvIndexMap, HistoryBuffer, mpmc::Q8};
+use heapless::{mpmc::Q8, Deque, FnvIndexMap, HistoryBuffer, String, Vec};
 
 /// Entry point
 #[no_mangle]
@@ -50,7 +50,7 @@ fn demonstrate_vec() {
 
     // Check capacity and length
     let _cap = vec.capacity(); // Always 8
-    let _len = vec.len();      // Current number of elements
+    let _len = vec.len(); // Current number of elements
 
     // Try to push when full
     let mut full_vec: Vec<u8, 4> = Vec::new();
@@ -136,17 +136,17 @@ fn demonstrate_deque() {
 
     // Peek without removing
     let _peek_front = deque.front(); // Some(&1)
-    let _peek_back = deque.back();   // Some(&1)
+    let _peek_back = deque.back(); // Some(&1)
 
     // Use as a queue (FIFO)
     let mut queue: Deque<u32, 8> = Deque::new();
-    queue.push_back(1).ok();  // Enqueue
+    queue.push_back(1).ok(); // Enqueue
     queue.push_back(2).ok();
     let _item = queue.pop_front(); // Dequeue
 
     // Use as a stack (LIFO)
     let mut stack: Deque<u32, 8> = Deque::new();
-    stack.push_back(1).ok();  // Push
+    stack.push_back(1).ok(); // Push
     stack.push_back(2).ok();
     let _item = stack.pop_back(); // Pop
 }
@@ -280,7 +280,9 @@ fn demonstrate_queue() {
         }
     }
 
-    fn read_sensor() -> u32 { 0 }
+    fn read_sensor() -> u32 {
+        0
+    }
     fn process_reading(_reading: u32) {}
 
     // Prevent unused warnings
@@ -294,9 +296,7 @@ fn demonstrate_queue() {
 fn demonstrate_pool() {
     // Example: Pool of message buffers
     const POOL_SIZE: usize = 4;
-    static mut POOL: [Option<MessageBuffer>; POOL_SIZE] = [
-        None, None, None, None
-    ];
+    static mut POOL: [Option<MessageBuffer>; POOL_SIZE] = [None, None, None, None];
 
     #[derive(Debug, Copy, Clone)]
     struct MessageBuffer {

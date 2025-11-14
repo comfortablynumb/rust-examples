@@ -1,10 +1,27 @@
-use std::fs::{self, File, Permissions};
+use std::fs::{self, File};
 use std::io::Write;
+
+#[cfg(unix)]
+use std::fs::Permissions;
+#[cfg(unix)]
 use std::os::unix::fs::PermissionsExt;
 
 fn main() -> Result<(), Box<dyn std::error::Error>> {
-    println!("Unix Permissions Examples\n");
+    #[cfg(unix)]
+    {
+        println!("Unix Permissions Examples\n");
+        unix_main()
+    }
 
+    #[cfg(windows)]
+    {
+        println!("Windows File Attributes Examples\n");
+        windows_main()
+    }
+}
+
+#[cfg(unix)]
+fn unix_main() -> Result<(), Box<dyn std::error::Error>> {
     // Create test file
     let test_file = "test_permissions.txt";
     let mut file = File::create(test_file)?;
@@ -32,6 +49,58 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
     Ok(())
 }
 
+#[cfg(windows)]
+fn windows_main() -> Result<(), Box<dyn std::error::Error>> {
+    // Create test file
+    let test_file = "test_permissions.txt";
+    let mut file = File::create(test_file)?;
+    file.write_all(b"Test content")?;
+    drop(file);
+
+    // Read current permissions (read-only status)
+    println!("=== Reading File Attributes ===");
+    let metadata = fs::metadata(test_file)?;
+    let permissions = metadata.permissions();
+    println!("File: {}", test_file);
+    println!("Read-only: {}", permissions.readonly());
+    println!();
+
+    // Set to read-only
+    println!("=== Setting Read-Only ===");
+    let mut permissions = fs::metadata(test_file)?.permissions();
+    permissions.set_readonly(true);
+    fs::set_permissions(test_file, permissions)?;
+    println!("Set file to read-only");
+
+    let metadata = fs::metadata(test_file)?;
+    println!("Read-only: {}", metadata.permissions().readonly());
+    println!();
+
+    // Set to writable
+    println!("=== Setting Writable ===");
+    let mut permissions = fs::metadata(test_file)?.permissions();
+    #[allow(clippy::permissions_set_readonly_false)]
+    permissions.set_readonly(false);
+    fs::set_permissions(test_file, permissions)?;
+    println!("Set file to writable");
+
+    let metadata = fs::metadata(test_file)?;
+    println!("Read-only: {}", metadata.permissions().readonly());
+    println!();
+
+    // Cleanup
+    fs::remove_file(test_file)?;
+
+    println!(
+        "\nNote: On Windows, file permissions are managed through ACLs (Access Control Lists)."
+    );
+    println!("For advanced permissions, use the winapi crate or std::os::windows extensions.");
+    println!("\nAll tests completed!");
+
+    Ok(())
+}
+
+#[cfg(unix)]
 fn read_permissions(path: &str) -> Result<(), Box<dyn std::error::Error>> {
     println!("=== Reading Permissions ===");
 
@@ -47,6 +116,7 @@ fn read_permissions(path: &str) -> Result<(), Box<dyn std::error::Error>> {
     Ok(())
 }
 
+#[cfg(unix)]
 fn set_permissions(path: &str) -> Result<(), Box<dyn std::error::Error>> {
     println!("=== Setting Permissions ===");
 
@@ -67,6 +137,7 @@ fn set_permissions(path: &str) -> Result<(), Box<dyn std::error::Error>> {
     Ok(())
 }
 
+#[cfg(unix)]
 fn check_permissions(path: &str) -> Result<(), Box<dyn std::error::Error>> {
     println!("=== Checking Permissions ===");
 
@@ -88,14 +159,24 @@ fn check_permissions(path: &str) -> Result<(), Box<dyn std::error::Error>> {
     let other_write = (mode & 0o002) != 0;
     let other_exec = (mode & 0o001) != 0;
 
-    println!("Owner:  read={} write={} execute={}", owner_read, owner_write, owner_exec);
-    println!("Group:  read={} write={} execute={}", group_read, group_write, group_exec);
-    println!("Others: read={} write={} execute={}", other_read, other_write, other_exec);
+    println!(
+        "Owner:  read={} write={} execute={}",
+        owner_read, owner_write, owner_exec
+    );
+    println!(
+        "Group:  read={} write={} execute={}",
+        group_read, group_write, group_exec
+    );
+    println!(
+        "Others: read={} write={} execute={}",
+        other_read, other_write, other_exec
+    );
     println!();
 
     Ok(())
 }
 
+#[cfg(unix)]
 fn directory_permissions() -> Result<(), Box<dyn std::error::Error>> {
     println!("=== Directory Permissions ===");
 
@@ -112,6 +193,7 @@ fn directory_permissions() -> Result<(), Box<dyn std::error::Error>> {
     Ok(())
 }
 
+#[cfg(unix)]
 fn format_permissions(mode: u32) -> String {
     let user = format!(
         "{}{}{}",

@@ -108,7 +108,11 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
     println!("\n=== Compare and Swap ===");
     let old_value = db.get("counter")?;
     let new_val = 100_u64;
-    match db.compare_and_swap("counter", old_value.clone(), Some(new_val.to_be_bytes().to_vec()))? {
+    match db.compare_and_swap(
+        "counter",
+        old_value.clone(),
+        Some(new_val.to_be_bytes().to_vec()),
+    )? {
         Ok(_) => println!("CAS successful: counter = {}", new_val),
         Err(_) => println!("CAS failed: value changed"),
     }

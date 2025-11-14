@@ -9,7 +9,7 @@ use winit::{
 #[repr(C)]
 #[derive(Copy, Clone, Debug, bytemuck::Pod, bytemuck::Zeroable)]
 struct Vertex {
-    position: [f32; 3],  // X, Y, Z coordinates
+    position: [f32; 3],   // X, Y, Z coordinates
     tex_coords: [f32; 2], // U, V texture coordinates
 }
 
@@ -41,10 +41,22 @@ impl Vertex {
 // Vertices for a textured quad (two triangles)
 // Texture coordinates: (0,0) is top-left, (1,1) is bottom-right
 const VERTICES: &[Vertex] = &[
-    Vertex { position: [-0.5, 0.5, 0.0], tex_coords: [0.0, 0.0] },   // Top-left
-    Vertex { position: [-0.5, -0.5, 0.0], tex_coords: [0.0, 1.0] },  // Bottom-left
-    Vertex { position: [0.5, -0.5, 0.0], tex_coords: [1.0, 1.0] },   // Bottom-right
-    Vertex { position: [0.5, 0.5, 0.0], tex_coords: [1.0, 0.0] },    // Top-right
+    Vertex {
+        position: [-0.5, 0.5, 0.0],
+        tex_coords: [0.0, 0.0],
+    }, // Top-left
+    Vertex {
+        position: [-0.5, -0.5, 0.0],
+        tex_coords: [0.0, 1.0],
+    }, // Bottom-left
+    Vertex {
+        position: [0.5, -0.5, 0.0],
+        tex_coords: [1.0, 1.0],
+    }, // Bottom-right
+    Vertex {
+        position: [0.5, 0.5, 0.0],
+        tex_coords: [1.0, 0.0],
+    }, // Top-right
 ];
 
 // Indices for two triangles that make up a quad

@@ -42,44 +42,136 @@ impl Vertex {
 
 const VERTICES: &[Vertex] = &[
     // Front face
-    Vertex { position: [-1.0, -1.0, 1.0], normal: [0.0, 0.0, 1.0], color: [0.8, 0.2, 0.2] },
-    Vertex { position: [1.0, -1.0, 1.0], normal: [0.0, 0.0, 1.0], color: [0.8, 0.2, 0.2] },
-    Vertex { position: [1.0, 1.0, 1.0], normal: [0.0, 0.0, 1.0], color: [0.8, 0.2, 0.2] },
-    Vertex { position: [-1.0, 1.0, 1.0], normal: [0.0, 0.0, 1.0], color: [0.8, 0.2, 0.2] },
+    Vertex {
+        position: [-1.0, -1.0, 1.0],
+        normal: [0.0, 0.0, 1.0],
+        color: [0.8, 0.2, 0.2],
+    },
+    Vertex {
+        position: [1.0, -1.0, 1.0],
+        normal: [0.0, 0.0, 1.0],
+        color: [0.8, 0.2, 0.2],
+    },
+    Vertex {
+        position: [1.0, 1.0, 1.0],
+        normal: [0.0, 0.0, 1.0],
+        color: [0.8, 0.2, 0.2],
+    },
+    Vertex {
+        position: [-1.0, 1.0, 1.0],
+        normal: [0.0, 0.0, 1.0],
+        color: [0.8, 0.2, 0.2],
+    },
     // Back face
-    Vertex { position: [1.0, -1.0, -1.0], normal: [0.0, 0.0, -1.0], color: [0.2, 0.2, 0.8] },
-    Vertex { position: [-1.0, -1.0, -1.0], normal: [0.0, 0.0, -1.0], color: [0.2, 0.2, 0.8] },
-    Vertex { position: [-1.0, 1.0, -1.0], normal: [0.0, 0.0, -1.0], color: [0.2, 0.2, 0.8] },
-    Vertex { position: [1.0, 1.0, -1.0], normal: [0.0, 0.0, -1.0], color: [0.2, 0.2, 0.8] },
+    Vertex {
+        position: [1.0, -1.0, -1.0],
+        normal: [0.0, 0.0, -1.0],
+        color: [0.2, 0.2, 0.8],
+    },
+    Vertex {
+        position: [-1.0, -1.0, -1.0],
+        normal: [0.0, 0.0, -1.0],
+        color: [0.2, 0.2, 0.8],
+    },
+    Vertex {
+        position: [-1.0, 1.0, -1.0],
+        normal: [0.0, 0.0, -1.0],
+        color: [0.2, 0.2, 0.8],
+    },
+    Vertex {
+        position: [1.0, 1.0, -1.0],
+        normal: [0.0, 0.0, -1.0],
+        color: [0.2, 0.2, 0.8],
+    },
     // Right face
-    Vertex { position: [1.0, -1.0, 1.0], normal: [1.0, 0.0, 0.0], color: [0.2, 0.8, 0.2] },
-    Vertex { position: [1.0, -1.0, -1.0], normal: [1.0, 0.0, 0.0], color: [0.2, 0.8, 0.2] },
-    Vertex { position: [1.0, 1.0, -1.0], normal: [1.0, 0.0, 0.0], color: [0.2, 0.8, 0.2] },
-    Vertex { position: [1.0, 1.0, 1.0], normal: [1.0, 0.0, 0.0], color: [0.2, 0.8, 0.2] },
+    Vertex {
+        position: [1.0, -1.0, 1.0],
+        normal: [1.0, 0.0, 0.0],
+        color: [0.2, 0.8, 0.2],
+    },
+    Vertex {
+        position: [1.0, -1.0, -1.0],
+        normal: [1.0, 0.0, 0.0],
+        color: [0.2, 0.8, 0.2],
+    },
+    Vertex {
+        position: [1.0, 1.0, -1.0],
+        normal: [1.0, 0.0, 0.0],
+        color: [0.2, 0.8, 0.2],
+    },
+    Vertex {
+        position: [1.0, 1.0, 1.0],
+        normal: [1.0, 0.0, 0.0],
+        color: [0.2, 0.8, 0.2],
+    },
     // Left face
-    Vertex { position: [-1.0, -1.0, -1.0], normal: [-1.0, 0.0, 0.0], color: [0.8, 0.8, 0.2] },
-    Vertex { position: [-1.0, -1.0, 1.0], normal: [-1.0, 0.0, 0.0], color: [0.8, 0.8, 0.2] },
-    Vertex { position: [-1.0, 1.0, 1.0], normal: [-1.0, 0.0, 0.0], color: [0.8, 0.8, 0.2] },
-    Vertex { position: [-1.0, 1.0, -1.0], normal: [-1.0, 0.0, 0.0], color: [0.8, 0.8, 0.2] },
+    Vertex {
+        position: [-1.0, -1.0, -1.0],
+        normal: [-1.0, 0.0, 0.0],
+        color: [0.8, 0.8, 0.2],
+    },
+    Vertex {
+        position: [-1.0, -1.0, 1.0],
+        normal: [-1.0, 0.0, 0.0],
+        color: [0.8, 0.8, 0.2],
+    },
+    Vertex {
+        position: [-1.0, 1.0, 1.0],
+        normal: [-1.0, 0.0, 0.0],
+        color: [0.8, 0.8, 0.2],
+    },
+    Vertex {
+        position: [-1.0, 1.0, -1.0],
+        normal: [-1.0, 0.0, 0.0],
+        color: [0.8, 0.8, 0.2],
+    },
     // Top face
-    Vertex { position: [-1.0, 1.0, 1.0], normal: [0.0, 1.0, 0.0], color: [0.8, 0.2, 0.8] },
-    Vertex { position: [1.0, 1.0, 1.0], normal: [0.0, 1.0, 0.0], color: [0.8, 0.2, 0.8] },
-    Vertex { position: [1.0, 1.0, -1.0], normal: [0.0, 1.0, 0.0], color: [0.8, 0.2, 0.8] },
-    Vertex { position: [-1.0, 1.0, -1.0], normal: [0.0, 1.0, 0.0], color: [0.8, 0.2, 0.8] },
+    Vertex {
+        position: [-1.0, 1.0, 1.0],
+        normal: [0.0, 1.0, 0.0],
+        color: [0.8, 0.2, 0.8],
+    },
+    Vertex {
+        position: [1.0, 1.0, 1.0],
+        normal: [0.0, 1.0, 0.0],
+        color: [0.8, 0.2, 0.8],
+    },
+    Vertex {
+        position: [1.0, 1.0, -1.0],
+        normal: [0.0, 1.0, 0.0],
+        color: [0.8, 0.2, 0.8],
+    },
+    Vertex {
+        position: [-1.0, 1.0, -1.0],
+        normal: [0.0, 1.0, 0.0],
+        color: [0.8, 0.2, 0.8],
+    },
     // Bottom face
-    Vertex { position: [-1.0, -1.0, -1.0], normal: [0.0, -1.0, 0.0], color: [0.2, 0.8, 0.8] },
-    Vertex { position: [1.0, -1.0, -1.0], normal: [0.0, -1.0, 0.0], color: [0.2, 0.8, 0.8] },
-    Vertex { position: [1.0, -1.0, 1.0], normal: [0.0, -1.0, 0.0], color: [0.2, 0.8, 0.8] },
-    Vertex { position: [-1.0, -1.0, 1.0], normal: [0.0, -1.0, 0.0], color: [0.2, 0.8, 0.8] },
+    Vertex {
+        position: [-1.0, -1.0, -1.0],
+        normal: [0.0, -1.0, 0.0],
+        color: [0.2, 0.8, 0.8],
+    },
+    Vertex {
+        position: [1.0, -1.0, -1.0],
+        normal: [0.0, -1.0, 0.0],
+        color: [0.2, 0.8, 0.8],
+    },
+    Vertex {
+        position: [1.0, -1.0, 1.0],
+        normal: [0.0, -1.0, 0.0],
+        color: [0.2, 0.8, 0.8],
+    },
+    Vertex {
+        position: [-1.0, -1.0, 1.0],
+        normal: [0.0, -1.0, 0.0],
+        color: [0.2, 0.8, 0.8],
+    },
 ];
 
 const INDICES: &[u16] = &[
-    0, 1, 2, 2, 3, 0,
-    4, 5, 6, 6, 7, 4,
-    8, 9, 10, 10, 11, 8,
-    12, 13, 14, 14, 15, 12,
-    16, 17, 18, 18, 19, 16,
-    20, 21, 22, 22, 23, 20,
+    0, 1, 2, 2, 3, 0, 4, 5, 6, 6, 7, 4, 8, 9, 10, 10, 11, 8, 12, 13, 14, 14, 15, 12, 16, 17, 18,
+    18, 19, 16, 20, 21, 22, 22, 23, 20,
 ];
 
 /// Camera controller for first-person style camera movement

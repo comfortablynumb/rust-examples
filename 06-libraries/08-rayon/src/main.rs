@@ -52,10 +52,7 @@ fn parallel_map() {
     let numbers: Vec<i32> = (1..=10).collect();
 
     // Square each number in parallel
-    let squares: Vec<i32> = numbers
-        .par_iter()
-        .map(|&n| n * n)
-        .collect();
+    let squares: Vec<i32> = numbers.par_iter().map(|&n| n * n).collect();
 
     println!("Original: {:?}", numbers);
     println!("Squared:  {:?}", squares);
@@ -99,27 +96,19 @@ fn parallel_reduce() {
     let numbers: Vec<i32> = (1..=100).collect();
 
     // Sum in parallel
-    let sum: i32 = numbers
-        .par_iter()
-        .sum();
+    let sum: i32 = numbers.par_iter().sum();
 
     println!("Sum of 1..=100: {}", sum);
 
     // Product (careful with overflow!)
-    let product: i64 = (1..=10)
-        .into_par_iter()
-        .map(|n| n as i64)
-        .product();
+    let product: i64 = (1..=10).into_par_iter().map(|n| n as i64).product();
 
     println!("Product of 1..=10: {}", product);
 
     // Custom reduce
     let max = numbers
         .par_iter()
-        .reduce(
-            || &0,
-            |a, b| if a > b { a } else { b },
-        );
+        .reduce(|| &0, |a, b| if a > b { a } else { b });
 
     println!("Max: {}", max);
     println!();
@@ -144,7 +133,10 @@ fn performance_comparison() {
     println!("Dataset size: {} elements", numbers.len());
     println!("Sequential sum: {} (took {:?})", seq_sum, seq_time);
     println!("Parallel sum:   {} (took {:?})", par_sum, par_time);
-    println!("Speedup: {:.2}x", seq_time.as_secs_f64() / par_time.as_secs_f64());
+    println!(
+        "Speedup: {:.2}x",
+        seq_time.as_secs_f64() / par_time.as_secs_f64()
+    );
     println!();
 }
 
@@ -158,9 +150,7 @@ fn custom_thread_pool() {
         .unwrap();
 
     pool.install(|| {
-        let sum: i32 = (1..=100)
-            .into_par_iter()
-            .sum();
+        let sum: i32 = (1..=100).into_par_iter().sum();
 
         println!("Sum computed in custom pool (4 threads): {}", sum);
     });

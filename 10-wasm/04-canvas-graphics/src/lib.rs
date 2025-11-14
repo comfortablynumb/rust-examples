@@ -15,10 +15,7 @@ impl Canvas {
     /// Create a new Canvas instance from canvas element ID
     #[wasm_bindgen(constructor)]
     pub fn new(canvas_id: &str) -> Result<Canvas, JsValue> {
-        let document = web_sys::window()
-            .unwrap()
-            .document()
-            .unwrap();
+        let document = web_sys::window().unwrap().document().unwrap();
 
         let canvas = document
             .get_element_by_id(canvas_id)
@@ -42,7 +39,8 @@ impl Canvas {
 
     /// Clear the entire canvas
     pub fn clear(&self) {
-        self.context.clear_rect(0.0, 0.0, self.width as f64, self.height as f64);
+        self.context
+            .clear_rect(0.0, 0.0, self.width as f64, self.height as f64);
     }
 
     /// Set fill color
@@ -73,14 +71,18 @@ impl Canvas {
     /// Draw a filled circle
     pub fn fill_circle(&self, x: f64, y: f64, radius: f64) {
         self.context.begin_path();
-        self.context.arc(x, y, radius, 0.0, 2.0 * std::f64::consts::PI).unwrap();
+        self.context
+            .arc(x, y, radius, 0.0, 2.0 * std::f64::consts::PI)
+            .unwrap();
         self.context.fill();
     }
 
     /// Draw a stroked circle
     pub fn stroke_circle(&self, x: f64, y: f64, radius: f64) {
         self.context.begin_path();
-        self.context.arc(x, y, radius, 0.0, 2.0 * std::f64::consts::PI).unwrap();
+        self.context
+            .arc(x, y, radius, 0.0, 2.0 * std::f64::consts::PI)
+            .unwrap();
         self.context.stroke();
     }
 
@@ -176,7 +178,12 @@ pub fn draw_scene(canvas_id: &str) -> Result<(), JsValue> {
 
     // Draw ground
     canvas.set_fill_color("#228b22");
-    canvas.fill_rect(0.0, 400.0, canvas.width as f64, canvas.height as f64 - 400.0);
+    canvas.fill_rect(
+        0.0,
+        400.0,
+        canvas.width as f64,
+        canvas.height as f64 - 400.0,
+    );
 
     // Draw house
     canvas.set_fill_color("#8b4513");
@@ -256,8 +263,14 @@ impl BouncingBall {
         }
 
         // Clamp position
-        self.x = self.x.max(self.radius).min(self.canvas.width as f64 - self.radius);
-        self.y = self.y.max(self.radius).min(self.canvas.height as f64 - self.radius);
+        self.x = self
+            .x
+            .max(self.radius)
+            .min(self.canvas.width as f64 - self.radius);
+        self.y = self
+            .y
+            .max(self.radius)
+            .min(self.canvas.height as f64 - self.radius);
     }
 
     pub fn draw(&self) {
@@ -266,7 +279,12 @@ impl BouncingBall {
 
         // Draw background
         self.canvas.set_fill_color("#f0f0f0");
-        self.canvas.fill_rect(0.0, 0.0, self.canvas.width as f64, self.canvas.height as f64);
+        self.canvas.fill_rect(
+            0.0,
+            0.0,
+            self.canvas.width as f64,
+            self.canvas.height as f64,
+        );
 
         // Draw ball
         self.canvas.set_fill_color("#ff6347");
@@ -274,6 +292,7 @@ impl BouncingBall {
 
         // Draw shadow
         self.canvas.set_fill_color("rgba(0, 0, 0, 0.2)");
-        self.canvas.fill_circle(self.x + 5.0, self.y + 5.0, self.radius);
+        self.canvas
+            .fill_circle(self.x + 5.0, self.y + 5.0, self.radius);
     }
 }

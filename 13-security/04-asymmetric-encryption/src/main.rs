@@ -1,6 +1,6 @@
-use rsa::{Pkcs1v15Encrypt, RsaPrivateKey, RsaPublicKey};
-use rsa::pkcs8::{EncodePrivateKey, EncodePublicKey, LineEnding};
 use rand::rngs::OsRng;
+use rsa::pkcs8::{EncodePrivateKey, EncodePublicKey, LineEnding};
+use rsa::{Pkcs1v15Encrypt, RsaPrivateKey, RsaPublicKey};
 
 fn main() -> Result<(), Box<dyn std::error::Error>> {
     println!("Asymmetric Encryption (RSA) Example\n");

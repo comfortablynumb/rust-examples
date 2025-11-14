@@ -29,7 +29,8 @@ fn aes_gcm_example(plaintext: &[u8]) -> Result<(), Box<dyn std::error::Error>> {
     let nonce = Aes256Gcm::generate_nonce(&mut OsRng);
 
     // Encrypt
-    let ciphertext = cipher.encrypt(&nonce, plaintext)
+    let ciphertext = cipher
+        .encrypt(&nonce, plaintext)
         .map_err(|e| format!("Encryption failed: {}", e))?;
 
     println!("Plaintext:  {:?}", std::str::from_utf8(plaintext)?);
@@ -38,7 +39,8 @@ fn aes_gcm_example(plaintext: &[u8]) -> Result<(), Box<dyn std::error::Error>> {
     println!("Ciphertext: {}", hex::encode(&ciphertext));
 
     // Decrypt
-    let decrypted = cipher.decrypt(&nonce, ciphertext.as_ref())
+    let decrypted = cipher
+        .decrypt(&nonce, ciphertext.as_ref())
         .map_err(|e| format!("Decryption failed: {}", e))?;
 
     println!("Decrypted:  {:?}", std::str::from_utf8(&decrypted)?);
@@ -59,13 +61,15 @@ fn chacha_example(plaintext: &[u8]) -> Result<(), Box<dyn std::error::Error>> {
     let cipher = ChaCha20Poly1305::new(&key);
     let nonce = ChaCha20Poly1305::generate_nonce(&mut OsRng);
 
-    let ciphertext = cipher.encrypt(&nonce, plaintext)
+    let ciphertext = cipher
+        .encrypt(&nonce, plaintext)
         .map_err(|e| format!("Encryption failed: {}", e))?;
 
     println!("Algorithm: ChaCha20-Poly1305");
     println!("Ciphertext: {}", hex::encode(&ciphertext));
 
-    let decrypted = cipher.decrypt(&nonce, ciphertext.as_ref())
+    let decrypted = cipher
+        .decrypt(&nonce, ciphertext.as_ref())
         .map_err(|e| format!("Decryption failed: {}", e))?;
 
     assert_eq!(plaintext, &decrypted[..]);

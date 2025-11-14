@@ -64,21 +64,34 @@ impl State {
             ..Default::default()
         });
         let surface = unsafe { instance.create_surface(&window) }.unwrap();
-        let adapter = instance.request_adapter(&wgpu::RequestAdapterOptions {
-            power_preference: wgpu::PowerPreference::HighPerformance,
-            compatible_surface: Some(&surface),
-            force_fallback_adapter: false,
-        }).await.unwrap();
+        let adapter = instance
+            .request_adapter(&wgpu::RequestAdapterOptions {
+                power_preference: wgpu::PowerPreference::HighPerformance,
+                compatible_surface: Some(&surface),
+                force_fallback_adapter: false,
+            })
+            .await
+            .unwrap();
 
-        let (device, queue) = adapter.request_device(&wgpu::DeviceDescriptor {
-            required_features: wgpu::Features::empty(),
-            required_limits: wgpu::Limits::default(),
-            label: None,
-        }, None).await.unwrap();
+        let (device, queue) = adapter
+            .request_device(
+                &wgpu::DeviceDescriptor {
+                    required_features: wgpu::Features::empty(),
+                    required_limits: wgpu::Limits::default(),
+                    label: None,
+                },
+                None,
+            )
+            .await
+            .unwrap();
 
         let surface_caps = surface.get_capabilities(&adapter);
-        let surface_format = surface_caps.formats.iter().copied()
-            .find(|f| f.is_srgb()).unwrap_or(surface_caps.formats[0]);
+        let surface_format = surface_caps
+            .formats
+            .iter()
+            .copied()
+            .find(|f| f.is_srgb())
+            .unwrap_or(surface_caps.formats[0]);
         let config = wgpu::SurfaceConfiguration {
             usage: wgpu::TextureUsages::RENDER_ATTACHMENT,
             format: surface_format,
@@ -97,10 +110,7 @@ impl State {
                 let angle = rng.gen_range(0.0..std::f32::consts::TAU);
                 let speed = rng.gen_range(0.1..0.5);
                 Particle {
-                    position: [
-                        rng.gen_range(-0.5..0.5),
-                        rng.gen_range(-0.5..0.5),
-                    ],
+                    position: [rng.gen_range(-0.5..0.5), rng.gen_range(-0.5..0.5)],
                     velocity: [angle.cos() * speed, angle.sin() * speed],
                     color: [rng.gen(), rng.gen(), rng.gen(), 1.0],
                 }
@@ -311,7 +321,9 @@ impl State {
         }
     }
 
-    pub fn window(&self) -> &Window { &self.window }
+    pub fn window(&self) -> &Window {
+        &self.window
+    }
 
     pub fn resize(&mut self, new_size: winit::dpi::PhysicalSize<u32>) {
         if new_size.width > 0 && new_size.height > 0 {
@@ -322,7 +334,9 @@ impl State {
         }
     }
 
-    fn input(&mut self, _event: &WindowEvent) -> bool { false }
+    fn input(&mut self, _event: &WindowEvent) -> bool {
+        false
+    }
 
     fn update(&mut self) {
         let now = Instant::now();
@@ -336,16 +350,24 @@ impl State {
             time,
             _padding: [0.0; 2],
         };
-        self.queue.write_buffer(&self.sim_param_buffer, 0, bytemuck::cast_slice(&[sim_params]));
+        self.queue.write_buffer(
+            &self.sim_param_buffer,
+            0,
+            bytemuck::cast_slice(&[sim_params]),
+        );
     }
 
     fn render(&mut self) -> Result<(), wgpu::SurfaceError> {
         let output = self.surface.get_current_texture()?;
-        let view = output.texture.create_view(&wgpu::TextureViewDescriptor::default());
+        let view = output
+            .texture
+            .create_view(&wgpu::TextureViewDescriptor::default());
 
-        let mut encoder = self.device.create_command_encoder(&wgpu::CommandEncoderDescriptor {
-            label: Some("Render Encoder"),
-        });
+        let mut encoder = self
+            .device
+            .create_command_encoder(&wgpu::CommandEncoderDescriptor {
+                label: Some("Render Encoder"),
+            });
 
         // Compute pass - update particles
         {
@@ -372,7 +394,12 @@ impl State {
                     view: &view,
                     resolve_target: None,
                     ops: wgpu::Operations {
-                        load: wgpu::LoadOp::Clear(wgpu::Color { r: 0.0, g: 0.0, b: 0.0, a: 1.0 }),
+                        load: wgpu::LoadOp::Clear(wgpu::Color {
+                            r: 0.0,
+                            g: 0.0,
+                            b: 0.0,
+                            a: 1.0,
+                        }),
                         store: wgpu::StoreOp::Store,
                     },
                 })],
@@ -406,34 +433,41 @@ fn main() {
 
     let mut state = pollster::block_on(State::new(window));
 
-    event_loop.run(move |event, _, control_flow| {
-        match event {
-            Event::WindowEvent { ref event, window_id } if window_id == state.window().id() => {
-                if !state.input(event) {
-                    match event {
-                        WindowEvent::CloseRequested | WindowEvent::KeyboardInput {
-                            input: KeyboardInput {
+    event_loop.run(move |event, _, control_flow| match event {
+        Event::WindowEvent {
+            ref event,
+            window_id,
+        } if window_id == state.window().id() => {
+            if !state.input(event) {
+                match event {
+                    WindowEvent::CloseRequested
+                    | WindowEvent::KeyboardInput {
+                        input:
+                            KeyboardInput {
                                 state: ElementState::Pressed,
-                                virtual_keycode: Some(VirtualKeyCode::Escape), ..
-                            }, ..
-                        } => *control_flow = ControlFlow::Exit,
-                        WindowEvent::Resized(physical_size) => state.resize(*physical_size),
-                        WindowEvent::ScaleFactorChanged { new_inner_size, .. } => state.resize(**new_inner_size),
-                        _ => {}
+                                virtual_keycode: Some(VirtualKeyCode::Escape),
+                                ..
+                            },
+                        ..
+                    } => *control_flow = ControlFlow::Exit,
+                    WindowEvent::Resized(physical_size) => state.resize(*physical_size),
+                    WindowEvent::ScaleFactorChanged { new_inner_size, .. } => {
+                        state.resize(**new_inner_size)
                     }
+                    _ => {}
                 }
             }
-            Event::RedrawRequested(window_id) if window_id == state.window().id() => {
-                state.update();
-                match state.render() {
-                    Ok(_) => {}
-                    Err(wgpu::SurfaceError::Lost) => state.resize(state.size),
-                    Err(wgpu::SurfaceError::OutOfMemory) => *control_flow = ControlFlow::Exit,
-                    Err(e) => eprintln!("{:?}", e),
-                }
-            }
-            Event::MainEventsCleared => state.window().request_redraw(),
-            _ => {}
         }
+        Event::RedrawRequested(window_id) if window_id == state.window().id() => {
+            state.update();
+            match state.render() {
+                Ok(_) => {}
+                Err(wgpu::SurfaceError::Lost) => state.resize(state.size),
+                Err(wgpu::SurfaceError::OutOfMemory) => *control_flow = ControlFlow::Exit,
+                Err(e) => eprintln!("{:?}", e),
+            }
+        }
+        Event::MainEventsCleared => state.window().request_redraw(),
+        _ => {}
     });
 }

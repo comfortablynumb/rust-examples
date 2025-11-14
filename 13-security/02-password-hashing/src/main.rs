@@ -1,14 +1,14 @@
+use anyhow::Result;
 use argon2::{
     password_hash::{PasswordHash, PasswordHasher, PasswordVerifier, SaltString},
     Argon2,
 };
 use rand_core::OsRng;
-use anyhow::Result;
 
 fn main() -> Result<()> {
     println!("Password Hashing Examples\n");
 
-    let password = b"hunter2";  // User's password
+    let password = b"hunter2"; // User's password
 
     // Argon2 (Recommended - winner of Password Hashing Competition)
     println!("=== Argon2 (Recommended) ===");

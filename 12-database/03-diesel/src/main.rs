@@ -53,7 +53,7 @@ fn main() {
             title TEXT NOT NULL,
             body TEXT NOT NULL,
             published BOOLEAN NOT NULL DEFAULT 0
-        )"
+        )",
     )
     .execute(&mut conn)
     .expect("Failed to create table");
@@ -70,7 +70,10 @@ fn main() {
         .expect("Error loading posts");
 
     for post in results {
-        println!("  {} - {} (published: {})", post.id, post.title, post.published);
+        println!(
+            "  {} - {} (published: {})",
+            post.id, post.title, post.published
+        );
     }
 
     // Query published posts

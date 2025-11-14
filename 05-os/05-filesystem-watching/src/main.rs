@@ -88,10 +88,6 @@ fn print_event(event: &Event) {
     };
 
     for path in &event.paths {
-        println!(
-            "[{}] {}",
-            kind_str,
-            path.display()
-        );
+        println!("[{}] {}", kind_str, path.display());
     }
 }

@@ -1,23 +1,38 @@
+#[cfg(unix)]
 use signal_hook::consts::signal::*;
+#[cfg(unix)]
 use signal_hook::iterator::Signals;
+#[cfg(unix)]
 use std::sync::atomic::{AtomicBool, Ordering};
+#[cfg(unix)]
 use std::sync::Arc;
+#[cfg(unix)]
 use std::thread;
 use std::time::Duration;
 use tokio::signal;
 
 #[tokio::main]
 async fn main() {
-    println!("Unix Signal Handling Examples\n");
+    println!("Signal Handling Examples\n");
     println!("Press Ctrl+C to trigger SIGINT\n");
 
     // Example 1: Basic Ctrl+C handling with tokio
     println!("=== Tokio Signal Handling ===");
     tokio_signal_example().await;
 
-    // Example 2: Multiple signals with signal-hook
-    println!("\n=== Multiple Signal Handling ===");
-    multiple_signals_example();
+    // Example 2: Multiple signals with signal-hook (Unix only)
+    #[cfg(unix)]
+    {
+        println!("\n=== Multiple Signal Handling ===");
+        multiple_signals_example();
+    }
+
+    #[cfg(not(unix))]
+    {
+        println!("\n=== Multiple Signal Handling ===");
+        println!("Note: Advanced signal handling is only available on Unix systems.");
+        println!("On Windows, use Ctrl+C for SIGINT handling as shown above.");
+    }
 }
 
 async fn tokio_signal_example() {
@@ -51,13 +66,13 @@ async fn tokio_signal_example() {
     }
 }
 
+#[cfg(unix)]
 fn multiple_signals_example() {
     let running = Arc::new(AtomicBool::new(true));
     let r = running.clone();
 
     // Register signal handlers
-    let mut signals = Signals::new(&[SIGINT, SIGTERM, SIGHUP])
-        .expect("Failed to register signals");
+    let mut signals = Signals::new(&[SIGINT, SIGTERM, SIGHUP]).expect("Failed to register signals");
 
     thread::spawn(move || {
         for sig in signals.forever() {
@@ -97,6 +112,7 @@ fn multiple_signals_example() {
     println!("\nShutting down gracefully");
 }
 
+#[cfg(unix)]
 fn signal_name(sig: i32) -> &'static str {
     match sig {
         SIGINT => "SIGINT",

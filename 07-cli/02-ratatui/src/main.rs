@@ -21,8 +21,8 @@ use ratatui::{
     symbols,
     text::{Line, Span, Text},
     widgets::{
-        Axis, BarChart, Block, Borders, Cell, Chart, Dataset, Gauge, List, ListItem,
-        Paragraph, Row, Table, Tabs, Wrap,
+        Axis, BarChart, Block, Borders, Cell, Chart, Dataset, Gauge, List, ListItem, Paragraph,
+        Row, Table, Tabs, Wrap,
     },
     Frame, Terminal,
 };
@@ -83,11 +83,36 @@ impl App {
 
         // Initialize table data
         let table_data = vec![
-            vec!["alice@example.com".to_string(), "Alice".to_string(), "Admin".to_string(), "Active".to_string()],
-            vec!["bob@example.com".to_string(), "Bob".to_string(), "User".to_string(), "Active".to_string()],
-            vec!["carol@example.com".to_string(), "Carol".to_string(), "User".to_string(), "Inactive".to_string()],
-            vec!["dave@example.com".to_string(), "Dave".to_string(), "Moderator".to_string(), "Active".to_string()],
-            vec!["eve@example.com".to_string(), "Eve".to_string(), "User".to_string(), "Active".to_string()],
+            vec![
+                "alice@example.com".to_string(),
+                "Alice".to_string(),
+                "Admin".to_string(),
+                "Active".to_string(),
+            ],
+            vec![
+                "bob@example.com".to_string(),
+                "Bob".to_string(),
+                "User".to_string(),
+                "Active".to_string(),
+            ],
+            vec![
+                "carol@example.com".to_string(),
+                "Carol".to_string(),
+                "User".to_string(),
+                "Inactive".to_string(),
+            ],
+            vec![
+                "dave@example.com".to_string(),
+                "Dave".to_string(),
+                "Moderator".to_string(),
+                "Active".to_string(),
+            ],
+            vec![
+                "eve@example.com".to_string(),
+                "Eve".to_string(),
+                "User".to_string(),
+                "Active".to_string(),
+            ],
         ];
 
         // Initialize chart data
@@ -152,9 +177,7 @@ impl App {
 
         // Update bar chart data
         for (_, value) in &mut self.bar_data {
-            *value = (*value as i16 + rng.gen_range(-5..5))
-                .max(10)
-                .min(100) as u64;
+            *value = (*value as i16 + rng.gen_range(-5..5)).max(10).min(100) as u64;
         }
 
         self.frame_count += 1;
@@ -168,7 +191,11 @@ impl App {
                 self.current_tab = (self.current_tab + 1) % 4;
             }
             KeyCode::BackTab => {
-                self.current_tab = if self.current_tab == 0 { 3 } else { self.current_tab - 1 };
+                self.current_tab = if self.current_tab == 0 {
+                    3
+                } else {
+                    self.current_tab - 1
+                };
             }
             KeyCode::Up => match self.current_tab {
                 0 => {
@@ -262,9 +289,9 @@ fn ui(f: &mut Frame, app: &App) {
     let chunks = Layout::default()
         .direction(Direction::Vertical)
         .constraints([
-            Constraint::Length(3),  // Header with tabs
-            Constraint::Min(0),     // Content area
-            Constraint::Length(1),  // Footer
+            Constraint::Length(3), // Header with tabs
+            Constraint::Min(0),    // Content area
+            Constraint::Length(1), // Footer
         ])
         .split(f.area());
 
@@ -294,7 +321,7 @@ fn render_header(f: &mut Frame, area: Rect, app: &App) {
         .highlight_style(
             Style::default()
                 .fg(Color::Yellow)
-                .add_modifier(Modifier::BOLD)
+                .add_modifier(Modifier::BOLD),
         );
     f.render_widget(tabs, area);
 }
@@ -331,12 +358,12 @@ fn render_servers_tab(f: &mut Frame, area: Rect, app: &App) {
         .block(
             Block::default()
                 .borders(Borders::ALL)
-                .title("Server Status (↑/↓ to navigate)")
+                .title("Server Status (↑/↓ to navigate)"),
         )
         .highlight_style(
             Style::default()
                 .add_modifier(Modifier::BOLD)
-                .bg(Color::DarkGray)
+                .bg(Color::DarkGray),
         );
 
     f.render_widget(list, area);
@@ -344,9 +371,13 @@ fn render_servers_tab(f: &mut Frame, area: Rect, app: &App) {
 
 /// Render the Users tab with a table widget
 fn render_users_tab(f: &mut Frame, area: Rect, app: &App) {
-    let header_cells = ["Email", "Name", "Role", "Status"]
-        .iter()
-        .map(|h| Cell::from(*h).style(Style::default().fg(Color::Yellow).add_modifier(Modifier::BOLD)));
+    let header_cells = ["Email", "Name", "Role", "Status"].iter().map(|h| {
+        Cell::from(*h).style(
+            Style::default()
+                .fg(Color::Yellow)
+                .add_modifier(Modifier::BOLD),
+        )
+    });
     let header = Row::new(header_cells).height(1).bottom_margin(1);
 
     let rows = app.table_data.iter().enumerate().map(|(i, row_data)| {
@@ -378,13 +409,13 @@ fn render_users_tab(f: &mut Frame, area: Rect, app: &App) {
             Constraint::Percentage(20),
             Constraint::Percentage(25),
             Constraint::Percentage(25),
-        ]
+        ],
     )
     .header(header)
     .block(
         Block::default()
             .borders(Borders::ALL)
-            .title("User Management (↑/↓ to navigate)")
+            .title("User Management (↑/↓ to navigate)"),
     );
 
     f.render_widget(table, area);
@@ -395,8 +426,8 @@ fn render_metrics_tab(f: &mut Frame, area: Rect, app: &App) {
     let chunks = Layout::default()
         .direction(Direction::Vertical)
         .constraints([
-            Constraint::Length(10),  // Gauges
-            Constraint::Min(0),      // Chart
+            Constraint::Length(10), // Gauges
+            Constraint::Min(0),     // Chart
         ])
         .split(area);
 
@@ -424,7 +455,7 @@ fn render_gauges(f: &mut Frame, area: Rect, app: &App) {
         .gauge_style(
             Style::default()
                 .fg(gauge_color(app.cpu_usage))
-                .bg(Color::Black)
+                .bg(Color::Black),
         )
         .percent(app.cpu_usage)
         .label(format!("{}%", app.cpu_usage));
@@ -436,7 +467,7 @@ fn render_gauges(f: &mut Frame, area: Rect, app: &App) {
         .gauge_style(
             Style::default()
                 .fg(gauge_color(app.memory_usage))
-                .bg(Color::Black)
+                .bg(Color::Black),
         )
         .percent(app.memory_usage)
         .label(format!("{}%", app.memory_usage));
@@ -448,7 +479,7 @@ fn render_gauges(f: &mut Frame, area: Rect, app: &App) {
         .gauge_style(
             Style::default()
                 .fg(gauge_color(app.disk_usage))
-                .bg(Color::Black)
+                .bg(Color::Black),
         )
         .percent(app.disk_usage)
         .label(format!("{}%", app.disk_usage));
@@ -474,27 +505,35 @@ fn render_chart(f: &mut Frame, area: Rect, app: &App) {
         .style(Style::default().fg(Color::Cyan))
         .data(&app.chart_data)];
 
-    let x_bounds = app.chart_data.first().and_then(|(x, _)| Some(*x)).unwrap_or(0.0);
-    let x_max = app.chart_data.last().and_then(|(x, _)| Some(*x)).unwrap_or(50.0);
+    let x_bounds = app
+        .chart_data
+        .first()
+        .and_then(|(x, _)| Some(*x))
+        .unwrap_or(0.0);
+    let x_max = app
+        .chart_data
+        .last()
+        .and_then(|(x, _)| Some(*x))
+        .unwrap_or(50.0);
 
     let chart = Chart::new(datasets)
         .block(
             Block::default()
                 .borders(Borders::ALL)
-                .title("Real-time Metrics")
+                .title("Real-time Metrics"),
         )
         .x_axis(
             Axis::default()
                 .title("Time")
                 .style(Style::default().fg(Color::Gray))
-                .bounds([x_bounds, x_max])
+                .bounds([x_bounds, x_max]),
         )
         .y_axis(
             Axis::default()
                 .title("Value")
                 .style(Style::default().fg(Color::Gray))
                 .bounds([0.0, 100.0])
-                .labels(vec!["0".into(), "50".into(), "100".into()])
+                .labels(vec!["0".into(), "50".into(), "100".into()]),
         );
 
     f.render_widget(chart, area);
@@ -505,8 +544,8 @@ fn render_performance_tab(f: &mut Frame, area: Rect, app: &App) {
     let chunks = Layout::default()
         .direction(Direction::Vertical)
         .constraints([
-            Constraint::Percentage(70),  // Bar chart
-            Constraint::Percentage(30),  // Stats
+            Constraint::Percentage(70), // Bar chart
+            Constraint::Percentage(30), // Stats
         ])
         .split(area);
 
@@ -527,22 +566,33 @@ fn render_performance_tab(f: &mut Frame, area: Rect, app: &App) {
             Span::styled("Frames Rendered: ", Style::default().fg(Color::Gray)),
             Span::styled(
                 format!("{}", app.frame_count),
-                Style::default().fg(Color::Green).add_modifier(Modifier::BOLD)
+                Style::default()
+                    .fg(Color::Green)
+                    .add_modifier(Modifier::BOLD),
             ),
         ]),
         Line::from(vec![
             Span::styled("Update Rate: ", Style::default().fg(Color::Gray)),
             Span::styled(
                 "250ms",
-                Style::default().fg(Color::Green).add_modifier(Modifier::BOLD)
+                Style::default()
+                    .fg(Color::Green)
+                    .add_modifier(Modifier::BOLD),
             ),
         ]),
         Line::from(""),
         Line::from(vec![
-            Span::styled("Performance: ", Style::default().fg(Color::Yellow).add_modifier(Modifier::BOLD)),
+            Span::styled(
+                "Performance: ",
+                Style::default()
+                    .fg(Color::Yellow)
+                    .add_modifier(Modifier::BOLD),
+            ),
             Span::styled(
                 "Excellent",
-                Style::default().fg(Color::Green).add_modifier(Modifier::BOLD)
+                Style::default()
+                    .fg(Color::Green)
+                    .add_modifier(Modifier::BOLD),
             ),
         ]),
     ];

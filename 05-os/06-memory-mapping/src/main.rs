@@ -87,9 +87,7 @@ fn anonymous_mmap() -> Result<(), Box<dyn std::error::Error>> {
     println!("=== Anonymous Memory Map ===");
 
     // Create anonymous memory map (not backed by file)
-    let mut mmap = MmapOptions::new()
-        .len(4096)
-        .map_anon()?;
+    let mut mmap = MmapOptions::new().len(4096).map_anon()?;
 
     println!("Anonymous map size: {} bytes", mmap.len());
 

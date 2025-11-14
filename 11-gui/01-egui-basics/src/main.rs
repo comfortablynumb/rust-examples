@@ -96,10 +96,7 @@ impl eframe::App for MyApp {
 
             // Show a colored rectangle
             let rect = ui.available_rect_before_wrap();
-            let rect = egui::Rect::from_min_size(
-                rect.min,
-                egui::vec2(100.0, 50.0),
-            );
+            let rect = egui::Rect::from_min_size(rect.min, egui::vec2(100.0, 50.0));
             ui.painter().rect_filled(rect, 0.0, self.color);
             ui.add_space(60.0);
 
@@ -151,7 +148,10 @@ impl eframe::App for MyApp {
                     ui.label("powered by ");
                     ui.hyperlink_to("egui", "https://github.com/emilk/egui");
                     ui.label(" and ");
-                    ui.hyperlink_to("eframe", "https://github.com/emilk/egui/tree/master/crates/eframe");
+                    ui.hyperlink_to(
+                        "eframe",
+                        "https://github.com/emilk/egui/tree/master/crates/eframe",
+                    );
                 });
             });
         });

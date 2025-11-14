@@ -4,10 +4,10 @@
 
 extern crate alloc;
 
-use core::panic::PanicInfo;
-use alloc::vec::Vec;
-use alloc::string::String;
 use alloc::boxed::Box;
+use alloc::string::String;
+use alloc::vec::Vec;
+use core::panic::PanicInfo;
 
 mod bump_allocator;
 mod linked_list_alloc;
@@ -59,10 +59,7 @@ fn demonstrate_allocations() {
     let _ = array;
 
     // Nested structures
-    let nested: Vec<Vec<u32>> = vec![
-        vec![1, 2, 3],
-        vec![4, 5, 6],
-    ];
+    let nested: Vec<Vec<u32>> = vec![vec![1, 2, 3], vec![4, 5, 6]];
     let _ = nested;
 }
 

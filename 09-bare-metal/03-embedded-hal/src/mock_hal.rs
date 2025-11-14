@@ -1,12 +1,11 @@
+use embedded_hal::delay::DelayNs;
 /// Mock HAL implementations for demonstration purposes
 ///
 /// In a real embedded system, these traits would be implemented by
 /// the platform-specific HAL crate (e.g., stm32f4xx-hal, nrf52840-hal)
-
 use embedded_hal::digital::OutputPin;
-use embedded_hal::spi::{SpiDevice, ErrorType as SpiErrorType};
-use embedded_hal::i2c::{I2c, ErrorType as I2cErrorType};
-use embedded_hal::delay::DelayNs;
+use embedded_hal::i2c::{ErrorType as I2cErrorType, I2c};
+use embedded_hal::spi::{ErrorType as SpiErrorType, SpiDevice};
 
 /// Mock error type for demonstrations
 #[derive(Debug, Copy, Clone)]
@@ -73,8 +72,10 @@ impl SpiErrorType for MockSpi {
 }
 
 impl SpiDevice for MockSpi {
-    fn transaction(&mut self, operations: &mut [embedded_hal::spi::Operation<'_, u8>])
-        -> Result<(), Self::Error> {
+    fn transaction(
+        &mut self,
+        operations: &mut [embedded_hal::spi::Operation<'_, u8>],
+    ) -> Result<(), Self::Error> {
         // Simulate SPI transaction
         for op in operations {
             match op {
@@ -141,16 +142,23 @@ impl I2c for MockI2c {
         Ok(())
     }
 
-    fn write_read(&mut self, address: u8, bytes: &[u8], buffer: &mut [u8])
-        -> Result<(), Self::Error> {
+    fn write_read(
+        &mut self,
+        address: u8,
+        bytes: &[u8],
+        buffer: &mut [u8],
+    ) -> Result<(), Self::Error> {
         // Simulate I2C write-read transaction
         self.write(address, bytes)?;
         self.read(address, buffer)?;
         Ok(())
     }
 
-    fn transaction(&mut self, _address: u8, operations: &mut [embedded_hal::i2c::Operation<'_>])
-        -> Result<(), Self::Error> {
+    fn transaction(
+        &mut self,
+        _address: u8,
+        operations: &mut [embedded_hal::i2c::Operation<'_>],
+    ) -> Result<(), Self::Error> {
         // Simulate I2C transaction
         for op in operations {
             match op {

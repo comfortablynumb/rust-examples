@@ -133,9 +133,7 @@ pub fn calculate_statistics(data: Vec<f64>) -> JsValue {
     let n = data.len() as f64;
     let mean = data.iter().sum::<f64>() / n;
 
-    let variance = data.iter()
-        .map(|x| (x - mean).powi(2))
-        .sum::<f64>() / n;
+    let variance = data.iter().map(|x| (x - mean).powi(2)).sum::<f64>() / n;
 
     let std_dev = variance.sqrt();
 
@@ -157,7 +155,8 @@ pub fn calculate_statistics(data: Vec<f64>) -> JsValue {
         "min": sorted.first().unwrap(),
         "max": sorted.last().unwrap(),
         "time_ms": elapsed,
-    })).unwrap();
+    }))
+    .unwrap();
 
     result
 }

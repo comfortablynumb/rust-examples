@@ -45,9 +45,7 @@ async fn run_migrations(pool: &SqlitePool) -> Result<(), Box<dyn std::error::Err
 
     if migrations.exists() {
         // SQLx migrations
-        sqlx::migrate!("./migrations")
-            .run(pool)
-            .await?;
+        sqlx::migrate!("./migrations").run(pool).await?;
 
         println!("Migrations completed!");
     } else {
@@ -60,7 +58,7 @@ async fn run_migrations(pool: &SqlitePool) -> Result<(), Box<dyn std::error::Err
                 username TEXT NOT NULL UNIQUE,
                 email TEXT NOT NULL,
                 created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
-            )"
+            )",
         )
         .execute(pool)
         .await?;
@@ -74,7 +72,7 @@ async fn run_migrations(pool: &SqlitePool) -> Result<(), Box<dyn std::error::Err
                 published BOOLEAN NOT NULL DEFAULT 0,
                 created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
                 FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
-            )"
+            )",
         )
         .execute(pool)
         .await?;
@@ -87,26 +85,26 @@ async fn run_migrations(pool: &SqlitePool) -> Result<(), Box<dyn std::error::Err
 
 async fn verify_schema(pool: &SqlitePool) -> Result<(), Box<dyn std::error::Error>> {
     // Get list of tables
-    let tables: Vec<(String,)> = sqlx::query_as(
-        "SELECT name FROM sqlite_master WHERE type='table' ORDER BY name"
-    )
-    .fetch_all(pool)
-    .await?;
+    let tables: Vec<(String,)> =
+        sqlx::query_as("SELECT name FROM sqlite_master WHERE type='table' ORDER BY name")
+            .fetch_all(pool)
+            .await?;
 
     println!("Tables in database:");
     for (table,) in tables {
         println!("  - {}", table);
 
         // Get columns for each table
-        let columns: Vec<(i32, String, String, i32, Option<String>, i32)> = sqlx::query_as(
-            &format!("PRAGMA table_info({})", table)
-        )
-        .fetch_all(pool)
-        .await?;
+        let columns: Vec<(i32, String, String, i32, Option<String>, i32)> =
+            sqlx::query_as(&format!("PRAGMA table_info({})", table))
+                .fetch_all(pool)
+                .await?;
 
         for (_cid, name, type_, notnull, dflt_value, _pk) in columns {
             let nullable = if notnull == 1 { "NOT NULL" } else { "NULL" };
-            let default = dflt_value.map(|v| format!(" DEFAULT {}", v)).unwrap_or_default();
+            let default = dflt_value
+                .map(|v| format!(" DEFAULT {}", v))
+                .unwrap_or_default();
             println!("      {} {} {}{}", name, type_, nullable, default);
         }
     }
@@ -122,12 +120,10 @@ async fn test_schema(pool: &SqlitePool) -> Result<(), Box<dyn std::error::Error>
         .execute(pool)
         .await?;
 
-    let user_id = sqlx::query_scalar::<_, i64>(
-        "SELECT id FROM users WHERE username = ?"
-    )
-    .bind("alice")
-    .fetch_one(pool)
-    .await?;
+    let user_id = sqlx::query_scalar::<_, i64>("SELECT id FROM users WHERE username = ?")
+        .bind("alice")
+        .fetch_one(pool)
+        .await?;
 
     println!("Created user with ID: {}", user_id);
 
@@ -142,12 +138,10 @@ async fn test_schema(pool: &SqlitePool) -> Result<(), Box<dyn std::error::Error>
     println!("Created post for user");
 
     // Query posts
-    let posts: Vec<(i64, String)> = sqlx::query_as(
-        "SELECT id, title FROM posts WHERE user_id = ?"
-    )
-    .bind(user_id)
-    .fetch_all(pool)
-    .await?;
+    let posts: Vec<(i64, String)> = sqlx::query_as("SELECT id, title FROM posts WHERE user_id = ?")
+        .bind(user_id)
+        .fetch_all(pool)
+        .await?;
 
     println!("Posts:");
     for (id, title) in posts {

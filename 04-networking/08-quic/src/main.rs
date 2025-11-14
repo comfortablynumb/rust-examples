@@ -34,7 +34,10 @@ async fn run_server() -> Result<(), Box<dyn Error>> {
     // Accept one connection for demo
     if let Some(conn) = endpoint.accept().await {
         let connection = conn.await?;
-        println!("Connection established from: {}", connection.remote_address());
+        println!(
+            "Connection established from: {}",
+            connection.remote_address()
+        );
 
         // Accept bidirectional stream
         if let Ok((mut send, mut recv)) = connection.accept_bi().await {
@@ -65,9 +68,7 @@ async fn run_client() -> Result<(), Box<dyn Error>> {
 
     println!("\nConnecting to QUIC server at {}", server_addr);
 
-    let connection = endpoint
-        .connect(server_addr, "localhost")?
-        .await?;
+    let connection = endpoint.connect(server_addr, "localhost")?.await?;
 
     println!("Connected to server");
 

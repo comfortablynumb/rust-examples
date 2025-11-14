@@ -12,8 +12,8 @@ use crossterm::{
     event::{self, Event, KeyCode, KeyEvent, KeyModifiers},
     execute, queue,
     style::{
-        Attribute, Color, Print, ResetColor, SetAttribute, SetBackgroundColor,
-        SetForegroundColor, Stylize,
+        Attribute, Color, Print, ResetColor, SetAttribute, SetBackgroundColor, SetForegroundColor,
+        Stylize,
     },
     terminal::{self, Clear, ClearType, EnterAlternateScreen, LeaveAlternateScreen},
 };

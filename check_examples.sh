@@ -3,7 +3,7 @@
 # Array of new example directories
 examples=(
     "04-networking/06-websocket"
-    "04-networking/07-grpc"
+    # "04-networking/07-grpc"  # Skipped: Requires protoc (Protocol Buffers compiler)
     "04-networking/08-quic"
     "04-networking/09-graphql"
     "05-os/03-process-management"

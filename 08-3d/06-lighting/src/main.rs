@@ -39,44 +39,116 @@ impl Vertex {
 // Normals are unit vectors pointing outward from each face
 const VERTICES: &[Vertex] = &[
     // Front face (normal: +Z)
-    Vertex { position: [-1.0, -1.0,  1.0], normal: [0.0, 0.0, 1.0] },
-    Vertex { position: [ 1.0, -1.0,  1.0], normal: [0.0, 0.0, 1.0] },
-    Vertex { position: [ 1.0,  1.0,  1.0], normal: [0.0, 0.0, 1.0] },
-    Vertex { position: [-1.0,  1.0,  1.0], normal: [0.0, 0.0, 1.0] },
+    Vertex {
+        position: [-1.0, -1.0, 1.0],
+        normal: [0.0, 0.0, 1.0],
+    },
+    Vertex {
+        position: [1.0, -1.0, 1.0],
+        normal: [0.0, 0.0, 1.0],
+    },
+    Vertex {
+        position: [1.0, 1.0, 1.0],
+        normal: [0.0, 0.0, 1.0],
+    },
+    Vertex {
+        position: [-1.0, 1.0, 1.0],
+        normal: [0.0, 0.0, 1.0],
+    },
     // Right face (normal: +X)
-    Vertex { position: [ 1.0, -1.0,  1.0], normal: [1.0, 0.0, 0.0] },
-    Vertex { position: [ 1.0, -1.0, -1.0], normal: [1.0, 0.0, 0.0] },
-    Vertex { position: [ 1.0,  1.0, -1.0], normal: [1.0, 0.0, 0.0] },
-    Vertex { position: [ 1.0,  1.0,  1.0], normal: [1.0, 0.0, 0.0] },
+    Vertex {
+        position: [1.0, -1.0, 1.0],
+        normal: [1.0, 0.0, 0.0],
+    },
+    Vertex {
+        position: [1.0, -1.0, -1.0],
+        normal: [1.0, 0.0, 0.0],
+    },
+    Vertex {
+        position: [1.0, 1.0, -1.0],
+        normal: [1.0, 0.0, 0.0],
+    },
+    Vertex {
+        position: [1.0, 1.0, 1.0],
+        normal: [1.0, 0.0, 0.0],
+    },
     // Back face (normal: -Z)
-    Vertex { position: [ 1.0, -1.0, -1.0], normal: [0.0, 0.0, -1.0] },
-    Vertex { position: [-1.0, -1.0, -1.0], normal: [0.0, 0.0, -1.0] },
-    Vertex { position: [-1.0,  1.0, -1.0], normal: [0.0, 0.0, -1.0] },
-    Vertex { position: [ 1.0,  1.0, -1.0], normal: [0.0, 0.0, -1.0] },
+    Vertex {
+        position: [1.0, -1.0, -1.0],
+        normal: [0.0, 0.0, -1.0],
+    },
+    Vertex {
+        position: [-1.0, -1.0, -1.0],
+        normal: [0.0, 0.0, -1.0],
+    },
+    Vertex {
+        position: [-1.0, 1.0, -1.0],
+        normal: [0.0, 0.0, -1.0],
+    },
+    Vertex {
+        position: [1.0, 1.0, -1.0],
+        normal: [0.0, 0.0, -1.0],
+    },
     // Left face (normal: -X)
-    Vertex { position: [-1.0, -1.0, -1.0], normal: [-1.0, 0.0, 0.0] },
-    Vertex { position: [-1.0, -1.0,  1.0], normal: [-1.0, 0.0, 0.0] },
-    Vertex { position: [-1.0,  1.0,  1.0], normal: [-1.0, 0.0, 0.0] },
-    Vertex { position: [-1.0,  1.0, -1.0], normal: [-1.0, 0.0, 0.0] },
+    Vertex {
+        position: [-1.0, -1.0, -1.0],
+        normal: [-1.0, 0.0, 0.0],
+    },
+    Vertex {
+        position: [-1.0, -1.0, 1.0],
+        normal: [-1.0, 0.0, 0.0],
+    },
+    Vertex {
+        position: [-1.0, 1.0, 1.0],
+        normal: [-1.0, 0.0, 0.0],
+    },
+    Vertex {
+        position: [-1.0, 1.0, -1.0],
+        normal: [-1.0, 0.0, 0.0],
+    },
     // Top face (normal: +Y)
-    Vertex { position: [-1.0,  1.0,  1.0], normal: [0.0, 1.0, 0.0] },
-    Vertex { position: [ 1.0,  1.0,  1.0], normal: [0.0, 1.0, 0.0] },
-    Vertex { position: [ 1.0,  1.0, -1.0], normal: [0.0, 1.0, 0.0] },
-    Vertex { position: [-1.0,  1.0, -1.0], normal: [0.0, 1.0, 0.0] },
+    Vertex {
+        position: [-1.0, 1.0, 1.0],
+        normal: [0.0, 1.0, 0.0],
+    },
+    Vertex {
+        position: [1.0, 1.0, 1.0],
+        normal: [0.0, 1.0, 0.0],
+    },
+    Vertex {
+        position: [1.0, 1.0, -1.0],
+        normal: [0.0, 1.0, 0.0],
+    },
+    Vertex {
+        position: [-1.0, 1.0, -1.0],
+        normal: [0.0, 1.0, 0.0],
+    },
     // Bottom face (normal: -Y)
-    Vertex { position: [-1.0, -1.0, -1.0], normal: [0.0, -1.0, 0.0] },
-    Vertex { position: [ 1.0, -1.0, -1.0], normal: [0.0, -1.0, 0.0] },
-    Vertex { position: [ 1.0, -1.0,  1.0], normal: [0.0, -1.0, 0.0] },
-    Vertex { position: [-1.0, -1.0,  1.0], normal: [0.0, -1.0, 0.0] },
+    Vertex {
+        position: [-1.0, -1.0, -1.0],
+        normal: [0.0, -1.0, 0.0],
+    },
+    Vertex {
+        position: [1.0, -1.0, -1.0],
+        normal: [0.0, -1.0, 0.0],
+    },
+    Vertex {
+        position: [1.0, -1.0, 1.0],
+        normal: [0.0, -1.0, 0.0],
+    },
+    Vertex {
+        position: [-1.0, -1.0, 1.0],
+        normal: [0.0, -1.0, 0.0],
+    },
 ];
 
 const INDICES: &[u16] = &[
-    0,  1,  2,  0,  2,  3,  // Front
-    4,  5,  6,  4,  6,  7,  // Right
-    8,  9, 10,  8, 10, 11,  // Back
-    12, 13, 14, 12, 14, 15,  // Left
-    16, 17, 18, 16, 18, 19,  // Top
-    20, 21, 22, 20, 22, 23,  // Bottom
+    0, 1, 2, 0, 2, 3, // Front
+    4, 5, 6, 4, 6, 7, // Right
+    8, 9, 10, 8, 10, 11, // Back
+    12, 13, 14, 12, 14, 15, // Left
+    16, 17, 18, 16, 18, 19, // Top
+    20, 21, 22, 20, 22, 23, // Bottom
 ];
 
 /// Camera uniforms
@@ -147,20 +219,33 @@ impl State {
             ..Default::default()
         });
         let surface = unsafe { instance.create_surface(&window) }.unwrap();
-        let adapter = instance.request_adapter(&wgpu::RequestAdapterOptions {
-            power_preference: wgpu::PowerPreference::default(),
-            compatible_surface: Some(&surface),
-            force_fallback_adapter: false,
-        }).await.unwrap();
-        let (device, queue) = adapter.request_device(&wgpu::DeviceDescriptor {
-            required_features: wgpu::Features::empty(),
-            required_limits: wgpu::Limits::default(),
-            label: None,
-        }, None).await.unwrap();
+        let adapter = instance
+            .request_adapter(&wgpu::RequestAdapterOptions {
+                power_preference: wgpu::PowerPreference::default(),
+                compatible_surface: Some(&surface),
+                force_fallback_adapter: false,
+            })
+            .await
+            .unwrap();
+        let (device, queue) = adapter
+            .request_device(
+                &wgpu::DeviceDescriptor {
+                    required_features: wgpu::Features::empty(),
+                    required_limits: wgpu::Limits::default(),
+                    label: None,
+                },
+                None,
+            )
+            .await
+            .unwrap();
 
         let surface_caps = surface.get_capabilities(&adapter);
-        let surface_format = surface_caps.formats.iter().copied()
-            .find(|f| f.is_srgb()).unwrap_or(surface_caps.formats[0]);
+        let surface_format = surface_caps
+            .formats
+            .iter()
+            .copied()
+            .find(|f| f.is_srgb())
+            .unwrap_or(surface_caps.formats[0]);
         let config = wgpu::SurfaceConfiguration {
             usage: wgpu::TextureUsages::RENDER_ATTACHMENT,
             format: surface_format,
@@ -174,7 +259,11 @@ impl State {
 
         let depth_texture = device.create_texture(&wgpu::TextureDescriptor {
             label: Some("Depth Texture"),
-            size: wgpu::Extent3d { width: config.width, height: config.height, depth_or_array_layers: 1 },
+            size: wgpu::Extent3d {
+                width: config.width,
+                height: config.height,
+                depth_or_array_layers: 1,
+            },
             mip_level_count: 1,
             sample_count: 1,
             dimension: wgpu::TextureDimension::D2,
@@ -193,7 +282,8 @@ impl State {
         let proj = cgmath::perspective(
             cgmath::Deg(45.0),
             config.width as f32 / config.height as f32,
-            0.1, 100.0,
+            0.1,
+            100.0,
         );
         let camera_uniforms = CameraUniforms {
             view_proj: (proj * view).into(),
@@ -243,8 +333,14 @@ impl State {
         let bind_group = device.create_bind_group(&wgpu::BindGroupDescriptor {
             layout: &bind_group_layout,
             entries: &[
-                wgpu::BindGroupEntry { binding: 0, resource: camera_buffer.as_entire_binding() },
-                wgpu::BindGroupEntry { binding: 1, resource: light_buffer.as_entire_binding() },
+                wgpu::BindGroupEntry {
+                    binding: 0,
+                    resource: camera_buffer.as_entire_binding(),
+                },
+                wgpu::BindGroupEntry {
+                    binding: 1,
+                    resource: light_buffer.as_entire_binding(),
+                },
             ],
             label: Some("bind_group"),
         });
@@ -266,11 +362,12 @@ impl State {
             usage: wgpu::BufferUsages::INDEX,
         });
 
-        let render_pipeline_layout = device.create_pipeline_layout(&wgpu::PipelineLayoutDescriptor {
-            label: Some("Render Pipeline Layout"),
-            bind_group_layouts: &[&bind_group_layout],
-            push_constant_ranges: &[],
-        });
+        let render_pipeline_layout =
+            device.create_pipeline_layout(&wgpu::PipelineLayoutDescriptor {
+                label: Some("Render Pipeline Layout"),
+                bind_group_layouts: &[&bind_group_layout],
+                push_constant_ranges: &[],
+            });
 
         let render_pipeline = device.create_render_pipeline(&wgpu::RenderPipelineDescriptor {
             label: Some("Render Pipeline"),
@@ -310,14 +407,30 @@ impl State {
         });
 
         Self {
-            window, surface, device, queue, config, size, render_pipeline,
-            vertex_buffer, index_buffer, num_indices: INDICES.len() as u32,
-            camera_uniforms, camera_buffer, light_uniforms, light_buffer,
-            bind_group, depth_texture, depth_view, start_time: Instant::now(),
+            window,
+            surface,
+            device,
+            queue,
+            config,
+            size,
+            render_pipeline,
+            vertex_buffer,
+            index_buffer,
+            num_indices: INDICES.len() as u32,
+            camera_uniforms,
+            camera_buffer,
+            light_uniforms,
+            light_buffer,
+            bind_group,
+            depth_texture,
+            depth_view,
+            start_time: Instant::now(),
         }
     }
 
-    pub fn window(&self) -> &Window { &self.window }
+    pub fn window(&self) -> &Window {
+        &self.window
+    }
 
     pub fn resize(&mut self, new_size: winit::dpi::PhysicalSize<u32>) {
         if new_size.width > 0 && new_size.height > 0 {
@@ -327,20 +440,29 @@ impl State {
             self.surface.configure(&self.device, &self.config);
             self.depth_texture = self.device.create_texture(&wgpu::TextureDescriptor {
                 label: Some("Depth Texture"),
-                size: wgpu::Extent3d { width: self.config.width, height: self.config.height, depth_or_array_layers: 1 },
+                size: wgpu::Extent3d {
+                    width: self.config.width,
+                    height: self.config.height,
+                    depth_or_array_layers: 1,
+                },
                 mip_level_count: 1,
                 sample_count: 1,
                 dimension: wgpu::TextureDimension::D2,
                 format: wgpu::TextureFormat::Depth24Plus,
-                usage: wgpu::TextureUsages::RENDER_ATTACHMENT | wgpu::TextureUsages::TEXTURE_BINDING,
+                usage: wgpu::TextureUsages::RENDER_ATTACHMENT
+                    | wgpu::TextureUsages::TEXTURE_BINDING,
                 view_formats: &[],
             });
-            self.depth_view = self.depth_texture.create_view(&wgpu::TextureViewDescriptor::default());
+            self.depth_view = self
+                .depth_texture
+                .create_view(&wgpu::TextureViewDescriptor::default());
         }
     }
 
     #[allow(unused_variables)]
-    fn input(&mut self, event: &WindowEvent) -> bool { false }
+    fn input(&mut self, event: &WindowEvent) -> bool {
+        false
+    }
 
     fn update(&mut self) {
         let elapsed = self.start_time.elapsed().as_secs_f32();
@@ -350,23 +472,40 @@ impl State {
             cgmath::Point3::new(0.0, 0.0, 0.0),
             cgmath::Vector3::unit_y(),
         );
-        let proj = cgmath::perspective(cgmath::Deg(45.0), self.config.width as f32 / self.config.height as f32, 0.1, 100.0);
+        let proj = cgmath::perspective(
+            cgmath::Deg(45.0),
+            self.config.width as f32 / self.config.height as f32,
+            0.1,
+            100.0,
+        );
         self.camera_uniforms.view_proj = (proj * view * model).into();
-        self.queue.write_buffer(&self.camera_buffer, 0, bytemuck::cast_slice(&[self.camera_uniforms]));
+        self.queue.write_buffer(
+            &self.camera_buffer,
+            0,
+            bytemuck::cast_slice(&[self.camera_uniforms]),
+        );
 
         // Animate light position
         let light_x = elapsed.sin() * 3.0;
         let light_z = elapsed.cos() * 3.0;
         self.light_uniforms.position = [light_x, 3.0, light_z];
-        self.queue.write_buffer(&self.light_buffer, 0, bytemuck::cast_slice(&[self.light_uniforms]));
+        self.queue.write_buffer(
+            &self.light_buffer,
+            0,
+            bytemuck::cast_slice(&[self.light_uniforms]),
+        );
     }
 
     fn render(&mut self) -> Result<(), wgpu::SurfaceError> {
         let output = self.surface.get_current_texture()?;
-        let view = output.texture.create_view(&wgpu::TextureViewDescriptor::default());
-        let mut encoder = self.device.create_command_encoder(&wgpu::CommandEncoderDescriptor {
-            label: Some("Render Encoder"),
-        });
+        let view = output
+            .texture
+            .create_view(&wgpu::TextureViewDescriptor::default());
+        let mut encoder = self
+            .device
+            .create_command_encoder(&wgpu::CommandEncoderDescriptor {
+                label: Some("Render Encoder"),
+            });
 
         {
             let mut render_pass = encoder.begin_render_pass(&wgpu::RenderPassDescriptor {
@@ -375,13 +514,21 @@ impl State {
                     view: &view,
                     resolve_target: None,
                     ops: wgpu::Operations {
-                        load: wgpu::LoadOp::Clear(wgpu::Color { r: 0.1, g: 0.2, b: 0.3, a: 1.0 }),
+                        load: wgpu::LoadOp::Clear(wgpu::Color {
+                            r: 0.1,
+                            g: 0.2,
+                            b: 0.3,
+                            a: 1.0,
+                        }),
                         store: wgpu::StoreOp::Store,
                     },
                 })],
                 depth_stencil_attachment: Some(wgpu::RenderPassDepthStencilAttachment {
                     view: &self.depth_view,
-                    depth_ops: Some(wgpu::Operations { load: wgpu::LoadOp::Clear(1.0), store: wgpu::StoreOp::Store }),
+                    depth_ops: Some(wgpu::Operations {
+                        load: wgpu::LoadOp::Clear(1.0),
+                        store: wgpu::StoreOp::Store,
+                    }),
                     stencil_ops: None,
                 }),
                 occlusion_query_set: None,
@@ -406,37 +553,47 @@ use wgpu::util::DeviceExt;
 fn main() {
     env_logger::init();
     let event_loop = EventLoop::new();
-    let window = WindowBuilder::new().with_title("wgpu Lighting").build(&event_loop).unwrap();
+    let window = WindowBuilder::new()
+        .with_title("wgpu Lighting")
+        .build(&event_loop)
+        .unwrap();
     let mut state = pollster::block_on(State::new(window));
 
-    event_loop.run(move |event, _, control_flow| {
-        match event {
-            Event::WindowEvent { ref event, window_id } if window_id == state.window().id() => {
-                if !state.input(event) {
-                    match event {
-                        WindowEvent::CloseRequested | WindowEvent::KeyboardInput {
-                            input: KeyboardInput {
+    event_loop.run(move |event, _, control_flow| match event {
+        Event::WindowEvent {
+            ref event,
+            window_id,
+        } if window_id == state.window().id() => {
+            if !state.input(event) {
+                match event {
+                    WindowEvent::CloseRequested
+                    | WindowEvent::KeyboardInput {
+                        input:
+                            KeyboardInput {
                                 state: ElementState::Pressed,
-                                virtual_keycode: Some(VirtualKeyCode::Escape), ..
-                            }, ..
-                        } => *control_flow = ControlFlow::Exit,
-                        WindowEvent::Resized(physical_size) => state.resize(*physical_size),
-                        WindowEvent::ScaleFactorChanged { new_inner_size, .. } => state.resize(**new_inner_size),
-                        _ => {}
+                                virtual_keycode: Some(VirtualKeyCode::Escape),
+                                ..
+                            },
+                        ..
+                    } => *control_flow = ControlFlow::Exit,
+                    WindowEvent::Resized(physical_size) => state.resize(*physical_size),
+                    WindowEvent::ScaleFactorChanged { new_inner_size, .. } => {
+                        state.resize(**new_inner_size)
                     }
+                    _ => {}
                 }
             }
-            Event::RedrawRequested(window_id) if window_id == state.window().id() => {
-                state.update();
-                match state.render() {
-                    Ok(_) => {}
-                    Err(wgpu::SurfaceError::Lost) => state.resize(state.size),
-                    Err(wgpu::SurfaceError::OutOfMemory) => *control_flow = ControlFlow::Exit,
-                    Err(e) => eprintln!("{:?}", e),
-                }
-            }
-            Event::MainEventsCleared => state.window().request_redraw(),
-            _ => {}
         }
+        Event::RedrawRequested(window_id) if window_id == state.window().id() => {
+            state.update();
+            match state.render() {
+                Ok(_) => {}
+                Err(wgpu::SurfaceError::Lost) => state.resize(state.size),
+                Err(wgpu::SurfaceError::OutOfMemory) => *control_flow = ControlFlow::Exit,
+                Err(e) => eprintln!("{:?}", e),
+            }
+        }
+        Event::MainEventsCleared => state.window().request_redraw(),
+        _ => {}
     });
 }

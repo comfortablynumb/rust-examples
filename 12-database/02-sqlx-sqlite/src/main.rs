@@ -31,7 +31,8 @@ async fn main() -> Result<(), sqlx::Error> {
     let todos = get_all_todos(&pool).await?;
     println!("\nAll todos:");
     for todo in &todos {
-        println!("  [{}] {} - {}",
+        println!(
+            "  [{}] {} - {}",
             todo.id,
             todo.title,
             if todo.completed { "✓" } else { " " }

@@ -1,5 +1,5 @@
-use std::process::{Command, Stdio};
 use std::io::Write;
+use std::process::{Command, Stdio};
 use tokio::process::Command as TokioCommand;
 
 fn main() {
@@ -74,8 +74,12 @@ fn pipe_communication() {
     // Write to child's stdin
     {
         let stdin = child.stdin.as_mut().expect("Failed to open stdin");
-        stdin.write_all(b"Hello from parent process!\n").expect("Failed to write to stdin");
-        stdin.write_all(b"This is line 2\n").expect("Failed to write");
+        stdin
+            .write_all(b"Hello from parent process!\n")
+            .expect("Failed to write to stdin");
+        stdin
+            .write_all(b"This is line 2\n")
+            .expect("Failed to write");
     } // stdin is closed when it goes out of scope
 
     // Read from child's stdout
@@ -114,7 +118,11 @@ async fn parallel_processes() {
                 .await
                 .expect("Failed to execute");
 
-            println!("Task {}: {}", i + 1, String::from_utf8_lossy(&output.stdout).trim());
+            println!(
+                "Task {}: {}",
+                i + 1,
+                String::from_utf8_lossy(&output.stdout).trim()
+            );
         });
         handles.push(handle);
     }
@@ -151,5 +159,8 @@ fn process_pipeline() {
     // Wait on both processes to avoid zombies
     let _ = echo.wait().expect("Failed to wait on echo");
     let output = tr.wait_with_output().expect("Failed to wait on tr");
-    println!("Pipeline result: {}", String::from_utf8_lossy(&output.stdout));
+    println!(
+        "Pipeline result: {}",
+        String::from_utf8_lossy(&output.stdout)
+    );
 }

@@ -94,7 +94,10 @@ impl Dashboard {
                     let mut to_remove = None;
                     for (i, point) in self.data_points.iter_mut().enumerate() {
                         if !self.filter.is_empty()
-                            && !point.label.to_lowercase().contains(&self.filter.to_lowercase())
+                            && !point
+                                .label
+                                .to_lowercase()
+                                .contains(&self.filter.to_lowercase())
                         {
                             continue;
                         }
@@ -173,12 +176,8 @@ impl Dashboard {
         if !self.data_points.is_empty() {
             let y_values: Vec<f64> = self.data_points.iter().map(|p| p.y).collect();
             let mean = y_values.iter().sum::<f64>() / y_values.len() as f64;
-            let min = y_values
-                .iter()
-                .fold(f64::INFINITY, |a, &b| a.min(b));
-            let max = y_values
-                .iter()
-                .fold(f64::NEG_INFINITY, |a, &b| a.max(b));
+            let min = y_values.iter().fold(f64::INFINITY, |a, &b| a.min(b));
+            let max = y_values.iter().fold(f64::NEG_INFINITY, |a, &b| a.max(b));
 
             ui.label(format!("Mean: {:.2}", mean));
             ui.label(format!("Min: {:.2}", min));
@@ -230,12 +229,10 @@ impl eframe::App for Dashboard {
         });
 
         // Main content
-        egui::CentralPanel::default().show(ctx, |ui| {
-            match self.selected_tab {
-                Tab::Data => self.data_tab(ui),
-                Tab::Visualization => self.visualization_tab(ui),
-                Tab::Settings => self.settings_tab(ui),
-            }
+        egui::CentralPanel::default().show(ctx, |ui| match self.selected_tab {
+            Tab::Data => self.data_tab(ui),
+            Tab::Visualization => self.visualization_tab(ui),
+            Tab::Settings => self.settings_tab(ui),
         });
     }
 }

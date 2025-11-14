@@ -49,7 +49,9 @@ impl Greeter for MyGreeter {
             }
         });
 
-        Ok(Response::new(tokio_stream::wrappers::ReceiverStream::new(rx)))
+        Ok(Response::new(tokio_stream::wrappers::ReceiverStream::new(
+            rx,
+        )))
     }
 }
 
@@ -97,9 +99,7 @@ async fn run_client() -> Result<(), Box<dyn std::error::Error>> {
 
     // Streaming call
     println!("\n=== Server Streaming Call ===");
-    let request = Request::new(HelloRequest {
-        name: "Bob".into(),
-    });
+    let request = Request::new(HelloRequest { name: "Bob".into() });
 
     let mut stream = client.say_hello_stream(request).await?.into_inner();
 

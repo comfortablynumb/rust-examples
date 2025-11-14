@@ -2,7 +2,7 @@
 #![no_main]
 
 use core::panic::PanicInfo;
-use riscv::register::{mstatus, mcause, mepc, mtvec};
+use riscv::register::{mcause, mepc, mstatus, mtvec};
 use riscv_rt::{entry, interrupt};
 
 // UART base address (for QEMU virt machine)

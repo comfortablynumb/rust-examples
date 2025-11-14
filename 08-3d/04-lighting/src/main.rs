@@ -10,7 +10,7 @@ use winit::{
 #[derive(Copy, Clone, Debug, bytemuck::Pod, bytemuck::Zeroable)]
 struct Vertex {
     position: [f32; 3],
-    normal: [f32; 3],   // Surface normal for lighting calculations
+    normal: [f32; 3], // Surface normal for lighting calculations
     color: [f32; 3],
 }
 
@@ -47,47 +47,138 @@ impl Vertex {
 // Each face needs separate vertices because normals differ per face
 const VERTICES: &[Vertex] = &[
     // Front face (normal: +Z)
-    Vertex { position: [-1.0, -1.0, 1.0], normal: [0.0, 0.0, 1.0], color: [0.8, 0.2, 0.2] },
-    Vertex { position: [1.0, -1.0, 1.0], normal: [0.0, 0.0, 1.0], color: [0.8, 0.2, 0.2] },
-    Vertex { position: [1.0, 1.0, 1.0], normal: [0.0, 0.0, 1.0], color: [0.8, 0.2, 0.2] },
-    Vertex { position: [-1.0, 1.0, 1.0], normal: [0.0, 0.0, 1.0], color: [0.8, 0.2, 0.2] },
-
+    Vertex {
+        position: [-1.0, -1.0, 1.0],
+        normal: [0.0, 0.0, 1.0],
+        color: [0.8, 0.2, 0.2],
+    },
+    Vertex {
+        position: [1.0, -1.0, 1.0],
+        normal: [0.0, 0.0, 1.0],
+        color: [0.8, 0.2, 0.2],
+    },
+    Vertex {
+        position: [1.0, 1.0, 1.0],
+        normal: [0.0, 0.0, 1.0],
+        color: [0.8, 0.2, 0.2],
+    },
+    Vertex {
+        position: [-1.0, 1.0, 1.0],
+        normal: [0.0, 0.0, 1.0],
+        color: [0.8, 0.2, 0.2],
+    },
     // Back face (normal: -Z)
-    Vertex { position: [1.0, -1.0, -1.0], normal: [0.0, 0.0, -1.0], color: [0.2, 0.2, 0.8] },
-    Vertex { position: [-1.0, -1.0, -1.0], normal: [0.0, 0.0, -1.0], color: [0.2, 0.2, 0.8] },
-    Vertex { position: [-1.0, 1.0, -1.0], normal: [0.0, 0.0, -1.0], color: [0.2, 0.2, 0.8] },
-    Vertex { position: [1.0, 1.0, -1.0], normal: [0.0, 0.0, -1.0], color: [0.2, 0.2, 0.8] },
-
+    Vertex {
+        position: [1.0, -1.0, -1.0],
+        normal: [0.0, 0.0, -1.0],
+        color: [0.2, 0.2, 0.8],
+    },
+    Vertex {
+        position: [-1.0, -1.0, -1.0],
+        normal: [0.0, 0.0, -1.0],
+        color: [0.2, 0.2, 0.8],
+    },
+    Vertex {
+        position: [-1.0, 1.0, -1.0],
+        normal: [0.0, 0.0, -1.0],
+        color: [0.2, 0.2, 0.8],
+    },
+    Vertex {
+        position: [1.0, 1.0, -1.0],
+        normal: [0.0, 0.0, -1.0],
+        color: [0.2, 0.2, 0.8],
+    },
     // Right face (normal: +X)
-    Vertex { position: [1.0, -1.0, 1.0], normal: [1.0, 0.0, 0.0], color: [0.2, 0.8, 0.2] },
-    Vertex { position: [1.0, -1.0, -1.0], normal: [1.0, 0.0, 0.0], color: [0.2, 0.8, 0.2] },
-    Vertex { position: [1.0, 1.0, -1.0], normal: [1.0, 0.0, 0.0], color: [0.2, 0.8, 0.2] },
-    Vertex { position: [1.0, 1.0, 1.0], normal: [1.0, 0.0, 0.0], color: [0.2, 0.8, 0.2] },
-
+    Vertex {
+        position: [1.0, -1.0, 1.0],
+        normal: [1.0, 0.0, 0.0],
+        color: [0.2, 0.8, 0.2],
+    },
+    Vertex {
+        position: [1.0, -1.0, -1.0],
+        normal: [1.0, 0.0, 0.0],
+        color: [0.2, 0.8, 0.2],
+    },
+    Vertex {
+        position: [1.0, 1.0, -1.0],
+        normal: [1.0, 0.0, 0.0],
+        color: [0.2, 0.8, 0.2],
+    },
+    Vertex {
+        position: [1.0, 1.0, 1.0],
+        normal: [1.0, 0.0, 0.0],
+        color: [0.2, 0.8, 0.2],
+    },
     // Left face (normal: -X)
-    Vertex { position: [-1.0, -1.0, -1.0], normal: [-1.0, 0.0, 0.0], color: [0.8, 0.8, 0.2] },
-    Vertex { position: [-1.0, -1.0, 1.0], normal: [-1.0, 0.0, 0.0], color: [0.8, 0.8, 0.2] },
-    Vertex { position: [-1.0, 1.0, 1.0], normal: [-1.0, 0.0, 0.0], color: [0.8, 0.8, 0.2] },
-    Vertex { position: [-1.0, 1.0, -1.0], normal: [-1.0, 0.0, 0.0], color: [0.8, 0.8, 0.2] },
-
+    Vertex {
+        position: [-1.0, -1.0, -1.0],
+        normal: [-1.0, 0.0, 0.0],
+        color: [0.8, 0.8, 0.2],
+    },
+    Vertex {
+        position: [-1.0, -1.0, 1.0],
+        normal: [-1.0, 0.0, 0.0],
+        color: [0.8, 0.8, 0.2],
+    },
+    Vertex {
+        position: [-1.0, 1.0, 1.0],
+        normal: [-1.0, 0.0, 0.0],
+        color: [0.8, 0.8, 0.2],
+    },
+    Vertex {
+        position: [-1.0, 1.0, -1.0],
+        normal: [-1.0, 0.0, 0.0],
+        color: [0.8, 0.8, 0.2],
+    },
     // Top face (normal: +Y)
-    Vertex { position: [-1.0, 1.0, 1.0], normal: [0.0, 1.0, 0.0], color: [0.8, 0.2, 0.8] },
-    Vertex { position: [1.0, 1.0, 1.0], normal: [0.0, 1.0, 0.0], color: [0.8, 0.2, 0.8] },
-    Vertex { position: [1.0, 1.0, -1.0], normal: [0.0, 1.0, 0.0], color: [0.8, 0.2, 0.8] },
-    Vertex { position: [-1.0, 1.0, -1.0], normal: [0.0, 1.0, 0.0], color: [0.8, 0.2, 0.8] },
-
+    Vertex {
+        position: [-1.0, 1.0, 1.0],
+        normal: [0.0, 1.0, 0.0],
+        color: [0.8, 0.2, 0.8],
+    },
+    Vertex {
+        position: [1.0, 1.0, 1.0],
+        normal: [0.0, 1.0, 0.0],
+        color: [0.8, 0.2, 0.8],
+    },
+    Vertex {
+        position: [1.0, 1.0, -1.0],
+        normal: [0.0, 1.0, 0.0],
+        color: [0.8, 0.2, 0.8],
+    },
+    Vertex {
+        position: [-1.0, 1.0, -1.0],
+        normal: [0.0, 1.0, 0.0],
+        color: [0.8, 0.2, 0.8],
+    },
     // Bottom face (normal: -Y)
-    Vertex { position: [-1.0, -1.0, -1.0], normal: [0.0, -1.0, 0.0], color: [0.2, 0.8, 0.8] },
-    Vertex { position: [1.0, -1.0, -1.0], normal: [0.0, -1.0, 0.0], color: [0.2, 0.8, 0.8] },
-    Vertex { position: [1.0, -1.0, 1.0], normal: [0.0, -1.0, 0.0], color: [0.2, 0.8, 0.8] },
-    Vertex { position: [-1.0, -1.0, 1.0], normal: [0.0, -1.0, 0.0], color: [0.2, 0.8, 0.8] },
+    Vertex {
+        position: [-1.0, -1.0, -1.0],
+        normal: [0.0, -1.0, 0.0],
+        color: [0.2, 0.8, 0.8],
+    },
+    Vertex {
+        position: [1.0, -1.0, -1.0],
+        normal: [0.0, -1.0, 0.0],
+        color: [0.2, 0.8, 0.8],
+    },
+    Vertex {
+        position: [1.0, -1.0, 1.0],
+        normal: [0.0, -1.0, 0.0],
+        color: [0.2, 0.8, 0.8],
+    },
+    Vertex {
+        position: [-1.0, -1.0, 1.0],
+        normal: [0.0, -1.0, 0.0],
+        color: [0.2, 0.8, 0.8],
+    },
 ];
 
 // Indices for the cube
 const INDICES: &[u16] = &[
-    0, 1, 2, 2, 3, 0,       // Front
-    4, 5, 6, 6, 7, 4,       // Back
-    8, 9, 10, 10, 11, 8,    // Right
+    0, 1, 2, 2, 3, 0, // Front
+    4, 5, 6, 6, 7, 4, // Back
+    8, 9, 10, 10, 11, 8, // Right
     12, 13, 14, 14, 15, 12, // Left
     16, 17, 18, 18, 19, 16, // Top
     20, 21, 22, 22, 23, 20, // Bottom

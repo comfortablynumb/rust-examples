@@ -37,15 +37,39 @@ impl Vertex {
 // Cube vertices (8 corners, each with a different color)
 const VERTICES: &[Vertex] = &[
     // Front face (red-ish)
-    Vertex { position: [-1.0, -1.0, 1.0], color: [1.0, 0.0, 0.0] },
-    Vertex { position: [1.0, -1.0, 1.0], color: [1.0, 0.5, 0.0] },
-    Vertex { position: [1.0, 1.0, 1.0], color: [1.0, 1.0, 0.0] },
-    Vertex { position: [-1.0, 1.0, 1.0], color: [0.5, 1.0, 0.0] },
+    Vertex {
+        position: [-1.0, -1.0, 1.0],
+        color: [1.0, 0.0, 0.0],
+    },
+    Vertex {
+        position: [1.0, -1.0, 1.0],
+        color: [1.0, 0.5, 0.0],
+    },
+    Vertex {
+        position: [1.0, 1.0, 1.0],
+        color: [1.0, 1.0, 0.0],
+    },
+    Vertex {
+        position: [-1.0, 1.0, 1.0],
+        color: [0.5, 1.0, 0.0],
+    },
     // Back face (blue-ish)
-    Vertex { position: [-1.0, -1.0, -1.0], color: [0.0, 0.0, 1.0] },
-    Vertex { position: [1.0, -1.0, -1.0], color: [0.5, 0.0, 1.0] },
-    Vertex { position: [1.0, 1.0, -1.0], color: [1.0, 0.0, 1.0] },
-    Vertex { position: [-1.0, 1.0, -1.0], color: [0.0, 0.5, 1.0] },
+    Vertex {
+        position: [-1.0, -1.0, -1.0],
+        color: [0.0, 0.0, 1.0],
+    },
+    Vertex {
+        position: [1.0, -1.0, -1.0],
+        color: [0.5, 0.0, 1.0],
+    },
+    Vertex {
+        position: [1.0, 1.0, -1.0],
+        color: [1.0, 0.0, 1.0],
+    },
+    Vertex {
+        position: [-1.0, 1.0, -1.0],
+        color: [0.0, 0.5, 1.0],
+    },
 ];
 
 // Cube indices (6 faces × 2 triangles × 3 vertices = 36 indices)
@@ -76,7 +100,12 @@ impl Uniforms {
     }
 
     /// Update the MVP matrix
-    fn update_mvp(&mut self, model: cgmath::Matrix4<f32>, view: cgmath::Matrix4<f32>, projection: cgmath::Matrix4<f32>) {
+    fn update_mvp(
+        &mut self,
+        model: cgmath::Matrix4<f32>,
+        view: cgmath::Matrix4<f32>,
+        projection: cgmath::Matrix4<f32>,
+    ) {
         // Matrix multiplication order: Projection * View * Model
         // This transforms: Model space → World space → View space → Clip space
         self.mvp = (projection * view * model).into();
@@ -348,7 +377,7 @@ impl State {
         let view = cgmath::Matrix4::look_at_rh(
             cgmath::Point3::new(0.0, 2.0, 5.0), // Camera position
             cgmath::Point3::new(0.0, 0.0, 0.0), // Look at point
-            cgmath::Vector3::unit_y(),           // Up vector
+            cgmath::Vector3::unit_y(),          // Up vector
         );
 
         // Projection matrix: perspective projection
@@ -356,7 +385,7 @@ impl State {
         let projection = cgmath::perspective(
             cgmath::Deg(45.0), // Field of view
             aspect_ratio,
-            0.1,  // Near plane
+            0.1,   // Near plane
             100.0, // Far plane
         );
 

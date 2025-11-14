@@ -126,9 +126,7 @@ fn password_demo() -> Result<(), Box<dyn std::error::Error>> {
     println!("\n═══ Password Input Demo ═══\n");
 
     // Simple password
-    let password: String = Password::new()
-        .with_prompt("Enter password")
-        .interact()?;
+    let password: String = Password::new().with_prompt("Enter password").interact()?;
 
     println!("Password length: {}", password.len());
 
@@ -138,7 +136,10 @@ fn password_demo() -> Result<(), Box<dyn std::error::Error>> {
         .with_confirmation("Confirm password", "Passwords don't match")
         .interact()?;
 
-    println!("✓ Password set successfully (length: {})", new_password.len());
+    println!(
+        "✓ Password set successfully (length: {})",
+        new_password.len()
+    );
 
     // Password with minimum length
     let secure_password: String = Password::new()
@@ -456,9 +457,7 @@ fn editor_demo() -> Result<(), Box<dyn std::error::Error>> {
 
     println!("This will open your default editor for multi-line input.");
 
-    let proceed = Confirm::new()
-        .with_prompt("Open editor?")
-        .interact()?;
+    let proceed = Confirm::new().with_prompt("Open editor?").interact()?;
 
     if proceed {
         let content = Editor::new()
@@ -586,7 +585,7 @@ fn complete_form_demo() -> Result<(), Box<dyn std::error::Error>> {
     println!("Name:           {}", full_name);
     println!("Email:          {}", email);
     println!("Age:            {}", age);
-    println!("Password:       {}",  "*".repeat(password.len()));
+    println!("Password:       {}", "*".repeat(password.len()));
     println!("Role:           {}", role_name);
     println!();
 

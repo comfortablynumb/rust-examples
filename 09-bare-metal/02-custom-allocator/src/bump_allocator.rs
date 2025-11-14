@@ -12,7 +12,6 @@
 ///            ^
 ///            next pointer
 /// ```
-
 use core::alloc::{GlobalAlloc, Layout};
 use core::cell::UnsafeCell;
 use core::ptr;

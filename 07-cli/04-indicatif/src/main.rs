@@ -280,22 +280,18 @@ fn multi_progress_demo() {
     );
 
     // Simulate parallel work with threads
-    let handles: Vec<_> = vec![
-        (pb1, 30, 128),
-        (pb2, 45, 128),
-        (pb3, 60, 128),
-    ]
-    .into_iter()
-    .map(|(pb, delay, total)| {
-        thread::spawn(move || {
-            for _ in 0..total {
-                thread::sleep(Duration::from_millis(delay));
-                pb.inc(1);
-            }
-            pb.finish();
+    let handles: Vec<_> = vec![(pb1, 30, 128), (pb2, 45, 128), (pb3, 60, 128)]
+        .into_iter()
+        .map(|(pb, delay, total)| {
+            thread::spawn(move || {
+                for _ in 0..total {
+                    thread::sleep(Duration::from_millis(delay));
+                    pb.inc(1);
+                }
+                pb.finish();
+            })
         })
-    })
-    .collect();
+        .collect();
 
     // Wait for all tasks to complete
     for handle in handles {
@@ -343,7 +339,9 @@ fn file_processing_demo() {
         // Simulate processing
         let mut processed = 0;
         while processed < size {
-            let chunk = rand::thread_rng().gen_range(4096..16384).min(size - processed);
+            let chunk = rand::thread_rng()
+                .gen_range(4096..16384)
+                .min(size - processed);
             processed += chunk;
             pb.set_position(processed);
             thread::sleep(Duration::from_millis(5));
@@ -372,7 +370,9 @@ fn download_simulation() {
     let overall_pb = m.add(ProgressBar::new(overall_size));
     overall_pb.set_style(
         ProgressStyle::default_bar()
-            .template("Total: [{bar:40.cyan/blue}] {bytes}/{total_bytes} ({bytes_per_sec}) ETA: {eta}")
+            .template(
+                "Total: [{bar:40.cyan/blue}] {bytes}/{total_bytes} ({bytes_per_sec}) ETA: {eta}",
+            )
             .unwrap()
             .progress_chars("█▓▒░  "),
     );
@@ -383,7 +383,9 @@ fn download_simulation() {
         let pb = m.insert_before(&overall_pb, ProgressBar::new(size));
         pb.set_style(
             ProgressStyle::default_bar()
-                .template("{msg:<25} [{bar:30.green}] {bytes:>10}/{total_bytes:>10} {bytes_per_sec:>15}")
+                .template(
+                    "{msg:<25} [{bar:30.green}] {bytes:>10}/{total_bytes:>10} {bytes_per_sec:>15}",
+                )
                 .unwrap()
                 .progress_chars("=>-"),
         );
@@ -394,7 +396,9 @@ fn download_simulation() {
         let handle = thread::spawn(move || {
             let mut downloaded = 0;
             while downloaded < size {
-                let chunk = rand::thread_rng().gen_range(8192..32768).min(size - downloaded);
+                let chunk = rand::thread_rng()
+                    .gen_range(8192..32768)
+                    .min(size - downloaded);
                 downloaded += chunk;
                 pb.inc(chunk);
                 overall_pb_clone.inc(chunk);

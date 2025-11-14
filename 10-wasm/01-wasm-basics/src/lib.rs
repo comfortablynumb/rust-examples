@@ -77,7 +77,10 @@ mod tests {
 
     #[test]
     fn test_greet() {
-        assert_eq!(greet("World"), "Hello, World! Welcome to WebAssembly with Rust.");
+        assert_eq!(
+            greet("World"),
+            "Hello, World! Welcome to WebAssembly with Rust."
+        );
     }
 
     #[test]

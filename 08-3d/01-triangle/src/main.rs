@@ -129,7 +129,7 @@ impl<'a> State<'a> {
             vertex: wgpu::VertexState {
                 module: &shader,
                 entry_point: "vs_main", // Function name in shader
-                buffers: &[], // We're using hardcoded vertices in the shader
+                buffers: &[],           // We're using hardcoded vertices in the shader
             },
 
             // Fragment stage: determines the color of each pixel
@@ -139,7 +139,7 @@ impl<'a> State<'a> {
                 targets: &[Some(wgpu::ColorTargetState {
                     format: config.format,
                     blend: Some(wgpu::BlendState::REPLACE), // No blending, just replace
-                    write_mask: wgpu::ColorWrites::ALL, // Write all color channels (RGBA)
+                    write_mask: wgpu::ColorWrites::ALL,     // Write all color channels (RGBA)
                 })],
             }),
 
@@ -281,8 +281,8 @@ fn main() {
     let mut state = pollster::block_on(State::new(window));
 
     // Main event loop
-    event_loop.run(move |event, elwt| {
-        match event {
+    event_loop
+        .run(move |event, elwt| match event {
             Event::WindowEvent {
                 ref event,
                 window_id,
@@ -319,6 +319,6 @@ fn main() {
                 state.window().request_redraw();
             }
             _ => {}
-        }
-    }).unwrap();
+        })
+        .unwrap();
 }

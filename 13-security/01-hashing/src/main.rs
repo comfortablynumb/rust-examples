@@ -1,5 +1,5 @@
-use sha2::{Sha256, Sha512, Digest};
 use blake3::Hasher as Blake3Hasher;
+use sha2::{Digest, Sha256, Sha512};
 
 fn main() {
     println!("Cryptographic Hashing Examples\n");
@@ -29,7 +29,7 @@ fn main() {
     println!("Original hash: {}", original_hash);
 
     // Simulate file modification
-    let modified_data = b"Important file content!";  // Added '!'
+    let modified_data = b"Important file content!"; // Added '!'
     let new_hash = hash_sha256(modified_data);
     println!("New hash:      {}", new_hash);
 
@@ -57,7 +57,7 @@ fn main() {
     // Demonstrate hash collision resistance
     println!("\n=== Hash Properties ===");
     let msg1 = "Hello";
-    let msg2 = "Hello!";  // Slightly different
+    let msg2 = "Hello!"; // Slightly different
     let hash1 = hash_sha256(msg1.as_bytes());
     let hash2 = hash_sha256(msg2.as_bytes());
 
@@ -67,7 +67,7 @@ fn main() {
 
     // Hash performance comparison
     println!("\n=== Performance Comparison ===");
-    let large_data = vec![0u8; 1_000_000];  // 1 MB
+    let large_data = vec![0u8; 1_000_000]; // 1 MB
 
     let start = std::time::Instant::now();
     hash_sha256(&large_data);
@@ -79,8 +79,8 @@ fn main() {
 
     // HMAC example
     println!("\n=== HMAC (Hash-based Message Authentication Code) ===");
-    use sha2::Sha256;
     use hmac::{Hmac, Mac};
+    use sha2::Sha256;
 
     type HmacSha256 = Hmac<Sha256>;
 

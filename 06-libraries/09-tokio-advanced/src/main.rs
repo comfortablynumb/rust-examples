@@ -1,7 +1,7 @@
 use std::time::Duration;
-use tokio::time::{sleep, timeout, interval};
-use tokio::sync::{mpsc, oneshot, Semaphore};
 use tokio::select;
+use tokio::sync::{mpsc, oneshot, Semaphore};
+use tokio::time::{interval, sleep, timeout};
 
 #[tokio::main]
 async fn main() {
