@@ -53,6 +53,7 @@ fn writable_mmap() -> Result<(), Box<dyn std::error::Error>> {
         .read(true)
         .write(true)
         .create(true)
+        .truncate(true)
         .open("test_writable.txt")?;
 
     // Set file size

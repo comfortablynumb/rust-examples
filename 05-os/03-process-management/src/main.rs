@@ -1,5 +1,5 @@
 use std::process::{Command, Stdio};
-use std::io::{BufRead, BufReader, Write};
+use std::io::Write;
 use tokio::process::Command as TokioCommand;
 
 fn main() {
@@ -100,7 +100,7 @@ fn with_environment() {
 async fn parallel_processes() {
     println!("=== Parallel Process Execution ===");
 
-    let commands = vec!["echo 'Process 1'", "echo 'Process 2'", "echo 'Process 3'"];
+    let commands = ["echo 'Process 1'", "echo 'Process 2'", "echo 'Process 3'"];
 
     let mut handles = vec![];
 
@@ -133,22 +133,23 @@ fn process_pipeline() {
     // Equivalent to: echo "hello world" | tr '[:lower:]' '[:upper:]'
 
     // First process: echo
-    let echo = Command::new("echo")
+    let mut echo = Command::new("echo")
         .arg("hello world")
         .stdout(Stdio::piped())
         .spawn()
         .expect("Failed to start echo");
 
     // Second process: tr (translate), with input from first process
-    let tr = Command::new("tr")
+    let mut tr = Command::new("tr")
         .arg("[:lower:]")
         .arg("[:upper:]")
-        .stdin(echo.stdout.unwrap()) // Pipe echo's stdout to tr's stdin
+        .stdin(echo.stdout.take().unwrap()) // Pipe echo's stdout to tr's stdin
         .stdout(Stdio::piped())
         .spawn()
         .expect("Failed to start tr");
 
-    // Get the output
+    // Wait on both processes to avoid zombies
+    let _ = echo.wait().expect("Failed to wait on echo");
     let output = tr.wait_with_output().expect("Failed to wait on tr");
     println!("Pipeline result: {}", String::from_utf8_lossy(&output.stdout));
 }

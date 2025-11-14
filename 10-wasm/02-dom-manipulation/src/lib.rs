@@ -1,5 +1,5 @@
 use wasm_bindgen::prelude::*;
-use web_sys::{console, Document, Element, HtmlElement, HtmlInputElement, Window};
+use web_sys::{console, Document, HtmlElement, HtmlInputElement, Window};
 
 /// Get the window object
 fn window() -> Window {

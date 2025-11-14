@@ -5,7 +5,6 @@ fn main() {
     println!("Cryptographic Hashing Examples\n");
 
     let data = b"Hello, Rust cryptography!";
-    let text = "The quick brown fox jumps over the lazy dog";
 
     // SHA-256
     println!("=== SHA-256 ===");

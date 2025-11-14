@@ -3,6 +3,7 @@ use sqlx::postgres::PgPoolOptions;
 use sqlx::{FromRow, PgPool};
 
 #[derive(Debug, FromRow)]
+#[allow(dead_code)]
 struct User {
     id: i32,
     username: String,

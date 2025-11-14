@@ -45,11 +45,9 @@ async fn tokio_signal_example() {
 
         // Simulate some work
         if sigint_count == 0 {
+            tokio::time::sleep(Duration::from_secs(2)).await;
             println!("Working... (send SIGINT with Ctrl+C)");
         }
-
-        tokio::time::sleep(Duration::from_secs(2)).await;
-        break; // For demo purposes, break after first iteration
     }
 }
 

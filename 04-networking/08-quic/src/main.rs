@@ -89,7 +89,7 @@ async fn run_client() -> Result<(), Box<dyn Error>> {
     // Demonstrate multiple streams
     println!("\n=== Multiple Streams ===");
     for i in 1..=3 {
-        let (mut send, mut recv) = connection.open_bi().await?;
+        let (mut send, _recv) = connection.open_bi().await?;
         let msg = format!("Message {}", i);
         send.write_all(msg.as_bytes()).await?;
         send.finish().await?;
