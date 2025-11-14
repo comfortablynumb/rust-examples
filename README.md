@@ -137,8 +137,7 @@ Desktop GUI applications with various frameworks:
 2. **[egui App](11-gui/02-egui-app/)** - Complex egui application with tabs and plotting
 3. **[iced Counter](11-gui/03-iced-counter/)** - Simple counter with iced framework
 4. **[iced Todo](11-gui/04-iced-todo/)** - TodoMVC application with iced
-5. **[Tauri App](11-gui/05-tauri-app/)** - Desktop app with web frontend using Tauri
-6. **[Slint](11-gui/06-slint/)** - Declarative UI with Slint markup language
+5. **[Slint](11-gui/06-slint/)** - Declarative UI with Slint markup language
 
 ### [12. Database](12-database/)
 
@@ -254,7 +253,7 @@ Apply your skills with specialized domains and technologies:
 - **08. 3D Graphics** - GPU programming with wgpu, shaders, lighting, compute shaders
 - **09. Bare Metal** - Embedded systems (ARM, RISC-V), OS development, no_std programming
 - **10. WebAssembly** - Compile Rust to WASM, browser APIs, web workers, DOM manipulation
-- **11. GUI** - Desktop applications with egui, iced, Tauri, and Slint frameworks
+- **11. GUI** - Desktop applications with egui, iced, and Slint frameworks
 - **12. Database** - SQL databases (PostgreSQL, SQLite), NoSQL (Redis), ORMs (Diesel, SQLx), embedded databases (Sled)
 - **13. Security & Encryption** - Cryptographic hashing, password hashing, symmetric/asymmetric encryption, digital signatures, JWT
 

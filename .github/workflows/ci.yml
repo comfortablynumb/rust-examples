@@ -22,11 +22,9 @@ jobs:
           sudo apt-get update
           sudo apt-get install -y \
             libgtk-3-dev \
-            libwebkit2gtk-4.0-dev \
-            libjavascriptcoregtk-4.0-dev \
+            libwebkit2gtk-4.1-dev \
             libayatana-appindicator3-dev \
             librsvg2-dev \
-            libsoup2.4-dev \
             protobuf-compiler
 
       - name: Install Rust toolchain
@@ -88,11 +86,9 @@ jobs:
           sudo apt-get update
           sudo apt-get install -y \
             libgtk-3-dev \
-            libwebkit2gtk-4.0-dev \
-            libjavascriptcoregtk-4.0-dev \
+            libwebkit2gtk-4.1-dev \
             libayatana-appindicator3-dev \
             librsvg2-dev \
-            libsoup2.4-dev \
             protobuf-compiler
 
       - name: Install Rust toolchain
@@ -146,11 +142,9 @@ jobs:
           sudo apt-get update
           sudo apt-get install -y \
             libgtk-3-dev \
-            libwebkit2gtk-4.0-dev \
-            libjavascriptcoregtk-4.0-dev \
+            libwebkit2gtk-4.1-dev \
             libayatana-appindicator3-dev \
             librsvg2-dev \
-            libsoup2.4-dev \
             protobuf-compiler
 
       - name: Install Rust toolchain
@@ -222,11 +216,9 @@ jobs:
           sudo apt-get update
           sudo apt-get install -y \
             libgtk-3-dev \
-            libwebkit2gtk-4.0-dev \
-            libjavascriptcoregtk-4.0-dev \
+            libwebkit2gtk-4.1-dev \
             libayatana-appindicator3-dev \
             librsvg2-dev \
-            libsoup2.4-dev \
             protobuf-compiler
 
       - name: Install system dependencies (macOS)
