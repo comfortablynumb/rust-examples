@@ -39,6 +39,7 @@ sudo apt-get update
 sudo apt-get install -y \
   libgtk-3-dev \
   libwebkit2gtk-4.1-dev \
+  libjavascriptcoregtk-4.1-dev \
   libayatana-appindicator3-dev \
   librsvg2-dev \
   libsoup2.4-dev
@@ -49,6 +50,7 @@ sudo apt-get update
 sudo apt-get install -y \
   libgtk-3-dev \
   libwebkit2gtk-4.0-dev \
+  libjavascriptcoregtk-4.0-dev \
   libayatana-appindicator3-dev \
   librsvg2-dev \
   libsoup2.4-dev
@@ -75,7 +77,8 @@ Most GUI examples (egui, iced, slint) work without additional system dependencie
 The GitHub Actions CI workflow automatically installs these dependencies on Ubuntu runners:
 
 - `libgtk-3-dev`
-- `libwebkit2gtk-4.1-dev` (webkit2gtk for modern Ubuntu)
+- `libwebkit2gtk-4.1-dev`
+- `libjavascriptcoregtk-4.1-dev`
 - `libayatana-appindicator3-dev`
 - `librsvg2-dev`
 - `libsoup2.4-dev`
