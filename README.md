@@ -172,6 +172,8 @@ Cryptography and security best practices:
 - Rust and Cargo installed ([rustup.rs](https://rustup.rs/))
 - Basic understanding of programming concepts
 
+**Note:** Some examples require additional system dependencies (like GTK for GUI apps or protoc for gRPC). See [SYSTEM_DEPENDENCIES.md](SYSTEM_DEPENDENCIES.md) for details.
+
 ### Running Examples
 
 Each example is self-contained and can be run independently:
