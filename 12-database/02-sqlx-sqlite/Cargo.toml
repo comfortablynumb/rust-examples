@@ -1,0 +1,8 @@
+[package]
+name = "sqlx-sqlite"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+sqlx = { version = "0.7", features = ["runtime-tokio", "tls-rustls", "sqlite", "macros"] }
+tokio = { version = "1.0", features = ["full"] }

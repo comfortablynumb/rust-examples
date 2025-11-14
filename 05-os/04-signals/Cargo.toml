@@ -1,0 +1,10 @@
+[package]
+name = "signal-handling"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+tokio = { version = "1.0", features = ["full", "signal"] }
+
+[target.'cfg(unix)'.dependencies]
+signal-hook = { version = "0.3", features = ["iterator"] }

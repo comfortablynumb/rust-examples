@@ -1,0 +1,8 @@
+[package]
+name = "tls-certificates"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+rcgen = "0.12"
+x509-parser = "0.16"

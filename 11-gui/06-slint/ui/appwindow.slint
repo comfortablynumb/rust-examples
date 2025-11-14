@@ -1,0 +1,75 @@
+import { Button, VerticalBox, HorizontalBox, LineEdit, ListView, StandardListView } from "std-widgets.slint";
+
+export component AppWindow inherits Window {
+    title: "Slint Counter";
+    preferred-width: 400px;
+    preferred-height: 300px;
+
+    in-out property <int> counter: 0;
+    in-out property <string> input-text: "";
+
+    callback request-increase();
+    callback request-decrease();
+    callback request-reset();
+
+    VerticalBox {
+        padding: 20px;
+        spacing: 20px;
+
+        Text {
+            text: "Slint Counter App";
+            font-size: 24px;
+            horizontal-alignment: center;
+        }
+
+        Text {
+            text: "Count: " + counter;
+            font-size: 48px;
+            horizontal-alignment: center;
+            color: counter > 0 ? #0080ff : (counter < 0 ? #ff0000 : #000000);
+        }
+
+        HorizontalBox {
+            spacing: 10px;
+            alignment: center;
+
+            Button {
+                text: "Decrease";
+                clicked => { root.request-decrease(); }
+            }
+
+            Button {
+                text: "Reset";
+                clicked => { root.request-reset(); }
+            }
+
+            Button {
+                text: "Increase";
+                primary: true;
+                clicked => { root.request-increase(); }
+            }
+        }
+
+        Rectangle {
+            height: 1px;
+            background: #e0e0e0;
+        }
+
+        Text {
+            text: "Enter your name:";
+            font-size: 14px;
+        }
+
+        LineEdit {
+            text <=> root.input-text;
+            placeholder-text: "Type something...";
+        }
+
+        if input-text != "": Text {
+            text: "Hello, " + input-text + "!";
+            font-size: 16px;
+            color: #0080ff;
+            horizontal-alignment: center;
+        }
+    }
+}

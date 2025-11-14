@@ -1,0 +1,16 @@
+[package]
+name = "bootloader_example"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+bootloader = "0.11"
+x86_64 = "0.15"
+
+[profile.dev]
+panic = "abort"
+
+[profile.release]
+panic = "abort"
+lto = true
+opt-level = "z"

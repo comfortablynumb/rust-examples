@@ -1,0 +1,9 @@
+[package]
+name = "sled-example"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+sled = "0.34"
+serde = { version = "1.0", features = ["derive"] }
+bincode = "1.3"

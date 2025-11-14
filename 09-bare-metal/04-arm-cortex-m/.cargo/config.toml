@@ -1,0 +1,17 @@
+[build]
+# Set the default target for this project
+target = "thumbv7em-none-eabihf"
+
+[target.thumbv7em-none-eabihf]
+# Use rust-lld for linking (built into rustc)
+rustflags = [
+  "-C", "link-arg=-Tlink.x",  # Use cortex-m-rt's linker script
+]
+
+# Uncomment to use ARM's official linker instead
+# [target.thumbv7em-none-eabihf]
+# linker = "arm-none-eabi-gcc"
+# rustflags = [
+#   "-C", "link-arg=-nostartfiles",
+#   "-C", "link-arg=-Tlink.x",
+# ]
