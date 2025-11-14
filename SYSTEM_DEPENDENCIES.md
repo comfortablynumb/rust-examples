@@ -34,7 +34,16 @@ protoc --version
 **Installation:**
 
 ```bash
-# Ubuntu/Debian
+# Ubuntu/Debian (22.04+)
+sudo apt-get update
+sudo apt-get install -y \
+  libgtk-3-dev \
+  libwebkit2gtk-4.1-dev \
+  libayatana-appindicator3-dev \
+  librsvg2-dev
+
+# Ubuntu/Debian (20.04 and older)
+# Use libwebkit2gtk-4.0-dev instead of 4.1 if the above fails
 sudo apt-get update
 sudo apt-get install -y \
   libgtk-3-dev \
@@ -64,7 +73,7 @@ Most GUI examples (egui, iced, slint) work without additional system dependencie
 The GitHub Actions CI workflow automatically installs these dependencies on Ubuntu runners:
 
 - `libgtk-3-dev`
-- `libwebkit2gtk-4.0-dev`
+- `libwebkit2gtk-4.1-dev` (webkit2gtk for modern Ubuntu)
 - `libayatana-appindicator3-dev`
 - `librsvg2-dev`
 - `protobuf-compiler`
