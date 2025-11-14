@@ -19,17 +19,12 @@ struct Task {
     completed: bool,
 }
 
-#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Default)]
 enum Filter {
+    #[default]
     All,
     Active,
     Completed,
-}
-
-impl Default for Filter {
-    fn default() -> Self {
-        Filter::All
-    }
 }
 
 #[derive(Debug, Clone)]
@@ -86,7 +81,7 @@ impl Sandbox for TodoApp {
         }
     }
 
-    fn view(&self) -> Element<Message> {
+    fn view(&self) -> Element<'_, Message> {
         let title = text("Todo List").size(32);
 
         let input = text_input("What needs to be done?", &self.input)
@@ -147,7 +142,7 @@ impl Sandbox for TodoApp {
     }
 }
 
-fn filter_button(label: &str, current: Filter, filter: Filter) -> Element<Message> {
+fn filter_button(label: &str, current: Filter, filter: Filter) -> Element<'_, Message> {
     let button = button(text(label));
 
     if current == filter {

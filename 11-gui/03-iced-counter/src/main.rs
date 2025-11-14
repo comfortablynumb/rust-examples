@@ -42,7 +42,7 @@ impl Sandbox for Counter {
         }
     }
 
-    fn view(&self) -> Element<Message> {
+    fn view(&self) -> Element<'_, Message> {
         let content = column![
             text("Counter Example").size(32),
             text(self.value).size(64),
