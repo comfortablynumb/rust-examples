@@ -29,23 +29,13 @@ protoc --version
 
 ### Tauri App Example (`11-gui/05-tauri-app`)
 
-**Dependencies:** GTK3, WebKit2GTK, and related libraries (Linux only)
+**Dependencies:** GTK3, WebKit2GTK 4.0, and related libraries (Linux only)
 
 **Installation:**
 
 ```bash
-# Ubuntu/Debian (22.04+)
-sudo apt-get update
-sudo apt-get install -y \
-  libgtk-3-dev \
-  libwebkit2gtk-4.1-dev \
-  libjavascriptcoregtk-4.1-dev \
-  libayatana-appindicator3-dev \
-  librsvg2-dev \
-  libsoup2.4-dev
-
-# Ubuntu/Debian (20.04 and older)
-# Use libwebkit2gtk-4.0-dev instead of 4.1 if the above fails
+# Ubuntu/Debian (All versions)
+# Note: Tauri 1.x requires webkit2gtk-4.0 (GTK3), not 4.1 (GTK4)
 sudo apt-get update
 sudo apt-get install -y \
   libgtk-3-dev \
@@ -77,12 +67,12 @@ Most GUI examples (egui, iced, slint) work without additional system dependencie
 The GitHub Actions CI workflow automatically installs these dependencies on Ubuntu runners:
 
 - `libgtk-3-dev`
-- `libwebkit2gtk-4.1-dev`
-- `libjavascriptcoregtk-4.1-dev`
+- `libwebkit2gtk-4.0-dev` (for Tauri)
+- `libjavascriptcoregtk-4.0-dev` (for Tauri)
 - `libayatana-appindicator3-dev`
 - `librsvg2-dev`
 - `libsoup2.4-dev`
-- `protobuf-compiler`
+- `protobuf-compiler` (for gRPC)
 
 ## Troubleshooting
 
